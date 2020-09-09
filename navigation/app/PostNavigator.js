@@ -1,12 +1,12 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import PostsOverviewScreen from "../screens/PostsOverviewScreen";
-import PostDetailScreen from "../screens/PostDetailScreen";
+import PostsOverviewScreen from "../../screens/app/PostsOverviewScreen";
+import PostDetailScreen from "../../screens/app/PostDetailScreen";
 
 const PostStackNavigator = createStackNavigator();
 
-export const PostNavigator = (props) => {
+const PostNavigator = (props) => {
   return (
     <PostStackNavigator.Navigator headerMode="none">
       <PostStackNavigator.Screen
@@ -20,3 +20,5 @@ export const PostNavigator = (props) => {
     </PostStackNavigator.Navigator>
   );
 };
+
+export default PostNavigator;

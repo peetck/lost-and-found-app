@@ -1,11 +1,11 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import UserProfileScreen from "../screens/UserProfileScreen";
+import UserProfileScreen from "../../screens/app/UserProfileScreen";
 
 const SettingStackNavigator = createStackNavigator();
 
-export const SettingNavigator = (props) => {
+const SettingNavigator = (props) => {
   return (
     <SettingStackNavigator.Navigator headerMode="none">
       <SettingStackNavigator.Screen
@@ -15,3 +15,5 @@ export const SettingNavigator = (props) => {
     </SettingStackNavigator.Navigator>
   );
 };
+
+export default SettingNavigator;

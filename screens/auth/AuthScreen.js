@@ -8,8 +8,8 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-import MyText from "../components/UI/MyText";
-import Colors from "../constants/Colors";
+import MyText from "../../components/UI/MyText";
+import Colors from "../../constants/Colors";
 import firebase from "firebase";
 
 const AuthScreen = (props) => {

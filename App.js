@@ -4,8 +4,9 @@ import * as Font from "expo-font";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
-import MainNavigator from "./navigation/MainNavigator";
 import firebase from "firebase";
+
+import StartupScreen from "./screens/StartupScreen";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs",
@@ -48,7 +49,7 @@ export default function App() {
 
   return (
     // <Provider store={store}>
-    <MainNavigator />
+    <StartupScreen />
     // </Provider>
   );
 }

@@ -2,8 +2,8 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import { PostNavigator } from "./PostNavigator";
-import { SettingNavigator } from "./SettingNavigator";
+import PostNavigator from "./PostNavigator";
+import SettingNavigator from "./SettingNavigator";
 
 const AppBottomTabNavigator = createBottomTabNavigator();
 
@@ -24,7 +24,7 @@ const screenOptions = ({ route }) => ({
   },
 });
 
-export const AppNavigator = (props) => {
+const AppNavigator = (props) => {
   return (
     <AppBottomTabNavigator.Navigator screenOptions={screenOptions}>
       <AppBottomTabNavigator.Screen name="Post" component={PostNavigator} />
@@ -36,3 +36,5 @@ export const AppNavigator = (props) => {
     </AppBottomTabNavigator.Navigator>
   );
 };
+
+export default AppNavigator;
