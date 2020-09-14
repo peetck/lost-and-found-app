@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   View,
-  Button,
-  TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
+  TextInput,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import MyText from "../../components/UI/MyText";
 import Colors from "../../constants/Colors";
@@ -46,94 +47,124 @@ const AuthScreen = (props) => {
   };
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
+      {/* <KeyboardAvoidingView
+        behavior={null}
+        // behavior={Platform.OS === "ios" ? "padding" : null}
+      > */}
       <View style={styles.headerContainer}>
-        <MyText style={styles.titleText}>Lost & Found</MyText>
-        <MyText style={styles.descriptionText}>
-          {isLogin ? " Sign in to your account" : " Create account"}
-        </MyText>
+        <View style={styles.logoContainer}>
+          <Image
+            style={styles.logo}
+            source={{
+              uri:
+                "https://upload.wikimedia.org/wikipedia/commons/a/ac/Oikya_Front_Logo.png",
+            }}
+          />
+          <MyText style={styles.logoText}>Lost and Found</MyText>
+        </View>
       </View>
       <View style={styles.inputContainer}>
-        <MyText style={styles.inputLabel}>Email</MyText>
+        <MyText style={styles.authText}>{isLogin ? "LOGIN" : "SIGNUP"}</MyText>
         <TextInput
-          placeholder="Username"
           style={styles.textInput}
+          placeholder="Email"
           value={email}
+          placeholderTextColor="white"
           onChangeText={emailInputHandler}
         />
-        <MyText style={styles.inputLabel}>Password</MyText>
         <TextInput
+          style={styles.textInput}
           placeholder="Password"
           secureTextEntry={true}
-          style={styles.textInput}
           value={password}
+          placeholderTextColor="white"
           onChangeText={passwordInputHandler}
         />
-        <View style={styles.button}>
+        <View style={styles.buttonContainer}>
           {isLoading ? (
-            <ActivityIndicator size="small" color={Colors.primary} />
+            <ActivityIndicator size="large" color="white" />
           ) : (
-            <Button
-              title={isLogin ? "Login" : "Signup"}
-              onPress={AuthButtonHandler}
-            />
+            <View style={styles.button}>
+              <TouchableOpacity onPress={AuthButtonHandler}>
+                <MyText style={styles.buttonText}>
+                  {isLogin ? "Login" : "Signup"}
+                </MyText>
+              </TouchableOpacity>
+            </View>
           )}
         </View>
         <TouchableOpacity onPress={switchAuthHandler}>
-          <MyText style={styles.signupText}>
+          <MyText style={styles.switchAuthText}>
             {isLogin
               ? "Don't have an account? Signup"
               : "Already have an account? Login"}
           </MyText>
         </TouchableOpacity>
       </View>
-    </View>
+      {/* </KeyboardAvoidingView> */}
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    backgroundColor: Colors.primary,
   },
   headerContainer: {
-    paddingHorizontal: 15,
-    paddingVertical: 60,
-    height: "50%",
-    backgroundColor: Colors.primary,
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+    justifyContent: "space-around",
+    alignItems: "center",
+    flex: 1,
   },
   inputContainer: {
-    height: "50%",
+    flex: 1,
     margin: 30,
+    alignItems: "center",
   },
-  inputLabel: {
-    fontSize: 15,
-    marginBottom: 5,
+  logoContainer: {
+    alignItems: "center",
   },
-  button: {
-    marginVertical: 20,
+  buttonContainer: {
+    marginTop: 20,
+    alignItems: "center",
   },
-  titleText: {
+  logoText: {
+    fontSize: 30,
     color: "white",
-    fontSize: 40,
   },
-  descriptionText: {
+  logo: {
+    width: 120,
+    height: 120,
+  },
+  authText: {
+    fontSize: 35,
     color: "white",
-    fontSize: 20,
-  },
-  signupText: {
-    marginTop: 10,
-    textAlign: "center",
+    marginBottom: 20,
   },
   textInput: {
-    borderRadius: 10,
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    color: "white",
+    borderBottomColor: "white",
+    width: "90%",
+  },
+  switchAuthText: {
+    marginTop: 10,
+    textAlign: "center",
+    color: "white",
+  },
+  button: {
+    backgroundColor: "white",
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderColor: "black",
-    borderWidth: 1,
-    backgroundColor: "#EEEEFA",
-    marginBottom: 15,
+    borderRadius: 25,
+    width: 150,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: Colors.primary,
+    fontSize: 20,
   },
 });
 

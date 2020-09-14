@@ -47,9 +47,5 @@ export default function App() {
     );
   }
 
-  return (
-    // <Provider store={store}>
-    <StartupScreen />
-    // </Provider>
-  );
+  return <StartupScreen />;
 }

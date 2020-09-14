@@ -1,21 +1,27 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import PostsOverviewScreen from "../../screens/app/PostsOverviewScreen";
-import PostDetailScreen from "../../screens/app/PostDetailScreen";
+import PostsOverviewScreen, {
+  screenOptions as PostsOverviewScreenOptions,
+} from "../../screens/post/PostsOverviewScreen";
+import EditPostScreen from "../../screens/post/EditPostScreen";
 
 const PostStackNavigator = createStackNavigator();
 
 const PostNavigator = (props) => {
   return (
-    <PostStackNavigator.Navigator headerMode="none">
+    <PostStackNavigator.Navigator>
       <PostStackNavigator.Screen
         name="PostsOverview"
         component={PostsOverviewScreen}
+        options={PostsOverviewScreenOptions}
       />
       <PostStackNavigator.Screen
-        name="PostDetail"
-        component={PostDetailScreen}
+        name="EditPost"
+        component={EditPostScreen}
+        options={{
+          headerShown: true,
+        }}
       />
     </PostStackNavigator.Navigator>
   );
