@@ -48,30 +48,30 @@ const AuthScreen = (props) => {
 
   return (
     <SafeAreaView style={styles.screen}>
-      {/* <KeyboardAvoidingView
-        behavior={null}
-        // behavior={Platform.OS === "ios" ? "padding" : null}
-      > */}
       <View style={styles.headerContainer}>
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
-            source={{
-              uri:
-                "https://upload.wikimedia.org/wikipedia/commons/a/ac/Oikya_Front_Logo.png",
-            }}
+            source={require("../../assets/images/logo.png")}
           />
           <MyText style={styles.logoText}>Lost and Found</MyText>
+          <MyText style={styles.authText}>
+            {isLogin ? "LOGIN" : "SIGNUP"}
+          </MyText>
         </View>
       </View>
       <View style={styles.inputContainer}>
-        <MyText style={styles.authText}>{isLogin ? "LOGIN" : "SIGNUP"}</MyText>
         <TextInput
           style={styles.textInput}
           placeholder="Email"
           value={email}
           placeholderTextColor="white"
           onChangeText={emailInputHandler}
+          returnKeyType="next"
+          blurOnSubmit={false}
+          onSubmitEditing={() => {
+            passwordInput.focus();
+          }}
         />
         <TextInput
           style={styles.textInput}
@@ -80,18 +80,22 @@ const AuthScreen = (props) => {
           value={password}
           placeholderTextColor="white"
           onChangeText={passwordInputHandler}
+          returnKeyType="done"
+          ref={(input) => {
+            passwordInput = input;
+          }}
         />
         <View style={styles.buttonContainer}>
           {isLoading ? (
             <ActivityIndicator size="large" color="white" />
           ) : (
-            <View style={styles.button}>
-              <TouchableOpacity onPress={AuthButtonHandler}>
+            <TouchableOpacity onPress={AuthButtonHandler} activeOpacity={0.7}>
+              <View style={styles.button}>
                 <MyText style={styles.buttonText}>
                   {isLogin ? "Login" : "Signup"}
                 </MyText>
-              </TouchableOpacity>
-            </View>
+              </View>
+            </TouchableOpacity>
           )}
         </View>
         <TouchableOpacity onPress={switchAuthHandler}>
@@ -102,7 +106,6 @@ const AuthScreen = (props) => {
           </MyText>
         </TouchableOpacity>
       </View>
-      {/* </KeyboardAvoidingView> */}
     </SafeAreaView>
   );
 };
@@ -126,28 +129,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
-    marginTop: 20,
+    margin: 20,
     alignItems: "center",
   },
   logoText: {
-    fontSize: 30,
+    fontSize: 35,
     color: "white",
+    fontFamily: "kanit-bold",
   },
   logo: {
-    width: 120,
-    height: 120,
+    width: 180,
+    height: 180,
   },
   authText: {
     fontSize: 35,
     color: "white",
-    marginBottom: 20,
+    fontFamily: "kanit",
   },
   textInput: {
     borderBottomWidth: 1,
-    marginBottom: 20,
+    marginBottom: 30,
     color: "white",
     borderBottomColor: "white",
     width: "90%",
+    fontSize: 17,
   },
   switchAuthText: {
     marginTop: 10,

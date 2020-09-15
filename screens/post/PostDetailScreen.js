@@ -1,17 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const ChatOverviewScreen = (props) => {
+const PostDetailScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <Text>Chat Overview Screen</Text>
+      <Text>Post Detail Screen</Text>
     </View>
   );
 };
 
 export const screenOptions = (navData) => {
   return {
-    headerTitle: "Chat",
+    headerTitle: "Post Detail",
   };
 };
 
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChatOverviewScreen;
+export default PostDetailScreen;

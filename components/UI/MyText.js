@@ -9,7 +9,7 @@ const MyText = (props) => {
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: "kanit",
+    fontFamily: "kanit-light",
   },
 });
 

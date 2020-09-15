@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import PostsOverviewScreen, {
   screenOptions as PostsOverviewScreenOptions,
 } from "../../screens/post/PostsOverviewScreen";
+import PostDetailScreen from "../../screens/post/PostDetailScreen";
 import EditPostScreen from "../../screens/post/EditPostScreen";
 
 const PostStackNavigator = createStackNavigator();
@@ -15,6 +16,10 @@ const PostNavigator = (props) => {
         name="PostsOverview"
         component={PostsOverviewScreen}
         options={PostsOverviewScreenOptions}
+      />
+      <PostStackNavigator.Screen
+        name="PostDetail"
+        component={PostDetailScreen}
       />
       <PostStackNavigator.Screen
         name="EditPost"

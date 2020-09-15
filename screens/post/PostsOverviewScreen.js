@@ -2,9 +2,9 @@ import React from "react";
 import {
   View,
   StyleSheet,
-  Button,
-  FlatList,
   ImageBackground,
+  TouchableOpacity,
+  Image,
 } from "react-native";
 import firebase from "firebase";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -14,15 +14,12 @@ import MyText from "../../components/UI/MyText";
 import HeaderButton from "../../components/UI/HeaderButton";
 
 const PostsOverviewScreen = (props) => {
-  const DUMMY_DATA = [
-    new Post("1", "title1", "desc1", 10.5),
-    new Post("2", "title2", "desc1", 10.5),
-    new Post("3", "title3", "desc1", 10.5),
-  ];
-
   return (
     <View style={styles.screen}>
-      <View
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate("PostDetail");
+        }}
         style={{
           borderWidth: 1,
           padding: 15,
@@ -43,7 +40,7 @@ const PostsOverviewScreen = (props) => {
               "https://assets.adidas.com/images/h_320,f_auto,q_auto:sensitive,fl_lossy/449c838942da409f8ba9a97f00d3cffe_9366/Runfalcon_Shoes_Black_F36199_01_standard.jpg",
           }}
         />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

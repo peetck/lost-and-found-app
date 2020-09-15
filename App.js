@@ -30,6 +30,8 @@ firebase.initializeApp(firebaseConfig);
 const fetchFonts = () => {
   return Font.loadAsync({
     kanit: require("./assets/fonts/Kanit-Regular.ttf"),
+    "kanit-light": require("./assets/fonts/Kanit-Light.ttf"),
+    "kanit-bold": require("./assets/fonts/Kanit-Bold.ttf"),
   });
 };
 
