@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 import PostNavigator from "./post/PostNavigator";
-import ChatNavigator from "./chat/ChatNavigator";
 import Colors from "../constants/Colors";
 
 const AppBottomTabNavigator = createBottomTabNavigator();
@@ -12,10 +11,10 @@ const screenOptions = ({ route }) => ({
   tabBarIcon: ({ focused, color, size }) => {
     let iconName;
     switch (route.name) {
-      case "Post":
+      case "Lost":
         iconName = "ios-home";
         break;
-      case "Chat":
+      case "Found":
         iconName = "ios-chatbubbles";
         break;
     }
@@ -26,8 +25,8 @@ const screenOptions = ({ route }) => ({
 const AppNavigator = (props) => {
   return (
     <AppBottomTabNavigator.Navigator screenOptions={screenOptions}>
-      <AppBottomTabNavigator.Screen name="Post" component={PostNavigator} />
-      <AppBottomTabNavigator.Screen name="Chat" component={ChatNavigator} />
+      <AppBottomTabNavigator.Screen name="Lost" component={PostNavigator} />
+      <AppBottomTabNavigator.Screen name="Found" component={PostNavigator} />
     </AppBottomTabNavigator.Navigator>
   );
 };

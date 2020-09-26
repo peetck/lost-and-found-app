@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     margin: 30,
+    justifyContent: "center",
     alignItems: "center",
   },
   logoContainer: {
