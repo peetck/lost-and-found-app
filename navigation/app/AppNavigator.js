@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 import PostNavigator from "./post/PostNavigator";
-import Colors from "../constants/Colors";
+import Colors from "../../constants/Colors";
 
 const AppBottomTabNavigator = createBottomTabNavigator();
 

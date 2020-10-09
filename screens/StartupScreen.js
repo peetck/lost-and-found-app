@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { View, Button, ActivityIndicator, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import AuthNavigator from "../navigation/auth/AuthNavigator";
-import AppNavigator from "../navigation/AppNavigator";
 import Colors from "../constants/Colors";
 
 const StartupScreen = (props) => {
@@ -21,8 +19,7 @@ const StartupScreen = (props) => {
       }
       setIsLoading(false);
     });
-
-    // clean up func
+    // clean up function
     return () => unsubscribe();
   }, []);
 
@@ -35,11 +32,20 @@ const StartupScreen = (props) => {
   }
 
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        {isAuth ? <AppNavigator /> : <AuthNavigator />}
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <NavigationContainer>
+      {isAuth ? (
+        <View style={{ paddingTop: 100 }}>
+          <Button
+            title="LOG OUT"
+            onPress={() => {
+              firebase.auth().signOut();
+            }}
+          />
+        </View>
+      ) : (
+        <AuthNavigator />
+      )}
+    </NavigationContainer>
   );
 };
 
