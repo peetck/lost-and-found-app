@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   textInput: {
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: Colors.grey,
-    fontSize: 15
+    fontSize: 15,
   },
 });
 

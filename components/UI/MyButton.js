@@ -19,7 +19,7 @@ const MyButton = (props) => {
   }
 
   return (
-    <TouchableOpacity style={styles.button} onPress={props.onPress}>
+    <TouchableOpacity style={styles.button} onPress={props.onPress} activeOpacity={0.6}>
       <MyText style={styles.title}>{props.title}</MyText>
     </TouchableOpacity>
   );

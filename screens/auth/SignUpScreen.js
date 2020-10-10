@@ -18,6 +18,10 @@ const SignUpScreen = (props) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const signUpHandler = () => {
+    props.navigation.navigate("NextSignUp");
+  };
+
   const switchToLoginHandler = () => {
     props.navigation.replace("Login");
   };
@@ -55,14 +59,15 @@ const SignUpScreen = (props) => {
               onChangeText={(text) => setConfirmPassword(text)}
               value={confirmPassword}
             />
-            <View style={styles.buttonContainer}>
-              <MyButton title="Next" />
-            </View>
+            <MyButton title="Next" onPress={signUpHandler} />
           </View>
 
           <View style={styles.centerContainer}>
             <MyText>Already have an account ?</MyText>
-            <TouchableOpacity onPress={switchToLoginHandler}>
+            <TouchableOpacity
+              onPress={switchToLoginHandler}
+              activeOpacity={0.6}
+            >
               <MyText style={styles.switchToLoginText}>Login</MyText>
             </TouchableOpacity>
           </View>
@@ -87,6 +92,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   centerContainer: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
   logo: {
@@ -104,9 +111,6 @@ const styles = StyleSheet.create({
     fontFamily: "kanit-bold",
     color: Colors.grey,
     fontSize: 20,
-  },
-  buttonContainer: {
-    paddingTop: 30,
   },
 });
 

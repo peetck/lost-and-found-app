@@ -61,18 +61,19 @@ const LoginScreen = (props) => {
               onChangeText={(text) => setPassword(text)}
               value={password}
             />
-            <View style={styles.buttonContainer}>
-              <MyButton
-                title="Login"
-                onPress={loginHandler}
-                loading={isLoading}
-              />
-            </View>
+            <MyButton
+              title="Login"
+              onPress={loginHandler}
+              loading={isLoading}
+            />
           </View>
 
           <View style={styles.centerContainer}>
             <MyText>Doesn't have an account ?</MyText>
-            <TouchableOpacity onPress={switchToSignUpHandler}>
+            <TouchableOpacity
+              onPress={switchToSignUpHandler}
+              activeOpacity={0.6}
+            >
               <MyText style={styles.switchToSignUpText}>Sign up</MyText>
             </TouchableOpacity>
           </View>
@@ -97,6 +98,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   centerContainer: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
   logo: {
@@ -114,9 +117,6 @@ const styles = StyleSheet.create({
     fontFamily: "kanit-bold",
     color: Colors.grey,
     fontSize: 20,
-  },
-  buttonContainer: {
-    paddingTop: 30,
   },
 });
 
