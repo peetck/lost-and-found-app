@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, ActivityIndicator, StyleSheet } from "react-native";
+import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase";
 
 import AuthNavigator from "../navigation/auth/AuthNavigator";
+import AppNavigator from "../navigation/app/AppNavigator";
 import Colors from "../constants/Colors";
 
 const StartupScreen = (props) => {
@@ -33,18 +34,7 @@ const StartupScreen = (props) => {
 
   return (
     <NavigationContainer>
-      {isAuth ? (
-        <View style={{ paddingTop: 100 }}>
-          <Button
-            title="LOG OUT"
-            onPress={() => {
-              firebase.auth().signOut();
-            }}
-          />
-        </View>
-      ) : (
-        <AuthNavigator />
-      )}
+      {isAuth ? <AppNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };

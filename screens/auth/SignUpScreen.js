@@ -19,7 +19,10 @@ const SignUpScreen = (props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const signUpHandler = () => {
-    props.navigation.navigate("NextSignUp");
+    props.navigation.navigate("NextSignUp", {
+      email: email,
+      password: password,
+    });
   };
 
   const switchToLoginHandler = () => {
