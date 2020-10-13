@@ -14,9 +14,15 @@ import firebase from "firebase";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import MyButton from "../../components/UI/MyButton";
+import Header from "../../components/auth/Header";
 
 const NextSignUpScreen = (props) => {
-  const [pickedImage, setPickedImage] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [pickedImage, setPickedImage] = useState(
+    "https://static.wixstatic.com/media/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.png/v1/fill/w_173,h_172,al_c,q_85,usm_0.66_1.00_0.01/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.webp"
+  );
 
   const verifyPermissions = async () => {
     const { status } = await Permissions.askAsync(
@@ -47,9 +53,6 @@ const NextSignUpScreen = (props) => {
   };
 
   const signUpHandler = async () => {
-    const email = props.route.params.email;
-    const password = props.route.params.password;
-
     try {
       const { user } = await firebase
         .auth()
@@ -78,12 +81,13 @@ const NextSignUpScreen = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.contentContainer}>
-          <View style={styles.headerContainer}>
-            <MyText style={styles.title}>Lost & Found</MyText>
-            <MyText style={styles.subtitle}>Sign up</MyText>
-          </View>
+          <Header
+            style={styles.headerContainer}
+            title="Lost & Found"
+            subtitle={props.route.params.nickName}
+          />
 
-          <View style={styles.inputImageContainer}>
+          <View style={styles.imageInputContainer}>
             <TouchableOpacity activeOpacity={0.6} onPress={takeImageHandler}>
               <Image
                 style={styles.image}
@@ -92,9 +96,26 @@ const NextSignUpScreen = (props) => {
                 }}
               />
             </TouchableOpacity>
-            <View style={styles.textInputContainer}>
-              <MyTextInput placeholder="Nickname" style={styles.textInput} />
-            </View>
+          </View>
+
+          <View style={styles.textInputContainer}>
+            <MyTextInput
+              placeholder="Email"
+              onChangeText={(text) => setEmail(text)}
+              value={email}
+            />
+            <MyTextInput
+              placeholder="Password"
+              secureTextEntry={true}
+              onChangeText={(text) => setPassword(text)}
+              value={password}
+            />
+            <MyTextInput
+              placeholder="Confirm Password"
+              secureTextEntry={true}
+              onChangeText={(text) => setConfirmPassword(text)}
+              value={confirmPassword}
+            />
           </View>
 
           <View style={styles.buttonContainer}>
@@ -116,31 +137,26 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
+    justifyContent: "space-between",
   },
   headerContainer: {
     flex: 1,
     alignItems: "center",
   },
-  inputImageContainer: {
+  imageInputContainer: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
   },
   textInputContainer: {
+    flex: 1,
     paddingTop: 30,
   },
   buttonContainer: {
     flex: 1,
     justifyContent: "center",
   },
-  title: {
-    fontSize: 35,
-    fontFamily: "kanit-bold",
-  },
-  subtitle: {
-    fontSize: 35,
-  },
   image: {
-    alignSelf: "center",
     width: 150,
     height: 150,
     borderRadius: 150 / 2,

@@ -30,6 +30,8 @@ const screenOptions = ({ route }) => ({
   },
 });
 
+const homeScreenOptions = {};
+
 const myPostScreenOptions = {
   title: "My Post",
 };
@@ -41,7 +43,11 @@ const myProfileScreenOptions = {
 const AppNavigator = (props) => {
   return (
     <AppBottomTabNavigator.Navigator screenOptions={screenOptions}>
-      <AppBottomTabNavigator.Screen name="Home" component={HomeScreen} />
+      <AppBottomTabNavigator.Screen
+        name="Home"
+        component={HomeScreen}
+        options={homeScreenOptions}
+      />
       <AppBottomTabNavigator.Screen
         name="MyPost"
         component={MyPostScreen}

@@ -12,16 +12,14 @@ import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import Colors from "../../constants/Colors";
+import Header from "../../components/auth/Header";
 
 const SignUpScreen = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [nickName, setNickName] = useState("");
 
   const signUpHandler = () => {
     props.navigation.navigate("NextSignUp", {
-      email: email,
-      password: password,
+      nickName: nickName,
     });
   };
 
@@ -36,34 +34,22 @@ const SignUpScreen = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.contentContainer}>
-          <View style={styles.centerContainer}>
-            <Image
-              style={styles.logo}
-              source={require("../../assets/images/logo.png")}
+          <Header
+            style={styles.centerContainer}
+            title="Lost & Found"
+            subtitle="Sign up"
+            image={require("../../assets/images/logo.png")}
+          />
+
+          <View style={styles.textInputContainer}>
+            <MyTextInput
+              placeholder="Nickname"
+              onChangeText={(text) => setNickName(text)}
+              value={nickName}
             />
-            <MyText style={styles.title}>Lost & Found</MyText>
-            <MyText style={styles.subtitle}>Sign up</MyText>
           </View>
-          <View>
-            <MyTextInput
-              placeholder="Email"
-              onChangeText={(text) => setEmail(text)}
-              value={email}
-            />
-            <MyTextInput
-              placeholder="Password"
-              secureTextEntry={true}
-              onChangeText={(text) => setPassword(text)}
-              value={password}
-            />
-            <MyTextInput
-              placeholder="Confirm Password"
-              secureTextEntry={true}
-              onChangeText={(text) => setConfirmPassword(text)}
-              value={confirmPassword}
-            />
-            <MyButton title="Next" onPress={signUpHandler} />
-          </View>
+
+          <MyButton title="Next" onPress={signUpHandler} />
 
           <View style={styles.centerContainer}>
             <MyText>Already have an account ?</MyText>
@@ -84,7 +70,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    justifyContent: "space-around",
     paddingHorizontal: 35,
   },
   scrollView: {
@@ -92,23 +77,16 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
+  },
+  textInputContainer: {
+    flex: 1,
+    justifyContent: "center",
   },
   centerContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  logo: {
-    width: 250,
-    height: 250,
-  },
-  title: {
-    fontSize: 35,
-    fontFamily: "kanit-bold",
-  },
-  subtitle: {
-    fontSize: 35,
   },
   switchToLoginText: {
     fontFamily: "kanit-bold",

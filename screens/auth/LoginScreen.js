@@ -13,6 +13,7 @@ import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import Colors from "../../constants/Colors";
+import Header from "../../components/auth/Header";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
@@ -41,15 +42,14 @@ const LoginScreen = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.contentContainer}>
-          <View style={styles.centerContainer}>
-            <Image
-              style={styles.logo}
-              source={require("../../assets/images/logo.png")}
-            />
-            <MyText style={styles.title}>Lost & Found</MyText>
-            <MyText style={styles.subtitle}>Login</MyText>
-          </View>
-          <View>
+          <Header
+            style={styles.centerContainer}
+            title="Lost & Found"
+            subtitle="Login"
+            image={require("../../assets/images/logo.png")}
+          />
+
+          <View style={styles.textInputContainer}>
             <MyTextInput
               placeholder="Email"
               onChangeText={(text) => setEmail(text)}
@@ -61,12 +61,9 @@ const LoginScreen = (props) => {
               onChangeText={(text) => setPassword(text)}
               value={password}
             />
-            <MyButton
-              title="Login"
-              onPress={loginHandler}
-              loading={isLoading}
-            />
           </View>
+
+          <MyButton title="Login" onPress={loginHandler} loading={isLoading} />
 
           <View style={styles.centerContainer}>
             <MyText>Doesn't have an account ?</MyText>
@@ -87,7 +84,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    justifyContent: "space-around",
     paddingHorizontal: 35,
   },
   scrollView: {
@@ -95,23 +91,16 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
+  },
+  textInputContainer: {
+    flex: 1,
+    justifyContent: "center",
   },
   centerContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  logo: {
-    width: 250,
-    height: 250,
-  },
-  title: {
-    fontSize: 35,
-    fontFamily: "kanit-bold",
-  },
-  subtitle: {
-    fontSize: 35,
   },
   switchToSignUpText: {
     fontFamily: "kanit-bold",
