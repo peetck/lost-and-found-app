@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import MyText from "../UI/MyText";
 
@@ -27,9 +28,38 @@ const PostItem = (props) => {
         </View>
 
         <View style={styles.bottomBar}>
-          <MyText>picnic</MyText>
-          <MyText>15.3m</MyText>
-          <MyText>30m left</MyText>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Ionicons size={23} color="white" name="md-contact" />
+            <MyText>picnic </MyText>
+          </View>
+
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Ionicons size={23} color="white" name="md-map" />
+            <MyText>1.5 m </MyText>
+          </View>
+
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Ionicons size={23} color="white" name="md-time" />
+            <MyText>30 m </MyText>
+          </View>
         </View>
       </View>
     </View>

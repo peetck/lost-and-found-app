@@ -34,12 +34,19 @@ const StartupScreen = (props) => {
 
   return (
     <NavigationContainer>
-      {isAuth ? <AppNavigator /> : <AuthNavigator />}
+      {isAuth ? (
+        <AppNavigator />
+      ) : (
+        <AuthNavigator />
+      )}
     </NavigationContainer>
   );
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   center: {
     flex: 1,
     justifyContent: "center",

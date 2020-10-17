@@ -12,7 +12,7 @@ import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import Colors from "../../constants/Colors";
-import Header from "../../components/auth/Header";
+import AuthHeader from "../../components/auth/AuthHeader";
 
 const SignUpScreen = (props) => {
   const [nickName, setNickName] = useState("");
@@ -34,7 +34,7 @@ const SignUpScreen = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.contentContainer}>
-          <Header
+          <AuthHeader
             style={styles.centerContainer}
             title="Lost & Found"
             subtitle="Sign up"

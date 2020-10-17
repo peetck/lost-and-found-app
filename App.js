@@ -19,7 +19,9 @@ const firebaseConfig = {
   measurementId: "G-Z4DKW64NF4",
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 // const rootReducer = combineReducers({
 

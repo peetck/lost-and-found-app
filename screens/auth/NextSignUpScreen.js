@@ -14,7 +14,7 @@ import firebase from "firebase";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import MyButton from "../../components/UI/MyButton";
-import Header from "../../components/auth/Header";
+import AuthHeader from "../../components/auth/AuthHeader";
 
 const NextSignUpScreen = (props) => {
   const [email, setEmail] = useState("");
@@ -81,7 +81,7 @@ const NextSignUpScreen = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.contentContainer}>
-          <Header
+          <AuthHeader
             style={styles.headerContainer}
             title="Lost & Found"
             subtitle={props.route.params.nickName}
