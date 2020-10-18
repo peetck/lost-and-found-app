@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    justifyContent: "space-between",
   },
   headerContainer: {
     flex: 1,
@@ -145,7 +144,6 @@ const styles = StyleSheet.create({
   },
   imageInputContainer: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
   },
   textInputContainer: {
@@ -154,7 +152,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    justifyContent: "center",
   },
   image: {
     width: 150,
