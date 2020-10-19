@@ -7,59 +7,29 @@ import MyText from "../UI/MyText";
 const PostItem = (props) => {
   return (
     <View style={styles.card}>
-      <View style={styles.leftCard}>
-        <Image
-          style={styles.image}
-          source={{
-            uri:
-              "https://avatars3.githubusercontent.com/u/42176460?s=460&u=a89227411976b95a58a603d26d0aa69b7b233d18&v=4",
-          }}
+      <Image
+        style={styles.cardImage}
+        source={{
+          uri:
+            "https://kujimag.com/wp-content/uploads/2019/06/sushi-top-five.jpg",
+        }}
+      />
+
+      <View style={styles.cardInfo}>
+        <MyText style={styles.title}>{props.title}</MyText>
+        <View
+          style={{ ...styles.colorContainer, backgroundColor: props.color }}
         />
       </View>
-      <View style={styles.rightCard}>
-        <View style={styles.cardInfo}>
-          <MyText style={styles.title}>{props.title}</MyText>
-          <MyText style={styles.subtext}>
-            Lorem Ipsum is simply dummy text of ....
-          </MyText>
-          <MyText style={styles.subtext}>
-            Dallas Home Buyers - Cash Home Buyer...
-          </MyText>
+
+      <View style={styles.cardStatus}>
+        <View style={styles.leftStatusContainer}>
+          <Ionicons size={15} color="black" name="md-locate" />
+          <MyText>1.5 m</MyText>
         </View>
-
-        <View style={styles.bottomBar}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <Ionicons size={23} color="white" name="md-contact" />
-            <MyText>picnic </MyText>
-          </View>
-
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <Ionicons size={23} color="white" name="md-map" />
-            <MyText>1.5 m </MyText>
-          </View>
-
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <Ionicons size={23} color="white" name="md-time" />
-            <MyText>30 m </MyText>
-          </View>
+        <View style={styles.rightStatusContainer}>
+          <Ionicons size={15} color="black" name="md-time" />
+          <MyText>45 min</MyText>
         </View>
       </View>
     </View>
@@ -68,45 +38,44 @@ const PostItem = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    height: 170,
-    flexDirection: "row",
-    borderRadius: 5,
+    paddingVertical: 10,
+    paddingLeft: 5,
+    paddingRight: 15,
   },
-  leftCard: {
-    flex: 0.7,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-  },
-  rightCard: {
-    flex: 1,
-    justifyContent: "space-between",
-    paddingBottom: 10,
-    paddingHorizontal: 15,
-    backgroundColor: "orange",
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
+  cardImage: {
+    borderRadius: 10,
+    width: 200,
+    height: 150,
   },
   cardInfo: {
-    flex: 1,
-    justifyContent: "space-evenly",
-  },
-  bottomBar: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
   },
-  image: {
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-    width: "100%",
-    height: "100%",
+  colorContainer: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+  },
+  cardStatus: {
+    flexDirection: "row",
+    paddingHorizontal: 5,
+  },
+  leftStatusContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  rightStatusContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
   title: {
-    fontFamily: "kanit-bold",
-    color: "white",
-    fontSize: 25,
-  },
-  subtext: {
-    color: "white",
+    fontFamily: "kanit-light",
+    fontSize: 17,
+    paddingVertical: 5,
   },
 });
 

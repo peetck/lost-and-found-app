@@ -1,7 +1,5 @@
 import React from "react";
-import { Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
 
 import HomeScreen, {
   screenOptions as homeScreenOptions,
@@ -15,7 +13,7 @@ import MyProfileScreen, {
 
 const BottomTabNavigator = createBottomTabNavigator();
 
-const AppNavigator = (props) => {
+const TabNavigator = (props) => {
   return (
     <BottomTabNavigator.Navigator>
       <BottomTabNavigator.Screen
@@ -37,4 +35,8 @@ const AppNavigator = (props) => {
   );
 };
 
-export default AppNavigator;
+export const screenOptions = {
+  headerShown: false,
+};
+
+export default TabNavigator;

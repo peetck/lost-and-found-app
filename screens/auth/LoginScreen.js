@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 35,
+    backgroundColor: "white",
   },
   scrollView: {
     flexGrow: 1,

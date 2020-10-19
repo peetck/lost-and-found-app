@@ -1,21 +1,19 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import BottomTabNavigator from "./BottomTabNavigator";
+import TabNavigator, {
+  screenOptions as tabNavigatorScreenOptions,
+} from "./TabNavigator";
 
 const AppStackNavigator = createStackNavigator();
-
-const bottomTabNavigatorOptions = {
-  headerShown: false,
-};
 
 const AppNavigator = (props) => {
   return (
     <AppStackNavigator.Navigator>
       <AppStackNavigator.Screen
-        name="BottomTab"
-        component={BottomTabNavigator}
-        options={bottomTabNavigatorOptions}
+        name="Tab"
+        component={TabNavigator}
+        options={tabNavigatorScreenOptions}
       />
     </AppStackNavigator.Navigator>
   );

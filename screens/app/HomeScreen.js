@@ -34,50 +34,37 @@ const Box = (props) => {
 const HomeScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <AppHeader title="Lost & Found" />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.contentContainer}>
+          <AppHeader title="Lost & Found" />
 
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "space-around",
-        }}
-      >
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-          }}
-        >
-          <Box title="Phone" color="#003F5C" />
-          <Box title="Card" color="#955196" />
-          <Box title="Earphone" color="#FF6E54" />
+          <View style={styles.categoryContainer}>
+            <Box title="Phone" color="#003F5C" />
+            <Box title="Card" color="#955196" />
+            <Box title="Earphone" color="#FF6E54" />
+          </View>
+
+          <View style={styles.categoryContainer}>
+            <Box title="Wallet" color="#444E86" />
+            <Box title="Key" color="#DD5182" />
+            <Box title="Other" color="#FFA600" />
+          </View>
+
+          <View style={{ paddingVertical: 10 }}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <MyText style={{ fontFamily: "kanit", fontSize: 20 }}>
+                List of items
+              </MyText>
+              <MyText style={{ fontFamily: "kanit", fontSize: 20 }}>
+                See all
+              </MyText>
+            </View>
+            <PostList data={["Sushi 1", "Sushi 2", "Sushi 3", "Sushi 4"]} />
+          </View>
         </View>
-
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-          }}
-        >
-          <Box title="Wallet" color="#444E86" />
-          <Box title="Key" color="#DD5182" />
-          <Box title="Other" color="#FFA600" />
-        </View>
-      </View>
-
-      <View style={{ flex: 3 }}>
-        <MyText style={{ fontSize: 25, fontFamily: "kanit-bold" }}>
-          List of items
-        </MyText>
-        <PostList data={["1", "2", "3", "4"]} />
-      </View>
-
-      <MyButton
-        title="DUMMY LOGOUT"
-        onPress={() => {
-          firebase.auth().signOut();
-        }}
-      />
+      </ScrollView>
     </View>
   );
 };
@@ -87,8 +74,15 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 15,
-    justifyContent: "space-between",
     backgroundColor: "white",
+  },
+  contentContainer: {
+    flex: 1,
+  },
+  categoryContainer: {
+    flexDirection: "row",
+    paddingTop: 35,
+    paddingBottom: 20,
   },
 });
 

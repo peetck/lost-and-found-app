@@ -34,11 +34,7 @@ const StartupScreen = (props) => {
 
   return (
     <NavigationContainer>
-      {isAuth ? (
-        <AppNavigator />
-      ) : (
-        <AuthNavigator />
-      )}
+      {isAuth ? <AppNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };

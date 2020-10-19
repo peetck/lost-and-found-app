@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingHorizontal: 35,
+    backgroundColor: "white",
   },
   scrollView: {
     flexGrow: 1,

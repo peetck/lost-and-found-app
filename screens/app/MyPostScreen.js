@@ -17,9 +17,8 @@ const MyPostScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingHorizontal: 15,
     paddingTop: Constants.statusBarHeight,
-    justifyContent: "space-between",
+    paddingHorizontal: 15,
     backgroundColor: "white",
   },
 });

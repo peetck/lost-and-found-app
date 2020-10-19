@@ -10,12 +10,6 @@ import NextSignUpScreen from "../../screens/auth/NextSignUpScreen";
 
 const AuthStackNavigator = createStackNavigator();
 
-const screenOptions = {
-  cardStyle: {
-    backgroundColor: "white",
-  },
-};
-
 const loginScreenOptions = {
   headerShown: false,
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
@@ -37,7 +31,7 @@ const nextSignUpScreenOptions = {
 
 const AuthNavigator = (props) => {
   return (
-    <AuthStackNavigator.Navigator screenOptions={screenOptions}>
+    <AuthStackNavigator.Navigator>
       <AuthStackNavigator.Screen
         name="Login"
         component={LoginScreen}

@@ -2,14 +2,22 @@ import React from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
+import firebase from "firebase";
 
 import AppHeader from "../../components/app/AppHeader";
+import MyButton from "../../components/UI/MyButton";
 
 const MyProfileScreen = (props) => {
   return (
     <View style={styles.screen}>
       <AppHeader title="My Profile" />
       <Text>MyProfile SCREEN</Text>
+      <MyButton
+        title="DUMMY LOGOUT"
+        onPress={() => {
+          firebase.auth().signOut();
+        }}
+      />
     </View>
   );
 };
@@ -17,9 +25,8 @@ const MyProfileScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingHorizontal: 15,
     paddingTop: Constants.statusBarHeight,
-    justifyContent: "space-between",
+    paddingHorizontal: 15,
     backgroundColor: "white",
   },
 });
