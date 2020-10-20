@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import Constants from "expo-constants";
+import { CardStyleInterpolators } from "@react-navigation/stack";
 
 import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
@@ -95,5 +96,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+export const screenOptions = {
+  headerShown: false,
+  cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
+};
 
 export default SignUpScreen;

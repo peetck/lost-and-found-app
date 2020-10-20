@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import {CardStyleInterpolators} from "@react-navigation/stack";
 import Constants from "expo-constants";
 import firebase from "firebase";
 
@@ -109,5 +110,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+export const screenOptions = {
+  headerShown: false,
+  cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
+};
 
 export default LoginScreen;

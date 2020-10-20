@@ -15,21 +15,18 @@ const PostItem = (props) => {
         }}
       />
 
-      <View style={styles.cardInfo}>
+      <View style={{ ...styles.cardInfo, backgroundColor: props.color }}>
         <MyText style={styles.title}>{props.title}</MyText>
-        <View
-          style={{ ...styles.colorContainer, backgroundColor: props.color }}
-        />
-      </View>
 
-      <View style={styles.cardStatus}>
-        <View style={styles.leftStatusContainer}>
-          <Ionicons size={15} color="black" name="md-locate" />
-          <MyText>1.5 m</MyText>
-        </View>
-        <View style={styles.rightStatusContainer}>
-          <Ionicons size={15} color="black" name="md-time" />
-          <MyText>45 min</MyText>
+        <View style={styles.cardStatus}>
+          <View style={styles.leftStatusContainer}>
+            <Ionicons size={15} color="white" name="md-locate" />
+            <MyText style={styles.statusText}>1.5 m</MyText>
+          </View>
+          <View style={styles.rightStatusContainer}>
+            <Ionicons size={15} color="white" name="md-time" />
+            <MyText style={styles.statusText}>45 min</MyText>
+          </View>
         </View>
       </View>
     </View>
@@ -38,19 +35,19 @@ const PostItem = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    paddingVertical: 10,
-    paddingLeft: 5,
-    paddingRight: 15,
+    flex: 1,
+    paddingBottom: 20,
+    paddingHorizontal: 10,
   },
   cardImage: {
-    borderRadius: 10,
-    width: 200,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     height: 150,
   },
   cardInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    padding: 5,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   colorContainer: {
     width: 20,
@@ -73,9 +70,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
+    color: "white",
     fontFamily: "kanit-light",
     fontSize: 17,
     paddingVertical: 5,
+  },
+  statusText: {
+    color: "white",
   },
 });
 

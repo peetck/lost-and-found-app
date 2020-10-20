@@ -10,6 +10,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import firebase from "firebase";
+import { CardStyleInterpolators } from "@react-navigation/stack";
 
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
@@ -166,5 +167,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+export const screenOptions = {
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  headerTitle: "",
+  headerStyle: {
+    shadowColor: "transparent",
+    elevation: 0,
+  },
+};
 
 export default NextSignUpScreen;
