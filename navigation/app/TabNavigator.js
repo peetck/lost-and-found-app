@@ -28,6 +28,7 @@ const TabNavigator = (props) => {
 };
 
 export const navigatorOptions = {
+  title: "Home",
   headerShown: false,
 };
 
