@@ -5,7 +5,13 @@ import PostItem from "./PostItem";
 
 const PostList = (props) => {
   const renderItem = (itemData) => (
-    <PostItem title={itemData.item.title} color={itemData.item.color} />
+    <PostItem
+      title={itemData.item.title}
+      color={itemData.item.color}
+      onPress={() => {
+        props.navigation.navigate("PostDetail");
+      }}
+    />
   );
 
   const keyExtractor = (item) => item.id;

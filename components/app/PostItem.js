@@ -1,12 +1,16 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import MyText from "../UI/MyText";
 
 const PostItem = (props) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      activeOpacity={0.6}
+      onPress={props.onPress}
+    >
       <Image
         style={styles.cardImage}
         source={{
@@ -29,7 +33,7 @@ const PostItem = (props) => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

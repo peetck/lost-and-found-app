@@ -48,6 +48,7 @@ const HomeScreen = (props) => {
             { id: "5", title: "Sushi 5", color: "#DD5182" },
             { id: "6", title: "Sushi 6", color: "#FFA600" },
           ]}
+          navigation={props.navigation}
         />
       </View>
     </View>
