@@ -9,4 +9,7 @@ const PostDetailScreen = (props) => {
   );
 };
 
+
+export const screenOptions = {};
+
 export default PostDetailScreen;

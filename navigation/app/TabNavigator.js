@@ -1,41 +1,33 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import HomeScreen, {
-  screenOptions as homeScreenOptions,
-} from "../../screens/app/HomeScreen";
-import MyPostScreen, {
-  screenOptions as myPostScreenOptions,
-} from "../../screens/app/MyPostScreen";
-import MyProfileScreen, {
-  screenOptions as myProfileScreenOptions,
-} from "../../screens/app/MyProfileScreen";
+import HomeNavigator, {
+  navigatorOptions as homeNavigatorOptions,
+} from "./HomeNavigator";
+import MyPostNavigator, {
+  navigatorOptions as myPostNavigatorOptions,
+} from "./MyPostNavigator";
 
-const BottomTabNavigator = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const TabNavigator = (props) => {
   return (
-    <BottomTabNavigator.Navigator>
-      <BottomTabNavigator.Screen
-        name="Home"
-        component={HomeScreen}
-        options={homeScreenOptions}
+    <Tab.Navigator>
+      <Tab.Screen
+        name="HomeNavigator"
+        component={HomeNavigator}
+        options={homeNavigatorOptions}
       />
-      <BottomTabNavigator.Screen
-        name="MyPost"
-        component={MyPostScreen}
-        options={myPostScreenOptions}
+      <Tab.Screen
+        name="MyPostNavigator"
+        component={MyPostNavigator}
+        options={myPostNavigatorOptions}
       />
-      <BottomTabNavigator.Screen
-        name="MyProfile"
-        component={MyProfileScreen}
-        options={myProfileScreenOptions}
-      />
-    </BottomTabNavigator.Navigator>
+    </Tab.Navigator>
   );
 };
 
-export const screenOptions = {
+export const navigatorOptions = {
   headerShown: false,
 };
 

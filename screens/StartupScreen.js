@@ -4,7 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase";
 
 import AuthNavigator from "../navigation/auth/AuthNavigator";
-import AppNavigator from "../navigation/app/AppNavigator";
+// import AppNavigator from "../navigation/app/AppNavigator";
+import DrawerNavigator from "../navigation/app/DrawerNavigator";
 import Colors from "../constants/Colors";
 
 const StartupScreen = (props) => {
@@ -34,7 +35,7 @@ const StartupScreen = (props) => {
 
   return (
     <NavigationContainer>
-      {isAuth ? <AppNavigator /> : <AuthNavigator />}
+      {isAuth ? <DrawerNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };

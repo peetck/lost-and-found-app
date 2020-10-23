@@ -9,4 +9,6 @@ const SearchScreen = (props) => {
   );
 };
 
+export const screenOptions = {};
+
 export default SearchScreen;

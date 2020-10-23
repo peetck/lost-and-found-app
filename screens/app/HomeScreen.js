@@ -3,17 +3,18 @@ import { View, StyleSheet, Platform, TouchableOpacity } from "react-native";
 import firebase from "firebase";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import AppHeader from "../../components/app/AppHeader";
 import CategoryList from "../../components/app/CategoryList";
 import MyText from "../../components/UI/MyText";
 import PostList from "../../components/app/PostList";
 import Colors from "../../constants/Colors";
+import HeaderButton from "../../components/UI/HeaderButton";
 
 const HomeScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <AppHeader title="Lost & Found" />
+      {/* <AppHeader title="Lost & Found" /> */}
 
       <TouchableOpacity
         style={styles.searchContainer}
@@ -24,7 +25,7 @@ const HomeScreen = (props) => {
       >
         <Ionicons
           name={Platform.OS === "android" ? "md-search" : "ios-search"}
-          size={23}
+          size={20}
           color="black"
           style={styles.searchIcon}
         />
@@ -56,7 +57,7 @@ const HomeScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
+    // paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 15,
     backgroundColor: "white",
   },
@@ -66,8 +67,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.lightGrey,
     borderRadius: 10,
-    marginTop: 20,
-    marginBottom: 25
+    marginTop: 15,
+    marginBottom: 25,
   },
   listContainer: {
     flex: 1,
@@ -88,19 +89,28 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "kanit",
-    fontSize: 21,
+    fontSize: 19,
   },
 });
 
-export const screenOptions = {
-  title: "Home",
-  tabBarIcon: ({ size, color }) => (
-    <Ionicons
-      name={Platform.OS === "android" ? "md-home" : "ios-home"}
-      size={size}
-      color={color}
-    />
-  ),
+export const screenOptions = (navigationData) => {
+  return {
+    headerTitle: "Home",
+    headerTitleStyle: {
+      fontFamily: "kanit-light",
+    },
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          iconName="ios-menu"
+          color="black"
+          onPress={() => {
+            navigationData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
+  };
 };
 
 export default HomeScreen;
