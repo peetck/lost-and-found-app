@@ -1,36 +1,35 @@
 import React from "react";
-import { Platform } from "react-native"
+import { Platform } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
 
-
-import HomeScreen, {
-  screenOptions as homeScreenOptions,
-} from "../../screens/app/HomeScreen";
+import MyPostScreen, {
+  screenOptions as myPostScreenOptions,
+} from "../../../screens/app/main/MyPostScreen";
 
 const Stack = createStackNavigator();
 
-const HomeNavigator = (props) => {
+const MyPostNavigator = (props) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={homeScreenOptions}
+        name="MyPost"
+        component={MyPostScreen}
+        options={myPostScreenOptions}
       />
     </Stack.Navigator>
   );
 };
 
 export const navigatorOptions = {
-  title: "Home",
+  title: "My Post",
   tabBarIcon: ({ size, color }) => (
     <Ionicons
-      name={Platform.OS === "android" ? "md-home" : "ios-home"}
+      name={Platform.OS === "android" ? "md-bookmark" : "ios-bookmark"}
       size={size}
       color={color}
     />
   ),
 };
 
-export default HomeNavigator;
+export default MyPostNavigator;

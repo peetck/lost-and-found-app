@@ -8,10 +8,10 @@ import TabNavigator, {
 } from "./TabNavigator";
 import SearchScreen, {
   screenOptions as searchScreenOptions,
-} from "../../screens/app/SearchScreen";
+} from "../../../screens/app/main/SearchScreen";
 import PostDetailScreen, {
   screenOptions as postDetailScreenOptions,
-} from "../../screens/app/PostDetailScreen";
+} from "../../../screens/app/main/PostDetailScreen";
 
 const Stack = createStackNavigator();
 

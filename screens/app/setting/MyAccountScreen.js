@@ -4,9 +4,9 @@ import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import firebase from "firebase";
 
-import MyButton from "../../components/UI/MyButton";
-import MyText from "../../components/UI/MyText";
-import MyTextInput from "../../components/UI/MyTextInput";
+import MyButton from "../../../components/UI/MyButton";
+import MyText from "../../../components/UI/MyText";
+import MyTextInput from "../../../components/UI/MyTextInput";
 
 const MyAccountScreen = (props) => {
   const [email, setEmail] = useState("Example@gmail.com");
@@ -18,7 +18,7 @@ const MyAccountScreen = (props) => {
     <View style={styles.screen}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.contentContainer}>
-         
+
 
           <View style={{ marginTop: 60 }}>
             <MyText style={{ fontSize: 22, fontWeight: "bold" }}>

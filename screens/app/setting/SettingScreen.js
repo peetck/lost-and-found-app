@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import HeaderButton from "../../components/UI/HeaderButton";
-import MyText from "../../components/UI/MyText";
+import HeaderButton from "../../../components/UI/HeaderButton";
+import MyText from "../../../components/UI/MyText";
 
 const SettingScreen = (props) => {
   return (
@@ -17,7 +17,7 @@ const SettingScreen = (props) => {
 
           onPress={() => {
              props.navigation.navigate("MyProfile"); }}
-      
+
           activeOpacity={0.6}
         >
           <Ionicons
@@ -33,7 +33,7 @@ const SettingScreen = (props) => {
 
            onPress={() => {
              props.navigation.navigate("MyAccount");}}
-          
+
           activeOpacity={0.6}
         >
           <Ionicons
@@ -53,7 +53,7 @@ const SettingScreen = (props) => {
 
           onPress={() => {
             props.navigation.navigate("SettingNotification");}}
-          
+
           activeOpacity={0.6}
         >
           <Ionicons
@@ -69,7 +69,7 @@ const SettingScreen = (props) => {
 
           onPress={() => {
             props.navigation.navigate("SettingTheme");}}
-         
+
           activeOpacity={0.6}
         >
           <Ionicons
@@ -85,7 +85,7 @@ const SettingScreen = (props) => {
 
           onPress={() => {
             props.navigation.navigate("SettingLanguages");}}
-          
+
           activeOpacity={0.6}
         >
           <Ionicons
@@ -107,7 +107,7 @@ const SettingScreen = (props) => {
 
           onPress={() => {
             props.navigation.navigate("Help");}}
-          
+
           activeOpacity={0.6}
         >
           <Ionicons
@@ -124,7 +124,7 @@ const SettingScreen = (props) => {
 
           onPress={() => {
             props.navigation.navigate("About");}}
-         
+
           activeOpacity={0.6}
         >
           <Ionicons

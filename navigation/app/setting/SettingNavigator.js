@@ -5,28 +5,28 @@ import { Ionicons } from "@expo/vector-icons";
 
 import SettingScreen, {
   screenOptions as settingScreenOptions,
-} from "../../screens/app/SettingScreen";
+} from "../../../screens/app/setting/SettingScreen";
 import MyProfileScreen, {
   screenOptions as myProfileScreenOptions,
-} from "../../screens/app/MyProfileScreen";
+} from "../../../screens/app/setting/MyProfileScreen";
 import MyAccountScreen, {
-  screenOptions as myAccountScreenOptions
-} from "../../screens/app/MyAccountScreen";
+  screenOptions as myAccountScreenOptions,
+} from "../../../screens/app/setting/MyAccountScreen";
 import SettingNotificationScreen, {
-  screenOptions as settingNotificationScreenOptions
-} from "../../screens/app/SettingNotificationScreen";
+  screenOptions as settingNotificationScreenOptions,
+} from "../../../screens/app/setting/SettingNotificationScreen";
 import SettingLanguagesScreen, {
-  screenOptions as settingLanguagesScreenOptions
-} from "../../screens/app/SettingLanguagesScreen";
+  screenOptions as settingLanguagesScreenOptions,
+} from "../../../screens/app/setting/SettingLanguagesScreen";
 import SettingThemeScreen, {
-  screenOptions as settingThemeScreenOptions
-} from "../../screens/app/SettingThemeScreen";
+  screenOptions as settingThemeScreenOptions,
+} from "../../../screens/app/setting/SettingThemeScreen";
 import AboutScreen, {
-  screenOptions as aboutScreenOptions
-} from "../../screens/app/AboutScreen";
+  screenOptions as aboutScreenOptions,
+} from "../../../screens/app/setting/AboutScreen";
 import HelpScreen, {
-  screenOptions as helpScreenOptions
-} from "../../screens/app/HelpScreen";
+  screenOptions as helpScreenOptions,
+} from "../../../screens/app/setting/HelpScreen";
 
 const Stack = createStackNavigator();
 

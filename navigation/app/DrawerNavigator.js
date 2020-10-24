@@ -10,10 +10,10 @@ import firebase from "firebase";
 
 import MainNavigator, {
   navigatorOptions as mainNavigatorOptions,
-} from "./MainNavigator";
+} from "./main/MainNavigator";
 import SettingNavigator, {
   navigatorOptions as settingNavigatorOptions,
-} from "./SettingNavigator";
+} from "./setting/SettingNavigator";
 import MyText from "../../components/UI/MyText";
 
 const Drawer = createDrawerNavigator();

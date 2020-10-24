@@ -5,11 +5,11 @@ import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import CategoryList from "../../components/app/CategoryList";
-import MyText from "../../components/UI/MyText";
-import PostList from "../../components/app/PostList";
-import Colors from "../../constants/Colors";
-import HeaderButton from "../../components/UI/HeaderButton";
+import CategoryList from "../../../components/app/CategoryList";
+import MyText from "../../../components/UI/MyText";
+import PostList from "../../../components/app/PostList";
+import Colors from "../../../constants/Colors";
+import HeaderButton from "../../../components/UI/HeaderButton";
 
 const HomeScreen = (props) => {
   return (
