@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet,TouchableOpacity,Platform } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
@@ -9,56 +9,120 @@ import MyText from "../../components/UI/MyText";
 const SettingScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <MyText styles={styles.contentHeader}>My info</MyText>
-      <View style={styles.contentContainer}>
-      <TouchableOpacity
-        style={styles.contentBox}
-        //onPress={() => {
-       //   props.navigation.navigate(""); }}
-        activeOpacity={0.6}
-      >
-        <Ionicons
-          name={"md-person"}
-          size={20}
-          color="black"
-          style={styles.contentIcon}
-        />
-        <MyText style={styles.contentText}>My Profile</MyText>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.contentBox}
-       // onPress={() => {
-       //   props.navigation.navigate("");}}
-        activeOpacity={0.6}
-      >
-        <Ionicons
-          name={"md-person"}
-          size={20}
-          color="black"
-          style={styles.contentIcon}
-        />
-        <MyText style={styles.contentText}>Account</MyText>
-      </TouchableOpacity>
-    </View >
-    
-    <View style={{flex:2}}>
-    <MyText styles={styles.contentHeader}>App</MyText>
-    <TouchableOpacity
-        style={styles.contentBox}
-        //onPress={() => {
-        //  props.navigation.navigate("Search");}}
-        activeOpacity={0.6}
-      >
-        <Ionicons
-          name={"person-outline"}
-          size={20}
-          color="black"
-          style={styles.contentIcon}
-        />
-        <MyText style={styles.contentText}>Search</MyText>
-      </TouchableOpacity>
+      <MyText style={{ color: "#0084ff", paddingTop: 15, fontSize: 13, fontFamily: "kanit-bold" }}>My Profile</MyText>
+      <View style={[styles.contentContainer,{flex: 1}]}>
 
-    </View>
+        <TouchableOpacity
+          style={styles.contentBox}
+          onPress={() => {
+             props.navigation.navigate("MyProfile"); }}
+          activeOpacity={0.6}
+        >
+          <Ionicons
+            name={"ios-person"}
+            size={25}
+            color="black"
+            style={styles.contentIcon}
+          />
+          <Text style={[styles.contentText]}>My Profile</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.contentBox}
+           onPress={() => {
+             props.navigation.navigate("MyAccount");}}
+          activeOpacity={0.6}
+        >
+          <Ionicons
+            name={"md-clipboard"}
+            size={25}
+            color="black"
+            style={styles.contentIcon}
+          />
+          <Text style={styles.contentText}>Account</Text>
+        </TouchableOpacity>
+      </View >
+
+      <View style={[styles.contentContainer,{flex:1.7,paddingTop:25}]}>
+        <MyText style={{ color: "#0084ff", fontSize: 13, fontFamily: "kanit-bold" }}>App</MyText>
+        <TouchableOpacity
+          style={styles.contentBox}
+          onPress={() => {
+            props.navigation.navigate("SettingNotification");}}
+          activeOpacity={0.6}
+        >
+          <Ionicons
+            name={"ios-notifications"}
+            size={25}
+            color="black"
+            style={styles.contentIcon}
+          />
+          <Text style={styles.contentText}>Notification</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.contentBox}
+          onPress={() => {
+            props.navigation.navigate("SettingTheme");}}
+          activeOpacity={0.6}
+        >
+          <Ionicons
+            name={"ios-color-palette"}
+            size={25}
+            color="black"
+            style={styles.contentIcon}
+          />
+          <Text style={styles.contentText}>Theme</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.contentBox}
+          onPress={() => {
+            props.navigation.navigate("SettingLanguages");}}
+          activeOpacity={0.6}
+        >
+          <Ionicons
+            name={"ios-flag"}
+            size={25}
+            color="black"
+            style={styles.contentIcon}
+          />
+          <Text style={styles.contentText}>Languages</Text>
+        </TouchableOpacity>
+
+      </View>
+
+      <View style={{ flex: 4,paddingTop:25 }}>
+        <MyText style={{ color: "#0084ff", fontSize: 13, fontFamily: "kanit-bold" }}>Lost & Found info</MyText>
+
+        <TouchableOpacity
+          style={styles.contentBox}
+          onPress={() => {
+            props.navigation.navigate("Help");}}
+          activeOpacity={0.6}
+        >
+          <Ionicons
+            name={"ios-help-circle-outline"}
+            size={25}
+            color="black"
+            style={styles.contentIcon}
+          />
+          <Text style={styles.contentText}>Help Center</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.contentBox}
+          onPress={() => {
+            props.navigation.navigate("About");}}
+          activeOpacity={0.6}
+        >
+          <Ionicons
+            name={"ios-information-circle-outline"}
+            size={25}
+            color="black"
+            style={styles.contentIcon}
+          />
+          <Text style={styles.contentText}>About Lost & Found</Text>
+        </TouchableOpacity>
+
+      </View>
 
     </View>
   );
@@ -90,21 +154,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "white",
   },
-  contentHeader: {
-    color: "blue"
-  },
+
   contentBox: {
     flexDirection: "row",
     alignItems: "center",
 
-  },contentIcon: {
+
+  }, contentIcon: {
     padding: 8,
   },
-  contentText:{
-    
+  contentText: {
+    paddingLeft: 10, fontSize: 15
+
   },
-  contentContainer:{
-    flex:1
+  contentContainer: {
+    borderBottomColor: 'grey',
+    borderBottomWidth: 0.5
 
   }
 })

@@ -9,6 +9,24 @@ import SettingScreen, {
 import MyProfileScreen, {
   screenOptions as myProfileScreenOptions,
 } from "../../screens/app/MyProfileScreen";
+import MyAccountScreen, {
+  screenOptions as myAccountScreenOptions
+} from "../../screens/app/MyAccountScreen";
+import SettingNotificationScreen, {
+  screenOptions as settingNotificationScreenOptions
+} from "../../screens/app/SettingNotificationScreen";
+import SettingLanguagesScreen, {
+  screenOptions as settingLanguagesScreenOptions
+} from "../../screens/app/SettingLanguagesScreen";
+import SettingThemeScreen, {
+  screenOptions as settingThemeScreenOptions
+} from "../../screens/app/SettingThemeScreen";
+import AboutScreen, {
+  screenOptions as aboutScreenOptions
+} from "../../screens/app/AboutScreen";
+import HelpScreen, {
+  screenOptions as helpScreenOptions
+} from "../../screens/app/HelpScreen";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +42,36 @@ const SettingNavigator = (props) => {
         name="MyProfile"
         component={MyProfileScreen}
         options={myProfileScreenOptions}
+      />
+      <Stack.Screen
+        name="MyAccount"
+        component={MyAccountScreen}
+        options={myAccountScreenOptions}
+      />
+      <Stack.Screen
+        name="SettingNotification"
+        component={SettingNotificationScreen}
+        options={settingNotificationScreenOptions}
+      />
+      <Stack.Screen
+        name="SettingLanguages"
+        component={SettingLanguagesScreen}
+        options={settingLanguagesScreenOptions}
+      />
+      <Stack.Screen
+        name="SettingTheme"
+        component={SettingThemeScreen}
+        options={settingThemeScreenOptions}
+      />
+      <Stack.Screen
+        name="About"
+        component={AboutScreen}
+        options={aboutScreenOptions}
+      />
+      <Stack.Screen
+        name="Help"
+        component={HelpScreen}
+        options={helpScreenOptions}
       />
     </Stack.Navigator>
   );

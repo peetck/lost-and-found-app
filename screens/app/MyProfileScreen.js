@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Platform, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Platform, ScrollView,AppHeader } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import firebase from "firebase";
@@ -18,7 +18,7 @@ const MyProfileScreen = (props) => {
     <View style={styles.screen}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.contentContainer}>
-          <AppHeader title="My Profile" />
+         
 
           <View style={{ marginTop: 60 }}>
             <MyText style={{ fontSize: 22, fontWeight: "bold" }}>
