@@ -12,6 +12,9 @@ import SearchScreen, {
 import PostDetailScreen, {
   screenOptions as postDetailScreenOptions,
 } from "../../../screens/app/main/PostDetailScreen";
+import CreatePostScreen, {
+  screenOptions as createPostScreenOptions,
+} from "../../../screens/app/main/CreatePostScreen";
 
 const Stack = createStackNavigator();
 
@@ -32,6 +35,11 @@ const MainNavigator = (props) => {
         name="PostDetail"
         component={PostDetailScreen}
         options={postDetailScreenOptions}
+      />
+      <Stack.Screen
+        name="CreatePost"
+        component={CreatePostScreen}
+        options={createPostScreenOptions}
       />
     </Stack.Navigator>
   );

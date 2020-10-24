@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import MyText from "../UI/MyText";
+import MyText from "../../UI/MyText";
 
 const PostItem = (props) => {
   return (
@@ -15,7 +15,7 @@ const PostItem = (props) => {
         style={styles.cardImage}
         source={{
           uri:
-            "https://kujimag.com/wp-content/uploads/2019/06/sushi-top-five.jpg",
+            "https://d38lri8pyzrvor.cloudfront.net/uploads/restaurants/999/photos/29209/slide_thumb_RackMultipart20191104-19004-3dhfn5.jpg",
         }}
       />
 

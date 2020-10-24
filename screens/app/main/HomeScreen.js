@@ -5,9 +5,9 @@ import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import CategoryList from "../../../components/app/CategoryList";
+import CategoryList from "../../../components/app/main/CategoryList";
 import MyText from "../../../components/UI/MyText";
-import PostList from "../../../components/app/PostList";
+import PostList from "../../../components/app/main/PostList";
 import Colors from "../../../constants/Colors";
 import HeaderButton from "../../../components/UI/HeaderButton";
 
@@ -58,7 +58,6 @@ const HomeScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    // paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 15,
     backgroundColor: "white",
   },
@@ -107,6 +106,17 @@ export const screenOptions = (navigationData) => {
           color="black"
           onPress={() => {
             navigationData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          iconName="md-add"
+          color="black"
+          onPress={() => {
+            navigationData.navigation.navigate("CreatePost");
           }}
         />
       </HeaderButtons>

@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import MyText from "../UI/MyText";
-import { CATEGORIES } from "../../constants/Categories";
+import MyText from "../../UI/MyText";
+import { CATEGORIES } from "../../../constants/Categories";
 
 const CategoryList = (props) => {
   const buildCategory = (title, color) => {
