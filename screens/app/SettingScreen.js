@@ -14,13 +14,10 @@ const SettingScreen = (props) => {
 
         <TouchableOpacity
           style={styles.contentBox}
-<<<<<<< HEAD
+
           onPress={() => {
              props.navigation.navigate("MyProfile"); }}
-=======
-          //onPress={() => {
-          //   props.navigation.navigate(""); }}
->>>>>>> 5c0e77c2e8e7a768fa174cec2cff49c4edac12fe
+      
           activeOpacity={0.6}
         >
           <Ionicons
@@ -33,13 +30,10 @@ const SettingScreen = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.contentBox}
-<<<<<<< HEAD
+
            onPress={() => {
              props.navigation.navigate("MyAccount");}}
-=======
-          // onPress={() => {
-          //   props.navigation.navigate("");}}
->>>>>>> 5c0e77c2e8e7a768fa174cec2cff49c4edac12fe
+          
           activeOpacity={0.6}
         >
           <Ionicons
@@ -56,13 +50,10 @@ const SettingScreen = (props) => {
         <MyText style={{ color: "#0084ff", fontSize: 13, fontFamily: "kanit-bold" }}>App</MyText>
         <TouchableOpacity
           style={styles.contentBox}
-<<<<<<< HEAD
+
           onPress={() => {
             props.navigation.navigate("SettingNotification");}}
-=======
-          //onPress={() => {
-          //  props.navigation.navigate("Search");}}
->>>>>>> 5c0e77c2e8e7a768fa174cec2cff49c4edac12fe
+          
           activeOpacity={0.6}
         >
           <Ionicons
@@ -75,13 +66,10 @@ const SettingScreen = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.contentBox}
-<<<<<<< HEAD
+
           onPress={() => {
             props.navigation.navigate("SettingTheme");}}
-=======
-          //onPress={() => {
-          //  props.navigation.navigate("Search");}}
->>>>>>> 5c0e77c2e8e7a768fa174cec2cff49c4edac12fe
+         
           activeOpacity={0.6}
         >
           <Ionicons
@@ -94,13 +82,10 @@ const SettingScreen = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.contentBox}
-<<<<<<< HEAD
+
           onPress={() => {
             props.navigation.navigate("SettingLanguages");}}
-=======
-          //onPress={() => {
-          //  props.navigation.navigate("Search");}}
->>>>>>> 5c0e77c2e8e7a768fa174cec2cff49c4edac12fe
+          
           activeOpacity={0.6}
         >
           <Ionicons
@@ -119,13 +104,10 @@ const SettingScreen = (props) => {
 
         <TouchableOpacity
           style={styles.contentBox}
-<<<<<<< HEAD
+
           onPress={() => {
             props.navigation.navigate("Help");}}
-=======
-          //onPress={() => {
-          //  props.navigation.navigate("Search");}}
->>>>>>> 5c0e77c2e8e7a768fa174cec2cff49c4edac12fe
+          
           activeOpacity={0.6}
         >
           <Ionicons
@@ -139,13 +121,10 @@ const SettingScreen = (props) => {
 
         <TouchableOpacity
           style={styles.contentBox}
-<<<<<<< HEAD
+
           onPress={() => {
             props.navigation.navigate("About");}}
-=======
-          //onPress={() => {
-          //  props.navigation.navigate("Search");}}
->>>>>>> 5c0e77c2e8e7a768fa174cec2cff49c4edac12fe
+         
           activeOpacity={0.6}
         >
           <Ionicons
