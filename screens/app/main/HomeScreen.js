@@ -14,8 +14,6 @@ import HeaderButton from "../../../components/UI/HeaderButton";
 const HomeScreen = (props) => {
   return (
     <View style={styles.screen}>
-      {/* <AppHeader title="Lost & Found" /> */}
-
       <TouchableOpacity
         style={styles.searchContainer}
         onPress={() => {
