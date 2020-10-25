@@ -102,19 +102,19 @@ const NextSignUpScreen = (props) => {
           <View style={styles.textInputContainer}>
             <MyTextInput
               placeholder="Email"
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={setEmail}
               value={email}
             />
             <MyTextInput
               placeholder="Password"
               secureTextEntry={true}
-              onChangeText={(text) => setPassword(text)}
+              onChangeText={setPassword}
               value={password}
             />
             <MyTextInput
               placeholder="Confirm Password"
               secureTextEntry={true}
-              onChangeText={(text) => setConfirmPassword(text)}
+              onChangeText={setConfirmPassword}
               value={confirmPassword}
             />
           </View>
