@@ -7,6 +7,7 @@ import ReduxThunk from "redux-thunk";
 import firebase from "firebase";
 
 import StartupScreen from "./screens/StartupScreen";
+import postsReducer from "./store/reducers/posts";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs",
@@ -23,11 +24,11 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-// const rootReducer = combineReducers({
+const rootReducer = combineReducers({
+  posts: postsReducer,
+});
 
-// });
-
-// const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -51,5 +52,9 @@ export default function App() {
     );
   }
 
-  return <StartupScreen />;
+  return (
+    <Provider store={store}>
+      <StartupScreen />
+    </Provider>
+  );
 }

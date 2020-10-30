@@ -45,7 +45,7 @@ const SignUpScreen = (props) => {
           <View style={styles.textInputContainer}>
             <MyTextInput
               placeholder="Nickname"
-              onChangeText={(text) => setNickName(text)}
+              onChangeText={setNickName}
               value={nickName}
             />
           </View>

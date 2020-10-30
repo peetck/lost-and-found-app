@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import {CardStyleInterpolators} from "@react-navigation/stack";
+import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import { CardStyleInterpolators } from "@react-navigation/stack";
 import Constants from "expo-constants";
 import firebase from "firebase";
 
@@ -53,13 +47,13 @@ const LoginScreen = (props) => {
           <View style={styles.textInputContainer}>
             <MyTextInput
               placeholder="Email"
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={setEmail}
               value={email}
             />
             <MyTextInput
               placeholder="Password"
               secureTextEntry={true}
-              onChangeText={(text) => setPassword(text)}
+              onChangeText={setPassword}
               value={password}
             />
           </View>
