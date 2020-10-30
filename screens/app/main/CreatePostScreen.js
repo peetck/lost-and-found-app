@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
@@ -19,6 +21,7 @@ const CreatePostScreen = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("c1");
+  const [pickedImage, setPickedImage] = useState("");
 
   const createPostHandler = useCallback(() => {
     console.log(title);
@@ -26,11 +29,43 @@ const CreatePostScreen = (props) => {
     console.log(category);
   }, [title, description, category]);
 
+  const verifyPermissions = async () => {
+    const { status } = await Permissions.askAsync(
+      Permissions.CAMERA,
+      Permissions.CAMERA_ROLL
+    );
+    if (status !== "granted") {
+      Alert.alert(
+        "Insufficient permissions!",
+        "You need to grant camera permissions to use this app.",
+        [{ text: "Okay" }]
+      );
+      return false;
+    }
+    return true;
+  };
+
+  const takeImageHandler = async () => {
+    const hasPermission = await verifyPermissions();
+    if (hasPermission) {
+      const image = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      setPickedImage(image.uri);
+    }
+  };
+
   useEffect(() => {
     props.navigation.setOptions({
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={HeaderButton}>
-          <Item iconName="md-save" color="black" onPress={createPostHandler} />
+          <Item
+            iconName="md-checkmark"
+            color="black"
+            onPress={createPostHandler}
+          />
         </HeaderButtons>
       ),
     });
@@ -58,9 +93,19 @@ const CreatePostScreen = (props) => {
         <CategoryList inputMode onChange={setCategory} value={category} />
       </View>
 
-      <TouchableOpacity style={styles.inputContainer} activeOpacity={0.6}>
-        <Ionicons name="md-camera" size={80} color="black" />
-        <MyText style={styles.text}>Take a picture</MyText>
+      <TouchableOpacity
+        style={styles.inputContainer}
+        activeOpacity={0.6}
+        onPress={takeImageHandler}
+      >
+        {pickedImage ? (
+          <Image source={{ uri: pickedImage }} style={styles.image} />
+        ) : (
+          <View style={styles.center}>
+            <Ionicons name="md-camera" size={80} color="black" />
+            <MyText style={styles.text}>Take a picture</MyText>
+          </View>
+        )}
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -96,13 +141,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   inputContainer: {
-    marginTop: 25,
     justifyContent: "center",
     alignItems: "center",
+    marginVertical: 25,
     marginHorizontal: 10,
     height: 200,
     borderRadius: 10,
     backgroundColor: Colors.lightGrey,
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
   },
   text: {
     fontSize: 16,

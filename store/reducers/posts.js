@@ -1,7 +1,17 @@
-import { FETCH_POSTS } from "../actions/posts";
+import { SET_POSTS } from "../actions/posts";
 
-const initialState = {};
+const initialState = {
+  posts: [],
+};
 
 export default (state = initialState, action) => {
-  return state;
+  switch (action.type) {
+    case SET_POSTS:
+      return {
+        ...state,
+        posts: action.posts,
+      };
+    default:
+      return state;
+  }
 };
