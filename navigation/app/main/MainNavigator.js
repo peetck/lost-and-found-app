@@ -15,6 +15,9 @@ import PostDetailScreen, {
 import CreatePostScreen, {
   screenOptions as createPostScreenOptions,
 } from "../../../screens/app/main/CreatePostScreen";
+import MapScreen, {
+  screenOptions as mapScreenOptions,
+} from "../../../screens/app/main/MapScreen";
 
 const Stack = createStackNavigator();
 
@@ -40,6 +43,11 @@ const MainNavigator = (props) => {
         name="CreatePost"
         component={CreatePostScreen}
         options={createPostScreenOptions}
+      />
+      <Stack.Screen
+        name="Map"
+        component={MapScreen}
+        options={mapScreenOptions}
       />
     </Stack.Navigator>
   );

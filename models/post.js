@@ -1,10 +1,11 @@
 class Post {
-  constructor(id, title, description, bounty) {
+  constructor(id, title, description, categoryId, lat, long) {
     this.id = id;
+    this.categoryId = categoryId;
     this.title = title;
     this.description = description;
-    this.bounty = bounty;
-    
+    this.lat = lat;
+    this.long = long;
   }
 }
 
