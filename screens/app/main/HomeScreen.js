@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const screenOptions = (navigationData) => {
+export const screenOptions = (navData) => {
   return {
     headerTitle: "Home",
     headerTitleStyle: {
@@ -105,7 +105,7 @@ export const screenOptions = (navigationData) => {
           iconName="ios-menu"
           color="black"
           onPress={() => {
-            navigationData.navigation.toggleDrawer();
+            navData.navigation.toggleDrawer();
           }}
         />
       </HeaderButtons>
@@ -116,7 +116,7 @@ export const screenOptions = (navigationData) => {
           iconName="md-add"
           color="black"
           onPress={() => {
-            navigationData.navigation.navigate("CreatePost");
+            navData.navigation.navigate("CreatePost");
           }}
         />
       </HeaderButtons>
