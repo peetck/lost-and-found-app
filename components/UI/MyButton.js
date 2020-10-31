@@ -13,14 +13,14 @@ const MyButton = (props) => {
   if (props.loading) {
     return (
       <View style={styles.button}>
-        <ActivityIndicator size={25} color="white" />
+        <ActivityIndicator size={25} color="white"/>
       </View>
     );
   }
 
   return (
     <TouchableOpacity
-      style={styles.button}
+      style={{...styles.button, ...props.style}}
       onPress={props.onPress}
       activeOpacity={0.6}
     >
