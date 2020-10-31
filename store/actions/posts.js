@@ -24,7 +24,6 @@ export const fetchPosts = () => {
       );
     });
 
-
     dispatch({
       type: SET_POSTS,
       posts: posts,
