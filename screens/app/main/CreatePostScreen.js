@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -14,7 +15,7 @@ import MyText from "../../../components/UI/MyText";
 import MyTextInput from "../../../components/UI/MyTextInput";
 import CategoryList from "../../../components/app/main/CategoryList";
 import Colors from "../../../constants/Colors";
-import { takeImage } from "../../../shared/utility";
+import { takeImage, getCurrentPosition } from "../../../shared/utility";
 
 const CreatePostScreen = (props) => {
   const [title, setTitle] = useState("");
@@ -22,28 +23,50 @@ const CreatePostScreen = (props) => {
   const [category, setCategory] = useState("c1");
   const [selectedImage, setSelectedImage] = useState();
   const [selectedLocation, setSelectedLocation] = useState();
-
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
   const { params } = props.route;
 
+  const setLocation = (location) => {
+    setSelectedLocation({
+      ...location,
+      imagePreviewUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
+        location.lat
+      },${
+        location.long
+      }&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${
+        location.lat
+      },${location.long}&key=${"AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs"}`,
+    });
+  };
+
   useEffect(() => {
-    if (params) {
-      const location = params.location;
-      setSelectedLocation({
-        ...location,
-        imagePreviewUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
-          location.lat
-        },${
-          location.long
-        }&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${
-          location.lat
-        },${location.long}&key=${"AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs"}`,
-      });
-    }
+    const getLocation = async () => {
+      setIsLoadingLocation(true);
+      let location;
+      if (params) {
+        location = params.location;
+      } else if (!selectedLocation) {
+        location = await getCurrentPosition();
+      }
+      setLocation(location);
+      setIsLoadingLocation(false);
+    };
+    getLocation();
   }, [params]);
 
   const takeImageHandler = async () => {
     const imageUri = await takeImage();
     setSelectedImage(imageUri);
+  };
+
+  const pickLocationHandler = () => {
+    props.navigation.navigate("Map", {
+      readonly: false,
+      initialLocation: {
+        lat: selectedLocation.lat,
+        long: selectedLocation.long,
+      },
+    });
   };
 
   const createPostHandler = useCallback(() => {
@@ -107,27 +130,24 @@ const CreatePostScreen = (props) => {
         )}
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.inputContainer}
-        activeOpacity={0.6}
-        onPress={() => {
-          props.navigation.navigate("Map", {
-            readonly: false,
-          });
-        }}
-      >
-        {selectedLocation ? (
-          <Image
-            style={styles.image}
-            source={{ uri: selectedLocation.imagePreviewUrl }}
-          />
-        ) : (
-          <View style={styles.center}>
-            <Ionicons name="md-map" size={80} color="black" />
-            <MyText style={styles.text}>Pick location</MyText>
-          </View>
-        )}
-      </TouchableOpacity>
+      {isLoadingLocation ? (
+        <View style={styles.inputContainer}>
+          <ActivityIndicator size="large" color={Colors.primary} />
+        </View>
+      ) : (
+        <TouchableOpacity
+          style={styles.inputContainer}
+          activeOpacity={0.6}
+          onPress={pickLocationHandler}
+        >
+          {selectedLocation && (
+            <Image
+              style={styles.image}
+              source={{ uri: selectedLocation.imagePreviewUrl }}
+            />
+          )}
+        </TouchableOpacity>
+      )}
     </ScrollView>
   );
 };

@@ -1,38 +1,37 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import { getCurrentPosition } from "../../../shared/utility";
-import Colors from "../../../constants/Colors";
 
 const MapScreen = (props) => {
-  const { readonly } = props.route.params;
-  const [selectedLocation, setSelectedLocation] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const { initialLocation, readonly } = props.route.params;
+  const [selectedLocation, setSelectedLocation] = useState(initialLocation);
+  const map = useRef(null);
 
-  const getCurrentLocation = async () => {
-    setIsLoading(true);
-    const location = await getCurrentPosition();
-    setSelectedLocation(location);
-    setIsLoading(false);
+  const mapRegion = {
+    latitude: selectedLocation.lat,
+    longitude: selectedLocation.long,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
   };
 
-  useEffect(() => {
-    getCurrentLocation();
-  }, []);
+  const getCurrentLocationHandler = async () => {
+    const location = await getCurrentPosition();
+    const camera = await map.current.getCamera();
+    camera.center = {
+      latitude: location.lat,
+      longitude: location.long,
+    };
+    map.current.animateCamera(camera);
+    setSelectedLocation(location);
+  };
 
   let markerCoordinates;
-  let mapRegion;
-
   if (selectedLocation) {
-    mapRegion = {
-      latitude: selectedLocation.lat,
-      longitude: selectedLocation.long,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    };
     markerCoordinates = {
       latitude: selectedLocation.lat,
       longitude: selectedLocation.long,
@@ -73,31 +72,51 @@ const MapScreen = (props) => {
     });
   }, [saveLocationHandler]);
 
-  return isLoading ? (
-    <View style={styles.center}>
-      <ActivityIndicator size="large" color={Colors.primary} />
+  return (
+    <View style={styles.screen}>
+      <MapView
+        style={styles.map}
+        initialRegion={mapRegion}
+        onPress={selectLocationHandler}
+        ref={map}
+      >
+        {markerCoordinates && (
+          <Marker title="Picked Location" coordinate={markerCoordinates} />
+        )}
+      </MapView>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onPress={getCurrentLocationHandler}
+        style={styles.button}
+      >
+        <MaterialIcons name="my-location" size={20} color="black" />
+      </TouchableOpacity>
     </View>
-  ) : (
-    <MapView
-      style={styles.map}
-      initialRegion={mapRegion}
-      onPress={selectLocationHandler}
-    >
-      {markerCoordinates && (
-        <Marker title="Picked Location" coordinate={markerCoordinates} />
-      )}
-    </MapView>
   );
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   map: {
     flex: 1,
   },
-  center: {
-    flex: 1,
+  button: {
+    position: "absolute",
+    top: "87%",
+    left: "85%",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white",
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    elevation: 3,
+    // IOS
+    shadowColor: "black",
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
   },
 });
 
