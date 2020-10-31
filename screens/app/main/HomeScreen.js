@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import { View, StyleSheet, Platform, TouchableOpacity } from "react-native";
-import firebase from "firebase";
-import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector, useDispatch } from "react-redux";
 
 import CategoryList from "../../../components/app/main/CategoryList";
 import MyText from "../../../components/UI/MyText";
 import PostList from "../../../components/app/main/PostList";
 import Colors from "../../../constants/Colors";
 import HeaderButton from "../../../components/UI/HeaderButton";
+import { fetchPosts } from "../../../store/actions/posts";
 
 const HomeScreen = (props) => {
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts.posts);
+
+  const loadPosts = useCallback(async () => {
+    await dispatch(fetchPosts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts]);
+
   return (
     <View style={styles.screen}>
       <TouchableOpacity
@@ -37,17 +48,7 @@ const HomeScreen = (props) => {
           <MyText style={styles.title}>List of items</MyText>
           <MyText style={styles.title}>See all</MyText>
         </View>
-        <PostList
-          data={[
-            { id: "1", title: "Sushi 1", color: "#003F5C" },
-            { id: "2", title: "Sushi 2", color: "#955196" },
-            { id: "3", title: "Sushi 3", color: "#FF6E54" },
-            { id: "4", title: "Sushi 4", color: "#444E86" },
-            { id: "5", title: "Sushi 5", color: "#DD5182" },
-            { id: "6", title: "Sushi 6", color: "#FFA600" },
-          ]}
-          navigation={props.navigation}
-        />
+        <PostList data={posts} navigation={props.navigation} />
       </View>
     </View>
   );

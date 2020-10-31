@@ -7,7 +7,8 @@ const PostList = (props) => {
   const renderItem = (itemData) => (
     <PostItem
       title={itemData.item.title}
-      color={itemData.item.color}
+      categoryId={itemData.item.categoryId}
+      imageUrl={itemData.item.imageUrl}
       onPress={() => {
         props.navigation.navigate("PostDetail");
       }}

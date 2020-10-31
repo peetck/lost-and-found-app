@@ -1,13 +1,18 @@
 import React, { useState } from "react";
+import { YellowBox } from "react-native";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import firebase from "firebase";
+import "firebase/firestore";
 
 import StartupScreen from "./screens/StartupScreen";
 import postsReducer from "./store/reducers/posts";
+
+// remove setTimeout() warning
+YellowBox.ignoreWarnings(["Setting a timer"]);
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs",

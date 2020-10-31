@@ -3,8 +3,13 @@ import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import MyText from "../../UI/MyText";
+import { CATEGORIES } from "../../../constants/Categories";
 
 const PostItem = (props) => {
+  const bgColor = CATEGORIES.find(
+    (category) => category.id === props.categoryId
+  ).color;
+
   return (
     <TouchableOpacity
       style={styles.card}
@@ -14,12 +19,11 @@ const PostItem = (props) => {
       <Image
         style={styles.cardImage}
         source={{
-          uri:
-            "https://d38lri8pyzrvor.cloudfront.net/uploads/restaurants/999/photos/29209/slide_thumb_RackMultipart20191104-19004-3dhfn5.jpg",
+          uri: props.imageUrl,
         }}
       />
 
-      <View style={{ ...styles.cardInfo, backgroundColor: props.color }}>
+      <View style={{ ...styles.cardInfo, backgroundColor: bgColor }}>
         <MyText style={styles.title}>{props.title}</MyText>
 
         <View style={styles.cardStatus}>
