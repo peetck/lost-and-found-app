@@ -8,54 +8,53 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import * as ImagePicker from "expo-image-picker";
-import * as Permissions from "expo-permissions";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
 import MyTextInput from "../../../components/UI/MyTextInput";
 import CategoryList from "../../../components/app/main/CategoryList";
 import Colors from "../../../constants/Colors";
+import { takeImage } from "../../../shared/utility";
 
 const CreatePostScreen = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("c1");
-  const [pickedImage, setPickedImage] = useState("");
+  const [selectedImage, setSelectedImage] = useState();
+  const [selectedLocation, setSelectedLocation] = useState();
 
-  const createPostHandler = useCallback(() => {
-    console.log(title);
-    console.log(description);
-    console.log(category);
-  }, [title, description, category]);
+  const { params } = props.route;
 
-  const verifyPermissions = async () => {
-    const { status } = await Permissions.askAsync(
-      Permissions.CAMERA,
-      Permissions.CAMERA_ROLL
-    );
-    if (status !== "granted") {
-      Alert.alert(
-        "Insufficient permissions!",
-        "You need to grant camera permissions to use this app.",
-        [{ text: "Okay" }]
-      );
-      return false;
+  useEffect(() => {
+    if (params) {
+      const location = params.location;
+      setSelectedLocation({
+        ...location,
+        imagePreviewUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
+          location.lat
+        },${
+          location.long
+        }&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${
+          location.lat
+        },${location.long}&key=${"AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs"}`,
+      });
     }
-    return true;
-  };
+  }, [params]);
 
   const takeImageHandler = async () => {
-    const hasPermission = await verifyPermissions();
-    if (hasPermission) {
-      const image = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-      setPickedImage(image.uri);
-    }
+    const imageUri = await takeImage();
+    setSelectedImage(imageUri);
   };
+
+  const createPostHandler = useCallback(() => {
+    console.log({
+      title,
+      description,
+      category,
+      selectedImage,
+      selectedLocation,
+    });
+  }, [title, description, category, selectedImage, selectedLocation]);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -98,8 +97,8 @@ const CreatePostScreen = (props) => {
         activeOpacity={0.6}
         onPress={takeImageHandler}
       >
-        {pickedImage ? (
-          <Image source={{ uri: pickedImage }} style={styles.image} />
+        {selectedImage ? (
+          <Image style={styles.image} source={{ uri: selectedImage }} />
         ) : (
           <View style={styles.center}>
             <Ionicons name="md-camera" size={80} color="black" />
@@ -112,11 +111,22 @@ const CreatePostScreen = (props) => {
         style={styles.inputContainer}
         activeOpacity={0.6}
         onPress={() => {
-          props.navigation.navigate("Map");
+          props.navigation.navigate("Map", {
+            readonly: false,
+          });
         }}
       >
-        <Ionicons name="md-map" size={80} color="black" />
-        <MyText style={styles.text}>Pick location</MyText>
+        {selectedLocation ? (
+          <Image
+            style={styles.image}
+            source={{ uri: selectedLocation.imagePreviewUrl }}
+          />
+        ) : (
+          <View style={styles.center}>
+            <Ionicons name="md-map" size={80} color="black" />
+            <MyText style={styles.text}>Pick location</MyText>
+          </View>
+        )}
       </TouchableOpacity>
     </ScrollView>
   );

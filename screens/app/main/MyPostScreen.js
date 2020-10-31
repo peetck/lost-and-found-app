@@ -9,7 +9,7 @@ const MyPostScreen = (props) => {
       <Text>MyPost SCREEN</Text>
 
       <View style={{flex: 0.5}}>
-        <PostList
+        {/* <PostList
           data={[
             { id: "1", title: "Sushi 1", color: "#003F5C" },
             { id: "2", title: "Sushi 2", color: "#955196" },
@@ -21,7 +21,7 @@ const MyPostScreen = (props) => {
             { id: "8", title: "Sushi 1", color: "#003F5C" },
           ]}
           navigation={props.navigation}
-        />
+        /> */}
       </View>
     </View>
   );
