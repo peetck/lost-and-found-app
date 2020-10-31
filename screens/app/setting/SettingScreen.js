@@ -7,6 +7,7 @@ import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
 
 const SettingScreen = (props) => {
+  
   return (
     <View style={styles.screen}>
       <MyText style={{ color: "#0084ff", paddingTop: 15, fontSize: 13, fontFamily: "kanit-bold" }}>My Profile</MyText>
