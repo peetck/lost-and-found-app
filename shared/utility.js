@@ -1,9 +1,9 @@
-import { Alert } from 'react-native'
+import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 
-export const takeImage = async () => {
+export const takeImage = async (index) => {
   const { status } = await Permissions.askAsync(
     Permissions.CAMERA,
     Permissions.CAMERA_ROLL
@@ -15,14 +15,30 @@ export const takeImage = async () => {
       [{ text: "Okay" }]
     );
     return;
-  } else {
-    const image = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    return image.uri;
   }
+
+  let image;
+
+  switch (index) {
+    case 0: // Take Picture
+      image = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      break;
+    case 1: // Choose from gallery
+      image = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      break;
+    case 2:
+      return;
+  }
+
+  return image.uri;
 };
 
 export const getCurrentPosition = async () => {

@@ -1,5 +1,11 @@
 import React, { useEffect, useCallback } from "react";
-import { View, StyleSheet, Platform, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,6 +19,7 @@ import { fetchPosts } from "../../../store/actions/posts";
 
 const HomeScreen = (props) => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth);
   const posts = useSelector((state) => state.posts.posts);
 
   const loadPosts = useCallback(async () => {
@@ -25,6 +32,19 @@ const HomeScreen = (props) => {
 
   return (
     <View style={styles.screen}>
+      <View style={styles.userContainer}>
+        <Image
+          style={styles.userImage}
+          source={{
+            uri: user.imageUrl,
+          }}
+        />
+        <View style={styles.userInfoContainer}>
+          <MyText style={styles.nickname}>{user.nickname}</MyText>
+          <MyText style={styles.email}>{user.email}</MyText>
+        </View>
+      </View>
+
       <TouchableOpacity
         style={styles.searchContainer}
         onPress={() => {
@@ -60,13 +80,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "white",
   },
+  userContainer: {
+    flexDirection: "row",
+    marginTop: 25,
+    paddingHorizontal: 15,
+  },
+  userImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+  },
+  userInfoContainer: {
+    flex: 1,
+    justifyContent: "space-evenly",
+    paddingLeft: 25,
+  },
   searchContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Colors.lightGrey,
     borderRadius: 10,
-    marginTop: 15,
+    marginTop: 25,
     marginBottom: 25,
   },
   listContainer: {
@@ -89,6 +124,13 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "kanit",
     fontSize: 19,
+  },
+  nickname: {
+    fontSize: 25,
+    fontFamily: "kanit",
+  },
+  email: {
+    color: Colors.grey,
   },
 });
 

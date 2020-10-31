@@ -5,72 +5,64 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Alert,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import * as Permissions from "expo-permissions";
-import firebase from "firebase";
 import { CardStyleInterpolators } from "@react-navigation/stack";
+import { useDispatch } from "react-redux";
+import {
+  useActionSheet,
+  connectActionSheet,
+} from "@expo/react-native-action-sheet";
+import { Ionicons } from "@expo/vector-icons";
 
-import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import MyButton from "../../components/UI/MyButton";
 import AuthHeader from "../../components/auth/AuthHeader";
+import { takeImage } from "../../shared/utility";
+import { signUp } from "../../store/actions/auth";
 
 const NextSignUpScreen = (props) => {
+  const { showActionSheetWithOptions } = useActionSheet();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [pickedImage, setPickedImage] = useState(
-    "https://static.wixstatic.com/media/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.png/v1/fill/w_173,h_172,al_c,q_85,usm_0.66_1.00_0.01/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.webp"
-  );
+  const [selectedImage, setSelectedImage] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const verifyPermissions = async () => {
-    const { status } = await Permissions.askAsync(
-      Permissions.CAMERA,
-      Permissions.CAMERA_ROLL
+  const takeImageHandler = () => {
+    showActionSheetWithOptions(
+      {
+        options: ["Take Picture", "Choose from gallery", "Cancel"],
+        cancelButtonIndex: 2,
+        icons: [
+          <Ionicons name="md-camera" size={23} color="black" />,
+          <Ionicons name="md-image" size={23} color="black" />,
+          <Ionicons name="md-backspace" size={23} color="black" />,
+        ],
+        title: "Please select an option.",
+        titleTextStyle: {
+          fontFamily: "kanit-light",
+          fontSize: 20,
+        },
+      },
+      async (index) => {
+        if (index !== 2) {
+          const imageUri = await takeImage(index);
+          setSelectedImage(imageUri);
+        }
+      }
     );
-    if (status !== "granted") {
-      Alert.alert(
-        "Insufficient permissions!",
-        "You need to grant camera permissions to use this app.",
-        [{ text: "Okay" }]
-      );
-      return false;
-    }
-    return true;
-  };
-
-  const takeImageHandler = async () => {
-    const hasPermission = await verifyPermissions();
-    if (hasPermission) {
-      const image = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-      setPickedImage(image.uri);
-    }
   };
 
   const signUpHandler = async () => {
+    setIsLoading(true);
     try {
-      const { user } = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
-
-      const response = await fetch(pickedImage);
-      const blob = await response.blob();
-
-      const ref = firebase
-        .storage()
-        .ref()
-        .child("user_image")
-        .child(user.uid + ".jpg");
-
-      ref.put(blob);
+      await dispatch(
+        signUp(email, password, props.route.params.nickname, selectedImage)
+      );
     } catch (error) {
       // TODO: handler error
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -85,16 +77,20 @@ const NextSignUpScreen = (props) => {
           <AuthHeader
             style={styles.headerContainer}
             title="Lost & Found"
-            subtitle={props.route.params.nickName}
+            subtitle={props.route.params.nickname}
           />
 
           <View style={styles.imageInputContainer}>
             <TouchableOpacity activeOpacity={0.6} onPress={takeImageHandler}>
               <Image
                 style={styles.image}
-                source={{
-                  uri: pickedImage,
-                }}
+                source={
+                  selectedImage
+                    ? {
+                        uri: selectedImage,
+                      }
+                    : require("../../assets/images/user_default.png")
+                }
               />
             </TouchableOpacity>
           </View>
@@ -120,7 +116,11 @@ const NextSignUpScreen = (props) => {
           </View>
 
           <View style={styles.buttonContainer}>
-            <MyButton title="Sign up" onPress={signUpHandler} />
+            <MyButton
+              title="Sign up"
+              onPress={signUpHandler}
+              loading={isLoading}
+            />
           </View>
         </View>
       </ScrollView>
@@ -177,4 +177,4 @@ export const screenOptions = {
   },
 };
 
-export default NextSignUpScreen;
+export default connectActionSheet(NextSignUpScreen);

@@ -9,6 +9,10 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import {
+  useActionSheet,
+  connectActionSheet,
+} from "@expo/react-native-action-sheet";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
@@ -18,6 +22,7 @@ import Colors from "../../../constants/Colors";
 import { takeImage, getCurrentPosition } from "../../../shared/utility";
 
 const CreatePostScreen = (props) => {
+  const { showActionSheetWithOptions } = useActionSheet();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("c1");
@@ -54,9 +59,29 @@ const CreatePostScreen = (props) => {
     getLocation();
   }, [params]);
 
-  const takeImageHandler = async () => {
-    const imageUri = await takeImage();
-    setSelectedImage(imageUri);
+  const takeImageHandler = () => {
+    showActionSheetWithOptions(
+      {
+        options: ["Take Picture", "Choose from gallery", "Cancel"],
+        cancelButtonIndex: 2,
+        icons: [
+          <Ionicons name="md-camera" size={23} color="black" />,
+          <Ionicons name="md-image" size={23} color="black" />,
+          <Ionicons name="md-backspace" size={23} color="black" />,
+        ],
+        title: "Please select an option.",
+        titleTextStyle: {
+          fontFamily: "kanit-light",
+          fontSize: 20,
+        },
+      },
+      async (index) => {
+        if (index !== 2) {
+          const imageUri = await takeImage(index);
+          setSelectedImage(imageUri);
+        }
+      }
+    );
   };
 
   const pickLocationHandler = () => {
@@ -199,4 +224,4 @@ export const screenOptions = {
   },
 };
 
-export default CreatePostScreen;
+export default connectActionSheet(CreatePostScreen);

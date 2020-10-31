@@ -9,6 +9,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 import StartupScreen from "./screens/StartupScreen";
+import authReducer from "./store/reducers/auth";
 import postsReducer from "./store/reducers/posts";
 
 // remove setTimeout() warning
@@ -30,6 +31,7 @@ if (!firebase.apps.length) {
 }
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   posts: postsReducer,
 });
 
