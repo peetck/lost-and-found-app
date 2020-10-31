@@ -5,138 +5,42 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
+import SettingList from "../../../components/app/setting/SettingList"
 
 const SettingScreen = (props) => {
-  
   return (
     <View style={styles.screen}>
       <MyText style={{ color: "#0084ff", paddingTop: 15, fontSize: 13, fontFamily: "kanit-bold" }}>My Profile</MyText>
-      <View style={[styles.contentContainer,{flex: 1}]}>
-
-        <TouchableOpacity
-          style={styles.contentBox}
-
-          onPress={() => {
-             props.navigation.navigate("MyProfile"); }}
-
-          activeOpacity={0.6}
-        >
-          <Ionicons
-            name={"ios-person"}
-            size={25}
-            color="black"
-            style={styles.contentIcon}
-          />
-          <Text style={[styles.contentText]}>My Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.contentBox}
-
-           onPress={() => {
-             props.navigation.navigate("MyAccount");}}
-
-          activeOpacity={0.6}
-        >
-          <Ionicons
-            name={"md-clipboard"}
-            size={25}
-            color="black"
-            style={styles.contentIcon}
-          />
-          <Text style={styles.contentText}>Account</Text>
-        </TouchableOpacity>
-      </View >
-
-      <View style={[styles.contentContainer,{flex:1.7,paddingTop:25}]}>
-        <MyText style={{ color: "#0084ff", fontSize: 13, fontFamily: "kanit-bold" }}>App</MyText>
-        <TouchableOpacity
-          style={styles.contentBox}
-
-          onPress={() => {
-            props.navigation.navigate("SettingNotification");}}
-
-          activeOpacity={0.6}
-        >
-          <Ionicons
-            name={"ios-notifications"}
-            size={25}
-            color="black"
-            style={styles.contentIcon}
-          />
-          <Text style={styles.contentText}>Notification</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.contentBox}
-
-          onPress={() => {
-            props.navigation.navigate("SettingTheme");}}
-
-          activeOpacity={0.6}
-        >
-          <Ionicons
-            name={"ios-color-palette"}
-            size={25}
-            color="black"
-            style={styles.contentIcon}
-          />
-          <Text style={styles.contentText}>Theme</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.contentBox}
-
-          onPress={() => {
-            props.navigation.navigate("SettingLanguages");}}
-
-          activeOpacity={0.6}
-        >
-          <Ionicons
-            name={"ios-flag"}
-            size={25}
-            color="black"
-            style={styles.contentIcon}
-          />
-          <Text style={styles.contentText}>Languages</Text>
-        </TouchableOpacity>
-
+      <View style={[styles.contentContainer, { flex: 1 }]}>
+        <SettingList onPress={() => { props.navigation.navigate("MyProfile"); }}
+          IconName="ios-person"
+          SettingLabel="My profile" />
+        <SettingList onPress={() => { props.navigation.navigate("MyAccount"); }}
+          IconName="md-clipboard"
+          SettingLabel="Account" />
       </View>
 
-      <View style={{ flex: 4,paddingTop:25 }}>
+      <View style={[styles.contentContainer, { flex: 1.7, paddingTop: 25 }]}>
+        <MyText style={{ color: "#0084ff", fontSize: 13, fontFamily: "kanit-bold" }}>App</MyText>
+        <SettingList onPress={() => { props.navigation.navigate("SettingNotification"); }}
+          IconName="ios-notifications"
+          SettingLabel="Notification" />
+        <SettingList onPress={() => { props.navigation.navigate("SettingTheme"); }}
+          IconName="ios-color-palette"
+          SettingLabel="Theme" />
+        <SettingList onPress={() => { props.navigation.navigate("SettingLanguages"); }}
+          IconName="ios-flag"
+          SettingLabel="Languages" />
+      </View>
+
+      <View style={{ flex: 4, paddingTop: 25 }}>
         <MyText style={{ color: "#0084ff", fontSize: 13, fontFamily: "kanit-bold" }}>Lost & Found info</MyText>
-
-        <TouchableOpacity
-          style={styles.contentBox}
-
-          onPress={() => {
-            props.navigation.navigate("Help");}}
-
-          activeOpacity={0.6}
-        >
-          <Ionicons
-            name={"ios-help-circle-outline"}
-            size={25}
-            color="black"
-            style={styles.contentIcon}
-          />
-          <Text style={styles.contentText}>Help Center</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.contentBox}
-
-          onPress={() => {
-            props.navigation.navigate("About");}}
-
-          activeOpacity={0.6}
-        >
-          <Ionicons
-            name={"ios-information-circle-outline"}
-            size={25}
-            color="black"
-            style={styles.contentIcon}
-          />
-          <Text style={styles.contentText}>About Lost & Found</Text>
-        </TouchableOpacity>
-
+        <SettingList onPress={() => { props.navigation.navigate("Help"); }}
+          IconName="ios-help-circle-outline"
+          SettingLabel="Help Center" />
+        <SettingList onPress={() => { props.navigation.navigate("About"); }}
+          IconName="ios-information-circle-outline"
+          SettingLabel="About Lost & Found" />
       </View>
 
     </View>
@@ -169,23 +73,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "white",
   },
-
-  contentBox: {
-    flexDirection: "row",
-    alignItems: "center",
-
-
-  }, contentIcon: {
-    padding: 8,
-  },
-  contentText: {
-    paddingLeft: 10, fontSize: 15
-
-  },
   contentContainer: {
     borderBottomColor: 'grey',
     borderBottomWidth: 0.5
-
   }
 })
 

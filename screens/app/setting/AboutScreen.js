@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 const AboutScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <Text>About SCREEN</Text>
+      <Text>โดนบังคับทำ</Text>
     </View>
   );
 };

@@ -4,10 +4,14 @@ import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 
 
+import SettingItem from "../../../components/app/setting/SettingItem"
+
 const SettingThemeScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <Text>SettingTheme SCREEN</Text>
+      <SettingItem HeaderText="Change Theme" title="Theme" 
+        //onPress={() => { props.navigation.navigate(""); }}
+        />
     </View>
   );
 };
