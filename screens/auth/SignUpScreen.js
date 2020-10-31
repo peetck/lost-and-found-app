@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   View,
   StyleSheet,
-  Image,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
@@ -16,11 +15,11 @@ import Colors from "../../constants/Colors";
 import AuthHeader from "../../components/auth/AuthHeader";
 
 const SignUpScreen = (props) => {
-  const [nickName, setNickName] = useState("");
+  const [nickname, setNickname] = useState("");
 
   const signUpHandler = () => {
     props.navigation.navigate("NextSignUp", {
-      nickName: nickName,
+      nickname: nickname,
     });
   };
 
@@ -45,8 +44,8 @@ const SignUpScreen = (props) => {
           <View style={styles.textInputContainer}>
             <MyTextInput
               placeholder="Nickname"
-              onChangeText={setNickName}
-              value={nickName}
+              onChangeText={setNickname}
+              value={nickname}
             />
           </View>
 

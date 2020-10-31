@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 const HelpScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <Text>Help SCREEN</Text>
+      <Text>097-xxxxxxx Callcenter 24 Hr.</Text>
     </View>
   );
 };

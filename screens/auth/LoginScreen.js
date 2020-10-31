@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import Constants from "expo-constants";
-import firebase from "firebase";
+import { useDispatch } from "react-redux";
 
 import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import Colors from "../../constants/Colors";
 import AuthHeader from "../../components/auth/AuthHeader";
+import { login } from "../../store/actions/auth";
 
 const LoginScreen = (props) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -18,11 +20,11 @@ const LoginScreen = (props) => {
   const loginHandler = async () => {
     setIsLoading(true);
     try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
+      await dispatch(login(email, password));
     } catch (error) {
       // TODO: handler error
-      console.log(error);
       setIsLoading(false);
+      console.log(error);
     }
   };
 

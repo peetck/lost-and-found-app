@@ -4,10 +4,17 @@ import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 
 
+import SettingItem from "../../../components/app/setting/SettingItem"
+
 const SettingNotificationScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <Text>SettingNotification SCREEN</Text>
+     
+      <SettingItem HeaderText="Change notification sound" title="sound" 
+        //onPress={() => { props.navigation.navigate(""); }}
+        />
+         
+   
     </View>
   );
 };
@@ -18,7 +25,10 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 15,
     backgroundColor: "white",
-  },
+  },contentContainer: {
+    flex: 1,
+    alignItems: "center",
+  }
 });
 
 export const screenOptions = {

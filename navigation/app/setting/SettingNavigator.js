@@ -27,6 +27,15 @@ import AboutScreen, {
 import HelpScreen, {
   screenOptions as helpScreenOptions,
 } from "../../../screens/app/setting/HelpScreen";
+import NicknameScreen, {
+  screenOptions as nicknameScreenOptions,
+} from "../../../screens/app/setting/NicknameEdit";
+import ChangePasswordScreen, {
+  screenOptions as changePasswordScreenOptions,
+} from "../../../screens/app/setting/ChangePassword";
+import ChangeEmailScreen, {
+  screenOptions as ChangeEmailScreenOptions,
+} from "../../../screens/app/setting/ChangeEmail";
 
 const Stack = createStackNavigator();
 
@@ -72,6 +81,21 @@ const SettingNavigator = (props) => {
         name="Help"
         component={HelpScreen}
         options={helpScreenOptions}
+      />
+      <Stack.Screen
+      name="NicknameEdit"
+      component={NicknameScreen}
+      options={nicknameScreenOptions}
+      />
+      <Stack.Screen
+      name="ChangeEmail"
+      component={ChangeEmailScreen}
+      options={ChangeEmailScreenOptions}
+      />
+      <Stack.Screen
+      name="ChangePassword"
+      component={ChangePasswordScreen}
+      options={ChangeEmailScreenOptions}
       />
     </Stack.Navigator>
   );

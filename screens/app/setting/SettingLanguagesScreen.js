@@ -4,10 +4,14 @@ import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 
 
+import SettingItem from "../../../components/app/setting/SettingItem"
+
 const SettingLanguagesScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <Text>SettingLanguages SCREEN</Text>
+       <SettingItem HeaderText="Change Languages" title="lang" 
+        //onPress={() => { props.navigation.navigate(""); }}
+        />
     </View>
   );
 };
