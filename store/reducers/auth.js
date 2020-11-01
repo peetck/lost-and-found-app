@@ -1,9 +1,9 @@
-import { SET_USER } from "../actions/auth";
+import { LOGOUT, SET_USER } from "../actions/auth";
 
 const initialState = {
   email: "",
   nickname: "",
-  imageUrl: "",
+  imageUrl: null,
 };
 
 export default (state = initialState, action) => {
@@ -15,6 +15,10 @@ export default (state = initialState, action) => {
         email: userData.email,
         nickname: userData.nickname,
         imageUrl: userData.imageUrl,
+      };
+    case LOGOUT:
+      return {
+        ...initialState,
       };
     default:
       return state;
