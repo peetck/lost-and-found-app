@@ -1,6 +1,7 @@
 import firebase from "firebase";
 
 export const SET_USER = "SET_USER";
+export const LOGOUT = "LOGOUT";
 
 export const autoLogin = (user) => {
   return async (dispatch) => {
@@ -77,6 +78,15 @@ export const signUp = (email, password, nickname, image) => {
         nickname: nickname,
         imageUrl: imageUrl,
       },
+    });
+  };
+};
+
+export const logout = () => {
+  return async (dispatch) => {
+    await firebase.auth().signOut();
+    dispatch({
+      type: LOGOUT,
     });
   };
 };

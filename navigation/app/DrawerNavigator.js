@@ -6,7 +6,7 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
-import firebase from "firebase";
+import { useDispatch } from "react-redux";
 
 import MainNavigator, {
   navigatorOptions as mainNavigatorOptions,
@@ -15,10 +15,11 @@ import SettingNavigator, {
   navigatorOptions as settingNavigatorOptions,
 } from "./setting/SettingNavigator";
 import MyText from "../../components/UI/MyText";
+import { logout } from "../../store/actions/auth";
 
 const Drawer = createDrawerNavigator();
 
-const drawerContent = (props) => {
+const DrawerContent = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -31,9 +32,7 @@ const drawerContent = (props) => {
       <DrawerItemList {...props} />
       <DrawerItem
         label="Logout"
-        onPress={() => {
-          firebase.auth().signOut();
-        }}
+        onPress={props.onLogout}
         icon={({ size, color }) => (
           <Ionicons name="md-log-out" size={size} color={color} />
         )}
@@ -43,8 +42,18 @@ const drawerContent = (props) => {
 };
 
 const DrawerNavigator = (props) => {
+  const dispatch = useDispatch();
+
+  const logoutHandler = async () => {
+    await dispatch(logout());
+  };
+
   return (
-    <Drawer.Navigator drawerContent={drawerContent}>
+    <Drawer.Navigator
+      drawerContent={(props) => (
+        <DrawerContent {...props} onLogout={logoutHandler} />
+      )}
+    >
       <Drawer.Screen
         name="MainNavigator"
         component={MainNavigator}

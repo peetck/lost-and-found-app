@@ -13,19 +13,26 @@ import {
   useActionSheet,
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
+import { useDispatch } from "react-redux";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
 import MyTextInput from "../../../components/UI/MyTextInput";
 import CategoryList from "../../../components/app/main/CategoryList";
 import Colors from "../../../constants/Colors";
-import { takeImage, getCurrentPosition } from "../../../shared/utility";
+import {
+  takeImage,
+  takeImageActionSheetOptions,
+  getCurrentPosition,
+} from "../../../shared/utility";
+import { createPost } from "../../../store/actions/posts";
 
 const CreatePostScreen = (props) => {
+  const dispatch = useDispatch();
   const { showActionSheetWithOptions } = useActionSheet();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("c1");
+  const [categoryId, setCategoryId] = useState("c1");
   const [selectedImage, setSelectedImage] = useState();
   const [selectedLocation, setSelectedLocation] = useState();
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
@@ -60,28 +67,12 @@ const CreatePostScreen = (props) => {
   }, [params]);
 
   const takeImageHandler = () => {
-    showActionSheetWithOptions(
-      {
-        options: ["Take Picture", "Choose from gallery", "Cancel"],
-        cancelButtonIndex: 2,
-        icons: [
-          <Ionicons name="md-camera" size={23} color="black" />,
-          <Ionicons name="md-image" size={23} color="black" />,
-          <Ionicons name="md-backspace" size={23} color="black" />,
-        ],
-        title: "Please select an option.",
-        titleTextStyle: {
-          fontFamily: "kanit-light",
-          fontSize: 20,
-        },
-      },
-      async (index) => {
-        if (index !== 2) {
-          const imageUri = await takeImage(index);
-          setSelectedImage(imageUri);
-        }
+    showActionSheetWithOptions(takeImageActionSheetOptions, async (index) => {
+      if (index !== 2) {
+        const imageUri = await takeImage(index);
+        setSelectedImage(imageUri);
       }
-    );
+    });
   };
 
   const pickLocationHandler = () => {
@@ -94,15 +85,33 @@ const CreatePostScreen = (props) => {
     });
   };
 
-  const createPostHandler = useCallback(() => {
-    console.log({
-      title,
-      description,
-      category,
-      selectedImage,
-      selectedLocation,
-    });
-  }, [title, description, category, selectedImage, selectedLocation]);
+  const createPostHandler = useCallback(async () => {
+    if (!selectedImage) {
+      return;
+    }
+    try {
+      await dispatch(
+        createPost(
+          title,
+          description,
+          categoryId,
+          selectedImage,
+          selectedLocation,
+          new Date(Date.now() + 2 * (3600 * 1000 * 24)) // next 2 day
+        )
+      );
+      props.navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [
+    dispatch,
+    title,
+    description,
+    categoryId,
+    selectedImage,
+    selectedLocation,
+  ]);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -137,7 +146,7 @@ const CreatePostScreen = (props) => {
       </View>
 
       <View style={styles.categoryListContainer}>
-        <CategoryList inputMode onChange={setCategory} value={category} />
+        <CategoryList inputMode onChange={setCategoryId} value={categoryId} />
       </View>
 
       <TouchableOpacity

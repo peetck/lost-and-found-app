@@ -1,4 +1,4 @@
-import { SET_POSTS } from "../actions/posts";
+import { CREATE_POST, SET_POSTS } from "../actions/posts";
 
 const initialState = {
   posts: [],
@@ -10,6 +10,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         posts: action.posts,
+      };
+    case CREATE_POST:
+      const post = action.post;
+      return {
+        ...state,
+        posts: state.posts.concat(post),
       };
     default:
       return state;

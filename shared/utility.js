@@ -1,7 +1,24 @@
+import React from "react";
 import { Alert } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
+
+export const takeImageActionSheetOptions = {
+  options: ["Take Picture", "Choose from gallery", "Cancel"],
+  cancelButtonIndex: 2,
+  icons: [
+    <Ionicons name="md-camera" size={23} color="black" />,
+    <Ionicons name="md-image" size={23} color="black" />,
+    <Ionicons name="md-backspace" size={23} color="black" />,
+  ],
+  title: "Please select an option.",
+  titleTextStyle: {
+    fontFamily: "kanit-light",
+    fontSize: 20,
+  },
+};
 
 export const takeImage = async (index) => {
   const { status } = await Permissions.askAsync(
