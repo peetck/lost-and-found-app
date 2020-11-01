@@ -59,6 +59,9 @@ const MapScreen = (props) => {
   }, [selectedLocation]);
 
   useEffect(() => {
+    if (readonly) {
+      return;
+    }
     props.navigation.setOptions({
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={HeaderButton}>
@@ -84,13 +87,15 @@ const MapScreen = (props) => {
           <Marker title="Picked Location" coordinate={markerCoordinates} />
         )}
       </MapView>
-      <TouchableOpacity
-        activeOpacity={0.6}
-        onPress={getCurrentLocationHandler}
-        style={styles.button}
-      >
-        <MaterialIcons name="my-location" size={20} color="black" />
-      </TouchableOpacity>
+      {!readonly && (
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={getCurrentLocationHandler}
+          style={styles.button}
+        >
+          <MaterialIcons name="my-location" size={20} color="black" />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -121,7 +126,7 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  headerTitle: "Select location",
+  headerTitle: "Location",
 };
 
 export default MapScreen;

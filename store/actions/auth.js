@@ -15,6 +15,7 @@ export const autoLogin = (user) => {
     dispatch({
       type: SET_USER,
       userData: {
+        uid: user.uid,
         email: userData.email,
         nickname: userData.nickname,
         imageUrl: userData.imageUrl,
@@ -40,6 +41,7 @@ export const login = (email, password) => {
     dispatch({
       type: SET_USER,
       userData: {
+        uid: user.uid,
         email: userData.email,
         nickname: userData.nickname,
         imageUrl: userData.imageUrl,
@@ -74,6 +76,7 @@ export const signUp = (email, password, nickname, image) => {
     dispatch({
       type: SET_USER,
       userData: {
+        uid: user.uid,
         email: email,
         nickname: nickname,
         imageUrl: imageUrl,

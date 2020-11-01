@@ -1,10 +1,11 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   StyleSheet,
   Platform,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -21,9 +22,12 @@ const HomeScreen = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
   const posts = useSelector((state) => state.posts.posts);
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadPosts = useCallback(async () => {
-    await dispatch(fetchPosts());
+    setIsLoading(true);
+    await dispatch(fetchPosts(1000));
+    setIsLoading(false);
   }, [dispatch]);
 
   useEffect(() => {
@@ -65,10 +69,16 @@ const HomeScreen = (props) => {
 
       <View style={styles.listContainer}>
         <View style={styles.listContainerHeader}>
-          <MyText style={styles.title}>List of items</MyText>
+          <MyText style={styles.title}>Nearby items (1000 km)</MyText>
           <MyText style={styles.title}>See all</MyText>
         </View>
-        <PostList data={posts} navigation={props.navigation} />
+        {isLoading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={Colors.primary} />
+          </View>
+        ) : (
+          <PostList data={posts} navigation={props.navigation} />
+        )}
       </View>
     </View>
   );
@@ -112,6 +122,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingBottom: 15,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   searchIcon: {
     padding: 8,

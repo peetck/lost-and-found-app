@@ -1,70 +1,76 @@
 import React from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { useSelector } from "react-redux";
 
 const PostDetailScreen = (props) => {
+  const post = useSelector((state) => state.posts.posts).find(
+    (post) => post.id === props.route.params.postId
+  );
+
+  const pressLocationHandler = () => {
+    props.navigation.navigate("Map", {
+      readonly: true,
+      initialLocation: {
+        lat: post.lat,
+        long: post.long,
+      },
+    });
+  };
+
   return (
-    <View style={styles.screen}>
-      <View style={styles.framePicture}>
-        <View style={styles.picture}>{/* ใส่รูปภาพ */}</View>
+    <ScrollView style={styles.screen}>
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={{ uri: post.imageUrl }} />
       </View>
-      <View style={styles.frameContent}>
-        <Text>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type...
-        </Text>
+
+      <View style={styles.descriptionContainer}>
+        <Text>{post.description}</Text>
       </View>
-      <View style={styles.frameMap}>
-        <View style={styles.map}>{/* ใส่ google map */}</View>
-      </View>
-      <View style={styles.frameContent}>
-        <Text>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type...
-        </Text>
-      </View>
-    </View>
+
+      <TouchableOpacity
+        style={styles.imageContainer}
+        activeOpacity={0.6}
+        onPress={pressLocationHandler}
+      >
+        <Image style={styles.image} source={{ uri: post.mapUrl }} />
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-  },
-  framePicture: {
     backgroundColor: "white",
-    flex: 2,
+  },
+  imageContainer: {
+    justifyContent: "center",
     alignItems: "center",
+    height: 250,
+    borderRadius: 10,
   },
-  picture: {
-    backgroundColor: "#efbbcf",
-    width: "90%",
-    height: "85%",
-    marginTop: "5%",
+  image: {
+    width: "100%",
+    height: "100%",
   },
-  frameContent: {
-    backgroundColor: "white",
-    flex: 1,
-    padding: "5%",
-  },
-  frameMap: {
-    backgroundColor: "white",
-    flex: 2,
-    alignItems: "center",
-  },
-  map: {
-    width: "65%",
-    height: "95%",
-    backgroundColor: "#efbbcf",
-  },
+  descriptionContainer: {},
 });
 
-export const screenOptions = {
-  headerTitle: "Dummy Post detail",
-  headerTitleStyle: {
-    fontFamily: "kanit-light",
-  },
+export const screenOptions = (navData) => {
+  const { title } = navData.route.params;
+  return {
+    headerTitle: title,
+    headerTitleStyle: {
+      fontFamily: "kanit-light",
+    },
+  };
 };
 
 export default PostDetailScreen;
