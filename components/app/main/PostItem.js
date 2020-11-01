@@ -10,6 +10,16 @@ const PostItem = (props) => {
     (category) => category.id === props.categoryId
   ).color;
 
+  /* TODO */
+  const dateDiff = props.expirationDate.getTime() - new Date();
+
+  const totalMinutes = dateDiff / 1000 / 60;
+  var day = Math.floor(totalMinutes / 60 / 24);
+  var hours = Math.floor(totalMinutes / 60) % 24;
+  var minutes = totalMinutes % 60;
+
+  /* TODO */
+
   return (
     <TouchableOpacity
       style={styles.card}
@@ -29,11 +39,13 @@ const PostItem = (props) => {
         <View style={styles.cardStatus}>
           <View style={styles.leftStatusContainer}>
             <Ionicons size={15} color="white" name="md-locate" />
-            <MyText style={styles.statusText}>1.5 m</MyText>
+            <MyText style={styles.statusText}>xx m</MyText>
           </View>
           <View style={styles.rightStatusContainer}>
             <Ionicons size={15} color="white" name="md-time" />
-            <MyText style={styles.statusText}>45 min</MyText>
+            <MyText style={styles.statusText}>{`${day}d ${hours.toFixed(
+              0
+            )}h ${minutes.toFixed(0)}m`}</MyText>
           </View>
         </View>
       </View>
