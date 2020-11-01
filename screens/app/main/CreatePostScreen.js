@@ -19,7 +19,11 @@ import MyText from "../../../components/UI/MyText";
 import MyTextInput from "../../../components/UI/MyTextInput";
 import CategoryList from "../../../components/app/main/CategoryList";
 import Colors from "../../../constants/Colors";
-import { takeImage, getCurrentPosition } from "../../../shared/utility";
+import {
+  takeImage,
+  takeImageActionSheetOptions,
+  getCurrentPosition,
+} from "../../../shared/utility";
 
 const CreatePostScreen = (props) => {
   const { showActionSheetWithOptions } = useActionSheet();
@@ -60,28 +64,12 @@ const CreatePostScreen = (props) => {
   }, [params]);
 
   const takeImageHandler = () => {
-    showActionSheetWithOptions(
-      {
-        options: ["Take Picture", "Choose from gallery", "Cancel"],
-        cancelButtonIndex: 2,
-        icons: [
-          <Ionicons name="md-camera" size={23} color="black" />,
-          <Ionicons name="md-image" size={23} color="black" />,
-          <Ionicons name="md-backspace" size={23} color="black" />,
-        ],
-        title: "Please select an option.",
-        titleTextStyle: {
-          fontFamily: "kanit-light",
-          fontSize: 20,
-        },
-      },
-      async (index) => {
-        if (index !== 2) {
-          const imageUri = await takeImage(index);
-          setSelectedImage(imageUri);
-        }
+    showActionSheetWithOptions(takeImageActionSheetOptions, async (index) => {
+      if (index !== 2) {
+        const imageUri = await takeImage(index);
+        setSelectedImage(imageUri);
       }
-    );
+    });
   };
 
   const pickLocationHandler = () => {
