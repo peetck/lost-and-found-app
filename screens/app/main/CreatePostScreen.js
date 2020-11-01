@@ -41,7 +41,7 @@ const CreatePostScreen = (props) => {
   const setLocation = (location) => {
     setSelectedLocation({
       ...location,
-      imagePreviewUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
+      mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
         location.lat
       },${
         location.long
@@ -177,7 +177,7 @@ const CreatePostScreen = (props) => {
           {selectedLocation && (
             <Image
               style={styles.image}
-              source={{ uri: selectedLocation.imagePreviewUrl }}
+              source={{ uri: selectedLocation.mapUrl }}
             />
           )}
         </TouchableOpacity>

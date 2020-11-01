@@ -11,7 +11,10 @@ const PostList = (props) => {
       imageUrl={itemData.item.imageUrl}
       expirationDate={itemData.item.expirationDate}
       onPress={() => {
-        props.navigation.navigate("PostDetail");
+        props.navigation.navigate("PostDetail", {
+          postId: itemData.item.id,
+          title: itemData.item.title,
+        });
       }}
     />
   );
@@ -24,6 +27,9 @@ const PostList = (props) => {
       renderItem={renderItem}
       keyExtractor={keyExtractor}
       numColumns={2}
+      ListHeaderComponent={props.header}
+      onRefresh={props.onRefresh}
+      refreshing={props.refreshing}
     />
   );
 };

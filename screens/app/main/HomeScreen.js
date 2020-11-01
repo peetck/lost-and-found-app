@@ -1,10 +1,12 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   StyleSheet,
   Platform,
   TouchableOpacity,
   Image,
+  RefreshControl,
+  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -15,23 +17,26 @@ import MyText from "../../../components/UI/MyText";
 import PostList from "../../../components/app/main/PostList";
 import Colors from "../../../constants/Colors";
 import HeaderButton from "../../../components/UI/HeaderButton";
-import { fetchPosts } from "../../../store/actions/posts";
+import { fetchAllPosts } from "../../../store/actions/posts";
 
 const HomeScreen = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
   const posts = useSelector((state) => state.posts.posts);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const loadPosts = useCallback(async () => {
-    await dispatch(fetchPosts());
+    setIsRefreshing(true);
+    await dispatch(fetchAllPosts(1000));
+    setIsRefreshing(false);
   }, [dispatch]);
 
   useEffect(() => {
     loadPosts();
   }, [loadPosts]);
 
-  return (
-    <View style={styles.screen}>
+  const header = (
+    <View style={styles.headerContainer}>
       <View style={styles.userContainer}>
         <Image
           style={styles.userImage}
@@ -63,22 +68,28 @@ const HomeScreen = (props) => {
 
       <CategoryList />
 
-      <View style={styles.listContainer}>
-        <View style={styles.listContainerHeader}>
-          <MyText style={styles.title}>List of items</MyText>
-          <MyText style={styles.title}>See all</MyText>
-        </View>
-        <PostList data={posts} navigation={props.navigation} />
+      <View style={styles.titleContainer}>
+        <MyText style={styles.title}>Nearby items (1000 km)</MyText>
+        <MyText style={styles.title}>See all</MyText>
       </View>
     </View>
+  );
+
+  return (
+    <PostList
+      data={posts}
+      navigation={props.navigation}
+      header={header}
+      onRefresh={loadPosts}
+      refreshing={isRefreshing}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
+  headerContainer: {
     flex: 1,
     paddingHorizontal: 15,
-    backgroundColor: "white",
   },
   userContainer: {
     flexDirection: "row",
@@ -104,14 +115,16 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 25,
   },
-  listContainer: {
+  titleContainer: {
     flex: 1,
-    paddingVertical: 20,
-  },
-  listContainerHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingBottom: 15,
+    paddingVertical: 20,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   searchIcon: {
     padding: 8,
@@ -139,6 +152,9 @@ export const screenOptions = (navData) => {
     headerTitle: "Home",
     headerTitleStyle: {
       fontFamily: "kanit-light",
+    },
+    cardStyle: {
+      backgroundColor: "white",
     },
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
