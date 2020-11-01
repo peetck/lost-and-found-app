@@ -13,7 +13,7 @@ import {
   useActionSheet,
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
@@ -29,7 +29,6 @@ import { createPost } from "../../../store/actions/posts";
 
 const CreatePostScreen = (props) => {
   const dispatch = useDispatch();
-  const uid = useSelector((state) => state.auth.uid);
   const { showActionSheetWithOptions } = useActionSheet();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -98,8 +97,7 @@ const CreatePostScreen = (props) => {
           categoryId,
           selectedImage,
           selectedLocation,
-          new Date(Date.now() + 2 * (3600 * 1000 * 24)), // next 2 day
-          uid
+          new Date(Date.now() + 2 * (3600 * 1000 * 24)) // next 2 day
         )
       );
       props.navigation.goBack();

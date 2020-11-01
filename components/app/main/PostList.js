@@ -27,6 +27,9 @@ const PostList = (props) => {
       renderItem={renderItem}
       keyExtractor={keyExtractor}
       numColumns={2}
+      ListHeaderComponent={props.header}
+      onRefresh={props.onRefresh}
+      refreshing={props.refreshing}
     />
   );
 };

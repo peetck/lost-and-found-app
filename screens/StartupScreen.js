@@ -8,21 +8,21 @@ import { useDispatch } from "react-redux";
 import AuthNavigator from "../navigation/auth/AuthNavigator";
 import DrawerNavigator from "../navigation/app/DrawerNavigator";
 import Colors from "../constants/Colors";
-import { autoLogin } from "../store/actions/auth";
+import { loginSuccess } from "../store/actions/auth";
 
 const StartupScreen = (props) => {
   const dispatch = useDispatch();
   const [isAuth, setIsAuth] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  let init = true;
 
   useEffect(() => {
-    let init = true;
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       setIsLoading(true);
       if (user) {
         if (init) {
-          // if login success from auto login
-          await dispatch(autoLogin(user));
+          // if firebase autologin success -> fetch user data
+          await dispatch(loginSuccess());
           init = false;
         }
         setIsAuth(true);

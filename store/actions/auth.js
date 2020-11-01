@@ -3,19 +3,15 @@ import firebase from "firebase";
 export const SET_USER = "SET_USER";
 export const LOGOUT = "LOGOUT";
 
-export const autoLogin = (user) => {
+export const loginSuccess = () => {
   return async (dispatch) => {
-    const ref = await firebase
-      .firestore()
-      .collection("users")
-      .doc(user.uid)
-      .get();
+    const uid = firebase.auth().currentUser.uid;
+    const ref = await firebase.firestore().collection("users").doc(uid).get();
     const userData = ref.data();
 
     dispatch({
       type: SET_USER,
       userData: {
-        uid: user.uid,
         email: userData.email,
         nickname: userData.nickname,
         imageUrl: userData.imageUrl,
@@ -26,27 +22,8 @@ export const autoLogin = (user) => {
 
 export const login = (email, password) => {
   return async (dispatch) => {
-    const { user } = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
-
-    const ref = await firebase
-      .firestore()
-      .collection("users")
-      .doc(user.uid)
-      .get();
-
-    const userData = ref.data();
-
-    dispatch({
-      type: SET_USER,
-      userData: {
-        uid: user.uid,
-        email: userData.email,
-        nickname: userData.nickname,
-        imageUrl: userData.imageUrl,
-      },
-    });
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    dispatch(loginSuccess());
   };
 };
 
@@ -73,15 +50,7 @@ export const signUp = (email, password, nickname, image) => {
       imageUrl: imageUrl,
     });
 
-    dispatch({
-      type: SET_USER,
-      userData: {
-        uid: user.uid,
-        email: email,
-        nickname: nickname,
-        imageUrl: imageUrl,
-      },
-    });
+    dispatch(loginSuccess());
   };
 };
 

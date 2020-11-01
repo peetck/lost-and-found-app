@@ -5,12 +5,14 @@ import * as geofirestore from "geofirestore";
 import { getCurrentPosition } from "../../shared/utility";
 
 export const SET_POSTS = "SET_POSTS";
+export const SET_MY_POSTS = "SET_MY_POSTS";
 export const CREATE_POST = "CREATE_POST";
 
-export const fetchPosts = (radius) => {
+export const fetchAllPosts = (radius) => {
   return async (dispatch) => {
     const posts = [];
 
+    // current user location
     const currentPosition = await getCurrentPosition();
 
     const firestore = firebase.firestore();
@@ -52,16 +54,53 @@ export const fetchPosts = (radius) => {
   };
 };
 
+export const fetchMyPosts = () => {
+  return async (dispatch) => {
+    const uid = firebase.auth().currentUser.uid;
+    const response = await firebase
+      .firestore()
+      .collection("posts")
+      .where("uid", "==", uid)
+      .get();
+
+    const myPosts = [];
+
+    response.forEach((post) => {
+      const id = post.id;
+      const data = post.data();
+      myPosts.push(
+        new Post(
+          id,
+          data.title,
+          data.description,
+          data.categoryId,
+          data.imageUrl,
+          data.mapUrl,
+          data.coordinates.latitude,
+          data.coordinates.longitude,
+          new Date(data.expirationDate),
+          data.uid
+        )
+      );
+    });
+
+    dispatch({
+      type: SET_MY_POSTS,
+      myPosts: myPosts,
+    });
+  };
+};
+
 export const createPost = (
   title,
   description,
   categoryId,
   selectedImage,
   selectedLocation,
-  expirationDate,
-  uid
+  expirationDate
 ) => {
   return async (dispatch) => {
+    const uid = firebase.auth().currentUser.uid;
     const firestore = firebase.firestore();
     const geoFirestore = geofirestore.initializeApp(firestore);
     const postsCollection = geoFirestore.collection("posts");
@@ -75,7 +114,7 @@ export const createPost = (
       ),
       mapUrl: selectedLocation.mapUrl,
       expirationDate: expirationDate.toISOString(),
-      uid: uid,
+      uid,
     });
 
     const ref = firebase.storage().ref().child("posts");
