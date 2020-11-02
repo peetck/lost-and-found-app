@@ -4,7 +4,17 @@ import { TouchableOpacity, StyleSheet, Text, View, Button } from "react-native";
 
 import MyText from "../../../components/UI/MyText";
 
+
 const SettingItem = (props) => {
+
+    var defaultColor = '#0084ff';
+
+
+    if (props.color != 'default'){
+        defaultColor = props.color;
+    }
+
+
     return (
     <View style={styles.MainBox}>
         <MyText style={styles.header}>{props.HeaderText}</MyText>
@@ -13,9 +23,9 @@ const SettingItem = (props) => {
             onPress={props.onPress}
             activeOpacity={0.6}>
             <MyText style={styles.contentText}>{props.title}</MyText>
-            <View style={styles.ButtonLayout}>
+            {/*}<View style={styles.ButtonLayout}>
                 <Button title="edit" />
-            </View>
+            </View>{*/}
         </TouchableOpacity>
     </View>
     );
@@ -25,7 +35,7 @@ const SettingItem = (props) => {
 
 const styles = StyleSheet.create({
     header: {
-        color: "#0084ff",
+        color: defaultColor ,
         paddingTop: 15,
         fontSize: 13,
         fontFamily: "kanit-bold"
