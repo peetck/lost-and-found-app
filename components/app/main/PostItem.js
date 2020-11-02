@@ -1,12 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import MyText from "../../UI/MyText";
-import { CATEGORIES } from "../../../constants/Categories";
 
 const PostItem = (props) => {
-  const bgColor = CATEGORIES.find(
+  const categories = useSelector((state) => state.categories.categories);
+
+  const bgColor = categories.find(
     (category) => category.id === props.categoryId
   ).color;
 

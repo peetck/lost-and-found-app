@@ -7,30 +7,38 @@ import { useDispatch } from "react-redux";
 
 import AuthNavigator from "../navigation/auth/AuthNavigator";
 import DrawerNavigator from "../navigation/app/DrawerNavigator";
-import Colors from "../constants/Colors";
+import colors from "../shared/colors";
 import { loginSuccess } from "../store/actions/auth";
+import { fetchCategories } from "../store/actions/categories";
 
 const StartupScreen = (props) => {
   const dispatch = useDispatch();
   const [isAuth, setIsAuth] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  let init = true;
+  let isAutoLogin = true;
+
+  const loadCategories = async () => {
+    await dispatch(fetchCategories());
+  };
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       setIsLoading(true);
       if (user) {
-        if (init) {
+        if (isAutoLogin) {
           // if firebase autologin success -> fetch user data
           await dispatch(loginSuccess());
-          init = false;
         }
         setIsAuth(true);
       } else {
         setIsAuth(false);
       }
       setIsLoading(false);
+      isAutoLogin = false;
     });
+
+    loadCategories();
+
     // clean up function
     return () => unsubscribe();
   }, []);
@@ -38,7 +46,7 @@ const StartupScreen = (props) => {
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color={Colors.primary} />
+        <ActivityIndicator size="large" color={colors.primary} />
       </View>
     );
   }

@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
-import Colors from "../../constants/Colors";
+import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
 import { login } from "../../store/actions/auth";
 
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   switchToSignUpText: {
     fontFamily: "kanit-bold",
-    color: Colors.grey,
+    color: colors.grey,
     fontSize: 20,
   },
 });

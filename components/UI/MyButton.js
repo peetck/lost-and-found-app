@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import MyText from "./MyText";
-import Colors from "../../constants/Colors";
+import Colors from "../../shared/colors";
 
 const MyButton = (props) => {
   if (props.loading) {

@@ -5,7 +5,7 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
-import { getCurrentPosition } from "../../../shared/utility";
+import { getCurrentPosition } from "../../../shared/utils";
 
 const MapScreen = (props) => {
   const { initialLocation, readonly } = props.route.params;
