@@ -17,7 +17,14 @@ const SettingItem = (props) => {
 
     return (
     <View style={styles.MainBox}>
-        <MyText style={styles.header}>{props.HeaderText}</MyText>
+        <MyText style={{
+            color:  defaultColor,
+            paddingTop: 15,
+            fontSize: 13,
+            fontFamily: "kanit-bold"
+        }}>
+            {props.HeaderText}
+        </MyText>
         <TouchableOpacity
             style={styles.contentBox}
             onPress={props.onPress}

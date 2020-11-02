@@ -24,13 +24,13 @@ const MyProfileScreen = (props) => {
         </View>
 
         <SettingItem HeaderText="Nickname" title="Picnic" 
-        onPress={() => { props.navigation.navigate("NicknameEdit"); }}/>
+        onPress={() => { props.navigation.navigate("NicknameEdit"); }} color = 'default' />
         <SettingItem HeaderText="Tel" title="081 000 0000" 
-        onPress={() => { }}/>
+        onPress={() => { }} color = 'default' />
         <SettingItem HeaderText="Email" title="example@hotmail.com" 
-        onPress={() => { }}/>
+        onPress={() => { }} color = 'default' />
         <SettingItem HeaderText="Birthday" title="01-05-2000" 
-        onPress={() => { }}/>
+        onPress={() => { }} color = 'default' />
         
       </ScrollView>
     </View>

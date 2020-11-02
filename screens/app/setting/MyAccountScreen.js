@@ -21,8 +21,8 @@ const MyAccountScreen = (props) => {
         onPress={() => { props.navigation.navigate("ChangeEmail"); }} color = 'default' />
       <SettingItem HeaderText="Change Password" title="Registered" 
         onPress={() => { props.navigation.navigate("ChangePassword"); }} color = 'default' />
-      <SettingItem HeaderText="Delete Account" title="Registered" 
-        onPress={() => { }} color = 'default' />
+      <SettingItem HeaderText="Delete Account" title="Delete" 
+        onPress={() => { }} color = 'red' />
       </View>
       
       </ScrollView>
