@@ -9,7 +9,8 @@ class Post {
     lat,
     long,
     expirationDate,
-    uid
+    uid,
+    distance
   ) {
     this.id = id;
     this.categoryId = categoryId;
@@ -21,6 +22,7 @@ class Post {
     this.long = long;
     this.expirationDate = expirationDate;
     this.uid = uid;
+    this.distance = distance;
   }
 }
 

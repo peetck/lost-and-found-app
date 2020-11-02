@@ -42,10 +42,13 @@ export const fetchAllPosts = (radius) => {
           data.coordinates.latitude,
           data.coordinates.longitude,
           new Date(data.expirationDate),
-          data.uid
+          data.uid,
+          post.distance
         )
       );
     });
+
+    posts.sort((postA, postB) => postA.distance - postB.distance);
 
     dispatch({
       type: SET_POSTS,
@@ -79,7 +82,8 @@ export const fetchMyPosts = () => {
           data.coordinates.latitude,
           data.coordinates.longitude,
           new Date(data.expirationDate),
-          data.uid
+          data.uid,
+          null
         )
       );
     });
@@ -143,7 +147,8 @@ export const createPost = (
         selectedLocation.lat,
         selectedLocation.long,
         expirationDate,
-        uid
+        uid,
+        null
       ),
     });
   };
