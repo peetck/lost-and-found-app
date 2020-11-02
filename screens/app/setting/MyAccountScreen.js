@@ -15,11 +15,16 @@ const MyAccountScreen = (props) => {
     <View style={styles.screen}>
       <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.contentContainer}>
-      <SettingItem HeaderText="Change Email" title="email" 
-        onPress={() => { props.navigation.navigate("ChangeEmail"); }}/>
-         <SettingItem HeaderText="Change Password" title="pass" 
-        onPress={() => { props.navigation.navigate("ChangePassword"); }}/>
+      <SettingItem HeaderText="Tel" title="081 000 0000" 
+        onPress={() => { }} color = 'default' />
+      <SettingItem HeaderText="Change Email" title="Registered" 
+        onPress={() => { props.navigation.navigate("ChangeEmail"); }} color = 'default' />
+      <SettingItem HeaderText="Change Password" title="Registered" 
+        onPress={() => { props.navigation.navigate("ChangePassword"); }} color = 'default' />
+      <SettingItem HeaderText="Delete Account" title="Delete" 
+        onPress={() => { }} color = 'red' />
       </View>
+      
       </ScrollView>
     </View>
   );
@@ -34,7 +39,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    alignItems: "center",
   }
   
 });

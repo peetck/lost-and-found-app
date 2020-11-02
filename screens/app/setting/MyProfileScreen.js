@@ -22,9 +22,15 @@ const MyProfileScreen = (props) => {
                 uri: pickedImage}}/>
           </TouchableOpacity>
         </View>
-        
-        <SettingItem HeaderText="Edit Nickname" title="Picnic" 
-        onPress={() => { props.navigation.navigate("NicknameEdit"); }}/>
+
+        <SettingItem HeaderText="Nickname" title="Picnic" 
+        onPress={() => { props.navigation.navigate("NicknameEdit"); }} color = 'default' />
+        <SettingItem HeaderText="Tel" title="081 000 0000" 
+        onPress={() => { }} color = 'default' />
+        <SettingItem HeaderText="Email" title="example@hotmail.com" 
+        onPress={() => { }} color = 'default' />
+        <SettingItem HeaderText="Birthday" title="01-05-2000" 
+        onPress={() => { }} color = 'default' />
         
       </ScrollView>
     </View>

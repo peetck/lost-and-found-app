@@ -11,7 +11,7 @@ const SettingList = (props) => {
             <Ionicons
                 name={props.IconName}
                 size={25}
-                color="black"
+                color="black" 
                 style={styles.contentIcon}/>
             <Text style={styles.contentText}>{props.SettingLabel}</Text>
         </TouchableOpacity>)
