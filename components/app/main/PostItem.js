@@ -14,13 +14,22 @@ const PostItem = (props) => {
 
   /* TODO */
   const dateDiff = props.expirationDate.getTime() - new Date();
+  const totalMinutes = Math.floor(dateDiff / 1000 / 60);
 
-  const totalMinutes = dateDiff / 1000 / 60;
-  var day = Math.floor(totalMinutes / 60 / 24);
-  var hours = Math.floor(totalMinutes / 60) % 24;
-  var minutes = totalMinutes % 60;
+  const day = Math.floor(totalMinutes / 60 / 24);
+  const hours = Math.floor(totalMinutes / 60) % 24;
+  const minutes = totalMinutes % 60;
+
+  const countdownText = `${day !== 0 ? day + "d" : ""} ${
+    day === 0 ? hours + "h" : ""
+  } ${hours === 0 ? minutes + "m" : ""}`;
 
   /* TODO */
+
+  const meterText =
+    props.distance || props.distance === 0
+      ? `${Math.floor(props.distance * 1000)}m`
+      : "";
 
   return (
     <TouchableOpacity
@@ -40,14 +49,15 @@ const PostItem = (props) => {
 
         <View style={styles.cardStatus}>
           <View style={styles.leftStatusContainer}>
-            <Ionicons size={15} color="white" name="md-locate" />
-            <MyText style={styles.statusText}>xx m</MyText>
+            {(props.distance || props.distance === 0) && (
+              <Ionicons size={15} color="white" name="md-locate" />
+            )}
+
+            <MyText style={styles.statusText}>{meterText}</MyText>
           </View>
           <View style={styles.rightStatusContainer}>
             <Ionicons size={15} color="white" name="md-time" />
-            <MyText style={styles.statusText}>{`${day}d ${hours.toFixed(
-              0
-            )}h ${minutes.toFixed(0)}m`}</MyText>
+            <MyText style={styles.statusText}>{countdownText}</MyText>
           </View>
         </View>
       </View>
