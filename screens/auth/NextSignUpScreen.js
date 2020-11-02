@@ -16,7 +16,7 @@ import {
 import MyTextInput from "../../components/UI/MyTextInput";
 import MyButton from "../../components/UI/MyButton";
 import AuthHeader from "../../components/auth/AuthHeader";
-import { takeImage, takeImageActionSheetOptions } from "../../shared/utility";
+import { takeImage, takeImageActionSheetOptions } from "../../shared/utils";
 import { signUp } from "../../store/actions/auth";
 
 const NextSignUpScreen = (props) => {

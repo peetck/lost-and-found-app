@@ -14,22 +14,22 @@ const StartupScreen = (props) => {
   const dispatch = useDispatch();
   const [isAuth, setIsAuth] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  let init = true;
+  let isAutoLogin = true;
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       setIsLoading(true);
       if (user) {
-        if (init) {
+        if (isAutoLogin) {
           // if firebase autologin success -> fetch user data
           await dispatch(loginSuccess());
-          init = false;
         }
         setIsAuth(true);
       } else {
         setIsAuth(false);
       }
       setIsLoading(false);
+      isAutoLogin = false;
     });
     // clean up function
     return () => unsubscribe();

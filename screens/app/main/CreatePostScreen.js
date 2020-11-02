@@ -24,7 +24,7 @@ import {
   takeImage,
   takeImageActionSheetOptions,
   getCurrentPosition,
-} from "../../../shared/utility";
+} from "../../../shared/utils";
 import { createPost } from "../../../store/actions/posts";
 
 const CreatePostScreen = (props) => {
