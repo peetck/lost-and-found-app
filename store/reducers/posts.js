@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
       const post = action.post;
       return {
         ...state,
-        myPosts: state.myPosts.concat(post),
+        myPosts: [post, ...state.myPosts],
       };
     default:
       return state;

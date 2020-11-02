@@ -5,17 +5,16 @@ import {
   Platform,
   TouchableOpacity,
   Image,
-  RefreshControl,
-  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useIsFocused } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 
 import CategoryList from "../../../components/app/main/CategoryList";
 import MyText from "../../../components/UI/MyText";
 import PostList from "../../../components/app/main/PostList";
-import Colors from "../../../constants/Colors";
+import colors from "../../../shared/colors";
 import HeaderButton from "../../../components/UI/HeaderButton";
 import { fetchAllPosts } from "../../../store/actions/posts";
 
@@ -24,19 +23,24 @@ const HomeScreen = (props) => {
   const user = useSelector((state) => state.auth);
   const posts = useSelector((state) => state.posts.posts);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const isFocused = useIsFocused();
 
   const loadPosts = useCallback(async () => {
-    setIsRefreshing(true);
-    await dispatch(fetchAllPosts(1000));
-    setIsRefreshing(false);
+    await dispatch(fetchAllPosts(10));
   }, [dispatch]);
 
   useEffect(() => {
     loadPosts();
-  }, [loadPosts]);
+  }, [loadPosts, isFocused]);
+
+  const onRefresh = async () => {
+    setIsRefreshing(true);
+    await loadPosts();
+    setIsRefreshing(false);
+  };
 
   const header = (
-    <View style={styles.headerContainer}>
+    <View>
       <View style={styles.userContainer}>
         <Image
           style={styles.userImage}
@@ -69,27 +73,29 @@ const HomeScreen = (props) => {
       <CategoryList />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Nearby items (1000 km)</MyText>
-        <MyText style={styles.title}>See all</MyText>
+        <MyText style={styles.title}>Nearby items (10 km)</MyText>
       </View>
     </View>
   );
 
   return (
-    <PostList
-      data={posts}
-      navigation={props.navigation}
-      header={header}
-      onRefresh={loadPosts}
-      refreshing={isRefreshing}
-    />
+    <View style={styles.screen}>
+      <PostList
+        data={posts}
+        navigation={props.navigation}
+        header={header}
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  headerContainer: {
+  screen: {
     flex: 1,
     paddingHorizontal: 15,
+    backgroundColor: "white",
   },
   userContainer: {
     flexDirection: "row",
@@ -110,7 +116,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: Colors.lightGrey,
+    backgroundColor: colors.lightGrey,
     borderRadius: 10,
     marginTop: 25,
     marginBottom: 25,
@@ -143,7 +149,7 @@ const styles = StyleSheet.create({
     fontFamily: "kanit",
   },
   email: {
-    color: Colors.grey,
+    color: colors.grey,
   },
 });
 
@@ -152,9 +158,6 @@ export const screenOptions = (navData) => {
     headerTitle: "Home",
     headerTitleStyle: {
       fontFamily: "kanit-light",
-    },
-    cardStyle: {
-      backgroundColor: "white",
     },
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>

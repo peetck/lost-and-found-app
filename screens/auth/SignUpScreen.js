@@ -11,7 +11,7 @@ import { CardStyleInterpolators } from "@react-navigation/stack";
 import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
-import Colors from "../../constants/Colors";
+import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
 
 const SignUpScreen = (props) => {
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   switchToLoginText: {
     fontFamily: "kanit-bold",
-    color: Colors.grey,
+    color: colors.grey,
     fontSize: 20,
   },
 });

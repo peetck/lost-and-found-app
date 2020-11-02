@@ -1,22 +1,38 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 import MyText from "../../UI/MyText";
-import { CATEGORIES } from "../../../constants/Categories";
 
 const CategoryList = (props) => {
+  const categories = useSelector((state) => state.categories.categories);
+
+  const { inputMode, many, onChange } = props;
+  let { value } = props;
+
   const buildCategory = (id, title, color) => {
-    if (props.inputMode) {
+    if (inputMode) {
       return (
         <TouchableOpacity
           key={title}
           style={styles.categoryContainer}
           activeOpacity={0.6}
-          onPress={() => props.onChange(id)}
+          onPress={() => {
+            if (many) {
+              if (value.includes(id)) {
+                value = value.filter((eachId) => eachId !== id);
+              } else {
+                value = value.concat(id);
+              }
+              onChange(value);
+            } else {
+              onChange(id);
+            }
+          }}
         >
           <View style={{ ...styles.rectangle, backgroundColor: color }}>
-            {props.value === id && (
+            {(many ? value.includes(id) : value === id) && (
               <Ionicons name="md-checkmark-circle" size={23} color="white" />
             )}
           </View>
@@ -33,13 +49,13 @@ const CategoryList = (props) => {
     );
   };
 
-  const topContent = CATEGORIES.slice(0, 3).map((item) =>
-    buildCategory(item.id, item.title, item.color)
-  );
+  const topContent = categories
+    .slice(0, 3)
+    .map((item) => buildCategory(item.id, item.title, item.color));
 
-  const bottomContent = CATEGORIES.slice(3).map((item) =>
-    buildCategory(item.id, item.title, item.color)
-  );
+  const bottomContent = categories
+    .slice(3)
+    .map((item) => buildCategory(item.id, item.title, item.color));
 
   return (
     <View>

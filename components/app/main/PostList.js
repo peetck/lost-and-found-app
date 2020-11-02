@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import PostItem from "./PostItem";
 
@@ -30,8 +30,16 @@ const PostList = (props) => {
       ListHeaderComponent={props.header}
       onRefresh={props.onRefresh}
       refreshing={props.refreshing}
+      style={styles.list}
+      showsVerticalScrollIndicator={false}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  list: {
+    backgroundColor: "white",
+  },
+});
 
 export default PostList;

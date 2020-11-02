@@ -11,6 +11,7 @@ import "firebase/firestore";
 import StartupScreen from "./screens/StartupScreen";
 import authReducer from "./store/reducers/auth";
 import postsReducer from "./store/reducers/posts";
+import categoriesReducer from "./store/reducers/categories";
 
 // remove setTimeout() warning
 YellowBox.ignoreWarnings(["Setting a timer"]);
@@ -33,6 +34,7 @@ if (!firebase.apps.length) {
 const rootReducer = combineReducers({
   auth: authReducer,
   posts: postsReducer,
+  categories: categoriesReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

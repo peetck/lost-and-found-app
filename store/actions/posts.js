@@ -1,8 +1,8 @@
 import firebase from "firebase";
-import Post from "../../models/post";
 import * as geofirestore from "geofirestore";
 
 import { getCurrentPosition } from "../../shared/utils";
+import Post from "../../models/post";
 
 export const SET_POSTS = "SET_POSTS";
 export const SET_MY_POSTS = "SET_MY_POSTS";

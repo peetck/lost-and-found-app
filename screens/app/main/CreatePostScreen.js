@@ -13,13 +13,13 @@ import {
   useActionSheet,
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
 import MyTextInput from "../../../components/UI/MyTextInput";
 import CategoryList from "../../../components/app/main/CategoryList";
-import Colors from "../../../constants/Colors";
+import colors from "../../../shared/colors";
 import {
   takeImage,
   takeImageActionSheetOptions,
@@ -32,13 +32,23 @@ const CreatePostScreen = (props) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [categoryId, setCategoryId] = useState("c1");
+  const initialCategoryId = useSelector(
+    (state) => state.categories.categories[0].id
+  );
+  const [categoryId, setCategoryId] = useState(initialCategoryId);
   const [selectedImage, setSelectedImage] = useState();
   const [selectedLocation, setSelectedLocation] = useState();
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
   const { params } = props.route;
 
-  const setLocation = (location) => {
+  const getLocation = async () => {
+    setIsLoadingLocation(true);
+    let location;
+    if (params) {
+      location = params.location;
+    } else if (!selectedLocation) {
+      location = await getCurrentPosition();
+    }
     setSelectedLocation({
       ...location,
       mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
@@ -49,20 +59,10 @@ const CreatePostScreen = (props) => {
         location.lat
       },${location.long}&key=${"AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs"}`,
     });
+    setIsLoadingLocation(false);
   };
 
   useEffect(() => {
-    const getLocation = async () => {
-      setIsLoadingLocation(true);
-      let location;
-      if (params) {
-        location = params.location;
-      } else if (!selectedLocation) {
-        location = await getCurrentPosition();
-      }
-      setLocation(location);
-      setIsLoadingLocation(false);
-    };
     getLocation();
   }, [params]);
 
@@ -166,7 +166,7 @@ const CreatePostScreen = (props) => {
 
       {isLoadingLocation ? (
         <View style={styles.inputContainer}>
-          <ActivityIndicator size="large" color={Colors.primary} />
+          <ActivityIndicator size="large" color={colors.primary} />
         </View>
       ) : (
         <TouchableOpacity
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     height: 200,
     borderRadius: 10,
-    backgroundColor: Colors.lightGrey,
+    backgroundColor: colors.lightGrey,
   },
   center: {
     justifyContent: "center",

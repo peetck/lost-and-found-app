@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 
-import Colors from "../../constants/Colors";
+import colors from "../../shared/colors";
 import MyText from "../UI/MyText";
 
 const MyTextInput = (props) => {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: Colors.grey,
+    borderBottomColor: colors.grey,
     fontSize: 15,
   },
   errorText: {
