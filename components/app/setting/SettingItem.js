@@ -7,7 +7,7 @@ import MyText from "../../../components/UI/MyText";
 
 const SettingItem = (props) => {
 
-    var defaultColor = '#0084ff';
+    let defaultColor = '#0084ff';
 
 
     if (props.color != 'default'){
@@ -35,7 +35,7 @@ const SettingItem = (props) => {
 
 const styles = StyleSheet.create({
     header: {
-        color: defaultColor ,
+        color:  "#0084ff",
         paddingTop: 15,
         fontSize: 13,
         fontFamily: "kanit-bold"
