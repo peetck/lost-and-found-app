@@ -1,13 +1,11 @@
 import React, { useEffect, useCallback } from "react";
 import { View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import PostList from "../../../components/app/main/PostList";
 import { fetchMyPosts } from "../../../store/actions/posts";
 import MyText from "../../../components/UI/MyText";
 import CategoryList from "../../../components/app/main/CategoryList";
-import HeaderButton from "../../../components/UI/HeaderButton";
 
 const MyPostsScreen = (props) => {
   const dispatch = useDispatch();

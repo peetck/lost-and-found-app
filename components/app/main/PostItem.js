@@ -4,32 +4,42 @@ import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import MyText from "../../UI/MyText";
+import colors from "../../../shared/colors";
 
 const PostItem = (props) => {
   const categories = useSelector((state) => state.categories.categories);
 
-  const bgColor = categories.find(
+  const dateDiff = props.expirationDate.getTime() - new Date();
+
+  const bgColor = dateDiff > 0 ? categories.find(
     (category) => category.id === props.categoryId
-  ).color;
+  ).color : colors.grey;
 
   /* TODO */
-  const dateDiff = props.expirationDate.getTime() - new Date();
+
   const totalMinutes = Math.floor(dateDiff / 1000 / 60);
 
   const day = Math.floor(totalMinutes / 60 / 24);
   const hours = Math.floor(totalMinutes / 60) % 24;
   const minutes = totalMinutes % 60;
 
-  const countdownText = `${day !== 0 ? day + "d" : ""} ${
-    day === 0 ? hours + "h" : ""
-  } ${hours === 0 ? minutes + "m" : ""}`;
+  const countdownText =
+    dateDiff > 0
+      ? `${day !== 0 ? day + "d" : ""} ${day === 0 ? hours + "h" : ""} ${
+          hours === 0 ? minutes + "m" : ""
+        }`
+      : "--";
 
   /* TODO */
-
-  const meterText =
-    props.distance || props.distance === 0
-      ? `${Math.floor(props.distance * 1000)}m`
-      : "";
+  const km = props.distance;
+  let distanceText;
+  if (dateDiff <= 0) {
+    distanceText = "--";
+  } else if (km >= 1) {
+    distanceText = `${km.toFixed(0)} km`;
+  } else {
+    distanceText = `${(km * 1000).toFixed(0)} m`;
+  }
 
   return (
     <TouchableOpacity
@@ -49,12 +59,10 @@ const PostItem = (props) => {
 
         <View style={styles.cardStatus}>
           <View style={styles.leftStatusContainer}>
-            {(props.distance || props.distance === 0) && (
-              <Ionicons size={15} color="white" name="md-locate" />
-            )}
-
-            <MyText style={styles.statusText}>{meterText}</MyText>
+            <Ionicons size={15} color="white" name="md-locate" />
+            <MyText style={styles.statusText}>{distanceText}</MyText>
           </View>
+
           <View style={styles.rightStatusContainer}>
             <Ionicons size={15} color="white" name="md-time" />
             <MyText style={styles.statusText}>{countdownText}</MyText>

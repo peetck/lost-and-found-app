@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import { getCurrentPosition } from "../../../shared/utils";
@@ -93,7 +93,7 @@ const MapScreen = (props) => {
           onPress={getCurrentLocationHandler}
           style={styles.button}
         >
-          <MaterialIcons name="my-location" size={20} color="black" />
+          <Ionicons name="md-locate" size={20} color="black" />
         </TouchableOpacity>
       )}
     </View>
