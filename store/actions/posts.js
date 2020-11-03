@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import * as geofirestore from "geofirestore";
+import * as geokit from "geokit";
 
 import { getCurrentPosition } from "../../shared/utils";
 import Post from "../../models/post";
@@ -21,7 +22,7 @@ export const fetchAllPosts = (radius) => {
     const query = postsCollection.near({
       center: new firebase.firestore.GeoPoint(
         currentPosition.lat,
-        currentPosition.long
+        currentPosition.lng
       ),
       radius: radius,
     });
@@ -31,24 +32,28 @@ export const fetchAllPosts = (radius) => {
     response.forEach((post) => {
       const id = post.id;
       const data = post.data();
-      posts.push(
-        new Post(
-          id,
-          data.title,
-          data.description,
-          data.categoryId,
-          data.imageUrl,
-          data.mapUrl,
-          data.coordinates.latitude,
-          data.coordinates.longitude,
-          new Date(data.expirationDate),
-          data.uid,
-          post.distance
-        )
-      );
-    });
 
-    posts.sort((postA, postB) => postA.distance - postB.distance);
+      const expirationDate = new Date(data.expirationDate);
+
+      const dateDiff = expirationDate.getTime() - new Date();
+      if (dateDiff > 0) {
+        posts.push(
+          new Post(
+            id,
+            data.title,
+            data.description,
+            data.categoryId,
+            data.imageUrl,
+            data.mapUrl,
+            data.coordinates.latitude,
+            data.coordinates.longitude,
+            expirationDate,
+            data.uid,
+            post.distance
+          )
+        );
+      }
+    });
 
     dispatch({
       type: SET_POSTS,
@@ -59,6 +64,8 @@ export const fetchAllPosts = (radius) => {
 
 export const fetchMyPosts = () => {
   return async (dispatch) => {
+    // current user location
+
     const uid = firebase.auth().currentUser.uid;
     const response = await firebase
       .firestore()
@@ -68,24 +75,38 @@ export const fetchMyPosts = () => {
 
     const myPosts = [];
 
+    const currentPosition = await getCurrentPosition();
+
     response.forEach((post) => {
       const id = post.id;
       const data = post.data();
-      myPosts.push(
-        new Post(
-          id,
-          data.title,
-          data.description,
-          data.categoryId,
-          data.imageUrl,
-          data.mapUrl,
-          data.coordinates.latitude,
-          data.coordinates.longitude,
-          new Date(data.expirationDate),
-          data.uid,
-          null
-        )
-      );
+
+      const expirationDate = new Date(data.expirationDate);
+
+      const dateDiff = expirationDate.getTime() - new Date();
+
+      const distance = geokit.distance(currentPosition, {
+        lat: data.coordinates.latitude,
+        lng: data.coordinates.longitude,
+      });
+
+      if (dateDiff > 0) {
+        myPosts.push(
+          new Post(
+            id,
+            data.title,
+            data.description,
+            data.categoryId,
+            data.imageUrl,
+            data.mapUrl,
+            data.coordinates.latitude,
+            data.coordinates.longitude,
+            new Date(data.expirationDate),
+            data.uid,
+            distance
+          )
+        );
+      }
     });
 
     dispatch({
@@ -114,7 +135,7 @@ export const createPost = (
       categoryId,
       coordinates: new firebase.firestore.GeoPoint(
         selectedLocation.lat,
-        selectedLocation.long
+        selectedLocation.lng
       ),
       mapUrl: selectedLocation.mapUrl,
       expirationDate: expirationDate.toISOString(),
@@ -135,6 +156,13 @@ export const createPost = (
       { merge: true }
     );
 
+    const currentPosition = await getCurrentPosition();
+
+    const distance = geokit.distance(currentPosition, {
+      lat: selectedLocation.lat,
+      lng: selectedLocation.lng,
+    });
+
     dispatch({
       type: CREATE_POST,
       post: new Post(
@@ -145,10 +173,10 @@ export const createPost = (
         imageUrl,
         selectedLocation.mapUrl,
         selectedLocation.lat,
-        selectedLocation.long,
+        selectedLocation.lng,
         expirationDate,
         uid,
-        null
+        distance
       ),
     });
   };

@@ -11,9 +11,9 @@ import { useDispatch } from "react-redux";
 import MainNavigator, {
   navigatorOptions as mainNavigatorOptions,
 } from "./main/MainNavigator";
-import SettingNavigator, {
-  navigatorOptions as settingNavigatorOptions,
-} from "./setting/SettingNavigator";
+import SettingsNavigator, {
+  navigatorOptions as settingsNavigatorOptions,
+} from "./settings/SettingsNavigator";
 import MyText from "../../components/UI/MyText";
 import { logout } from "../../store/actions/auth";
 
@@ -60,9 +60,9 @@ const DrawerNavigator = (props) => {
         options={mainNavigatorOptions}
       />
       <Drawer.Screen
-        name="SettingNavigator"
-        component={SettingNavigator}
-        options={settingNavigatorOptions}
+        name="SettingsNavigator"
+        component={SettingsNavigator}
+        options={settingsNavigatorOptions}
       />
     </Drawer.Navigator>
   );

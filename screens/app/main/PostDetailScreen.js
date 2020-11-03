@@ -10,16 +10,21 @@ import {
 import { useSelector } from "react-redux";
 
 const PostDetailScreen = (props) => {
-  const post = useSelector((state) => state.posts.posts).find(
-    (post) => post.id === props.route.params.postId
-  );
+  const posts = useSelector((state) => state.posts.posts);
+  const myPosts = useSelector((state) => state.posts.myPosts);
+
+  const postId = props.route.params.postId;
+  const postsIndex = posts.findIndex((post) => post.id === postId);
+  const myPostsIndex = myPosts.findIndex((post) => post.id === postId);
+
+  const post = postsIndex >= 0 ? posts[postsIndex] : myPosts[myPostsIndex];
 
   const pressLocationHandler = () => {
     props.navigation.navigate("Map", {
       readonly: true,
       initialLocation: {
         lat: post.lat,
-        long: post.long,
+        lng: post.lng,
       },
     });
   };

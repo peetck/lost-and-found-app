@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import { getCurrentPosition } from "../../../shared/utils";
@@ -14,7 +14,7 @@ const MapScreen = (props) => {
 
   const mapRegion = {
     latitude: selectedLocation.lat,
-    longitude: selectedLocation.long,
+    longitude: selectedLocation.lng,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
@@ -24,7 +24,7 @@ const MapScreen = (props) => {
     const camera = await map.current.getCamera();
     camera.center = {
       latitude: location.lat,
-      longitude: location.long,
+      longitude: location.lng,
     };
     map.current.animateCamera(camera);
     setSelectedLocation(location);
@@ -34,7 +34,7 @@ const MapScreen = (props) => {
   if (selectedLocation) {
     markerCoordinates = {
       latitude: selectedLocation.lat,
-      longitude: selectedLocation.long,
+      longitude: selectedLocation.lng,
     };
   }
 
@@ -44,7 +44,7 @@ const MapScreen = (props) => {
     }
     setSelectedLocation({
       lat: event.nativeEvent.coordinate.latitude,
-      long: event.nativeEvent.coordinate.longitude,
+      lng: event.nativeEvent.coordinate.longitude,
     });
   };
 
@@ -93,7 +93,7 @@ const MapScreen = (props) => {
           onPress={getCurrentLocationHandler}
           style={styles.button}
         >
-          <MaterialIcons name="my-location" size={20} color="black" />
+          <Ionicons name="md-locate" size={20} color="black" />
         </TouchableOpacity>
       )}
     </View>
@@ -127,6 +127,9 @@ const styles = StyleSheet.create({
 
 export const screenOptions = {
   headerTitle: "Location",
+  headerTitleStyle: {
+    fontFamily: "kanit-light",
+  },
 };
 
 export default MapScreen;

@@ -7,7 +7,7 @@ class Post {
     imageUrl,
     mapUrl,
     lat,
-    long,
+    lng,
     expirationDate,
     uid,
     distance
@@ -19,7 +19,7 @@ class Post {
     this.imageUrl = imageUrl;
     this.mapUrl = mapUrl;
     this.lat = lat;
-    this.long = long;
+    this.lng = lng;
     this.expirationDate = expirationDate;
     this.uid = uid;
     this.distance = distance;

@@ -7,7 +7,6 @@ import {
   Image,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -15,7 +14,6 @@ import CategoryList from "../../../components/app/main/CategoryList";
 import MyText from "../../../components/UI/MyText";
 import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
-import HeaderButton from "../../../components/UI/HeaderButton";
 import { fetchAllPosts } from "../../../store/actions/posts";
 
 const HomeScreen = (props) => {
@@ -73,7 +71,7 @@ const HomeScreen = (props) => {
       <CategoryList />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Nearby items (10 km)</MyText>
+        <MyText style={styles.title}>Nearby posts (~10 km)</MyText>
       </View>
     </View>
   );
@@ -153,35 +151,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export const screenOptions = (navData) => {
-  return {
-    headerTitle: "Home",
-    headerTitleStyle: {
-      fontFamily: "kanit-light",
-    },
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          iconName="ios-menu"
-          color="black"
-          onPress={() => {
-            navData.navigation.toggleDrawer();
-          }}
-        />
-      </HeaderButtons>
-    ),
-    headerRight: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          iconName="md-add"
-          color="black"
-          onPress={() => {
-            navData.navigation.navigate("CreatePost");
-          }}
-        />
-      </HeaderButtons>
-    ),
-  };
+export const screenOptions = {
+  headerShown: false,
 };
 
 export default HomeScreen;

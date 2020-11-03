@@ -28,6 +28,9 @@ const styles = StyleSheet.create({
 
 export const screenOptions = {
   headerTitle: "Search",
+  headerTitleStyle: {
+    fontFamily: "kanit-light",
+  },
 };
 
 export default SearchScreen;

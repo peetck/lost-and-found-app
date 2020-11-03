@@ -1,15 +1,13 @@
 import React, { useEffect, useCallback } from "react";
 import { View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import PostList from "../../../components/app/main/PostList";
 import { fetchMyPosts } from "../../../store/actions/posts";
 import MyText from "../../../components/UI/MyText";
 import CategoryList from "../../../components/app/main/CategoryList";
-import HeaderButton from "../../../components/UI/HeaderButton";
 
-const MyPostScreen = (props) => {
+const MyPostsScreen = (props) => {
   const dispatch = useDispatch();
   const myPosts = useSelector((state) => state.posts.myPosts);
 
@@ -30,7 +28,7 @@ const MyPostScreen = (props) => {
       </View>
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Your Post</MyText>
+        <MyText style={styles.title}>Your Available Post</MyText>
       </View>
     </View>
   );
@@ -60,35 +58,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export const screenOptions = (navData) => {
-  return {
-    headerTitle: "My Post",
-    headerTitleStyle: {
-      fontFamily: "kanit-light",
-    },
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          iconName="ios-menu"
-          color="black"
-          onPress={() => {
-            navData.navigation.toggleDrawer();
-          }}
-        />
-      </HeaderButtons>
-    ),
-    headerRight: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          iconName="md-add"
-          color="black"
-          onPress={() => {
-            navData.navigation.navigate("CreatePost");
-          }}
-        />
-      </HeaderButtons>
-    ),
-  };
+export const screenOptions = {
+  headerShown: false,
 };
 
-export default MyPostScreen;
+export default MyPostsScreen;
