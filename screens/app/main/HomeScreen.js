@@ -71,7 +71,7 @@ const HomeScreen = (props) => {
       <CategoryList />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Nearby items (10 km)</MyText>
+        <MyText style={styles.title}>Nearby posts (~10 km)</MyText>
       </View>
     </View>
   );

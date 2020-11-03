@@ -127,6 +127,9 @@ const styles = StyleSheet.create({
 
 export const screenOptions = {
   headerTitle: "Location",
+  headerTitleStyle: {
+    fontFamily: "kanit-light",
+  },
 };
 
 export default MapScreen;

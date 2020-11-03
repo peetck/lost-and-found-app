@@ -78,6 +78,9 @@ const styles = StyleSheet.create({
 
 export const screenOptions = {
   title: "Personal Information",
+  headerTitleStyle: {
+    fontFamily: "kanit-light",
+  },
 };
 
 export default ProfileSettingScreen;

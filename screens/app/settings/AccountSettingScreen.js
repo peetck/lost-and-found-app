@@ -65,6 +65,9 @@ const styles = StyleSheet.create({
 
 export const screenOptions = {
   title: "Account",
+  headerTitleStyle: {
+    fontFamily: "kanit-light",
+  },
 };
 
 export default AccountSettingScreen;

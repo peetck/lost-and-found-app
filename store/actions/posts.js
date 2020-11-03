@@ -32,21 +32,27 @@ export const fetchAllPosts = (radius) => {
     response.forEach((post) => {
       const id = post.id;
       const data = post.data();
-      posts.push(
-        new Post(
-          id,
-          data.title,
-          data.description,
-          data.categoryId,
-          data.imageUrl,
-          data.mapUrl,
-          data.coordinates.latitude,
-          data.coordinates.longitude,
-          new Date(data.expirationDate),
-          data.uid,
-          post.distance
-        )
-      );
+
+      const expirationDate = new Date(data.expirationDate);
+
+      const dateDiff = expirationDate.getTime() - new Date();
+      if (dateDiff > 0) {
+        posts.push(
+          new Post(
+            id,
+            data.title,
+            data.description,
+            data.categoryId,
+            data.imageUrl,
+            data.mapUrl,
+            data.coordinates.latitude,
+            data.coordinates.longitude,
+            expirationDate,
+            data.uid,
+            post.distance
+          )
+        );
+      }
     });
 
     dispatch({
@@ -75,26 +81,32 @@ export const fetchMyPosts = () => {
       const id = post.id;
       const data = post.data();
 
+      const expirationDate = new Date(data.expirationDate);
+
+      const dateDiff = expirationDate.getTime() - new Date();
+
       const distance = geokit.distance(currentPosition, {
         lat: data.coordinates.latitude,
         lng: data.coordinates.longitude,
       });
 
-      myPosts.push(
-        new Post(
-          id,
-          data.title,
-          data.description,
-          data.categoryId,
-          data.imageUrl,
-          data.mapUrl,
-          data.coordinates.latitude,
-          data.coordinates.longitude,
-          new Date(data.expirationDate),
-          data.uid,
-          distance
-        )
-      );
+      if (dateDiff > 0) {
+        myPosts.push(
+          new Post(
+            id,
+            data.title,
+            data.description,
+            data.categoryId,
+            data.imageUrl,
+            data.mapUrl,
+            data.coordinates.latitude,
+            data.coordinates.longitude,
+            new Date(data.expirationDate),
+            data.uid,
+            distance
+          )
+        );
+      }
     });
 
     dispatch({

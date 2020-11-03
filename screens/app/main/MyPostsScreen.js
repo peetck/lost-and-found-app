@@ -28,7 +28,7 @@ const MyPostsScreen = (props) => {
       </View>
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Your Post</MyText>
+        <MyText style={styles.title}>Your Available Post</MyText>
       </View>
     </View>
   );
