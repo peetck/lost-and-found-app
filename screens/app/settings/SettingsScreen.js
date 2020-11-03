@@ -1,31 +1,36 @@
 import React from "react";
-import {
-  View,
-  ScrollView,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { Ionicons } from "@expo/vector-icons";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
-import SettingList from "../../../components/app/settings/SettingList";
 import colors from "../../../shared/colors";
+
+const Setting = (props) => {
+  return (
+    <TouchableOpacity
+      style={styles.settingContainer}
+      onPress={props.onPress}
+      activeOpacity={0.6}
+    >
+      <Ionicons name={props.iconName} size={25} color="black" />
+      <MyText style={styles.label}>{props.label}</MyText>
+    </TouchableOpacity>
+  );
+};
 
 const SettingsScreen = (props) => {
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <View style={{ ...styles.container, paddingTop: 0 }}>
         <MyText style={styles.title}>Account settings</MyText>
-        <SettingList
+        <Setting
           label="Personal Information"
           iconName="md-contact"
           onPress={() => props.navigation.navigate("ProfileSetting")}
         />
-        <SettingList
+        <Setting
           label="Account"
           iconName="md-card"
           onPress={() => props.navigation.navigate("AccountSetting")}
@@ -34,13 +39,13 @@ const SettingsScreen = (props) => {
 
       <View style={styles.container}>
         <MyText style={styles.title}>General settings</MyText>
-        <SettingList label="Themes" iconName="md-color-wand" />
-        <SettingList label="Language" iconName="md-globe" />
+        <Setting label="Themes" iconName="md-color-wand" />
+        <Setting label="Language" iconName="md-globe" />
       </View>
 
       <View style={styles.container}>
         <MyText style={styles.title}>Others</MyText>
-        <SettingList label="About us" iconName="md-information-circle" />
+        <Setting label="About us" iconName="md-information-circle" />
       </View>
     </ScrollView>
   );
@@ -58,9 +63,18 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: colors.lightGrey,
   },
+  settingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+  },
   title: {
     fontSize: 18,
     paddingBottom: 10,
+  },
+  label: {
+    fontSize: 16,
+    paddingLeft: 15,
   },
 });
 
