@@ -74,7 +74,7 @@ export const getCurrentPosition = async () => {
       });
       return {
         lat: location.coords.latitude,
-        long: location.coords.longitude,
+        lng: location.coords.longitude,
       };
     } catch (err) {
       Alert.alert("Could not fetch location!", "Please try again later.", [

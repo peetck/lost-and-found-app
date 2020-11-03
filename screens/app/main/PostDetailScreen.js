@@ -24,7 +24,7 @@ const PostDetailScreen = (props) => {
       readonly: true,
       initialLocation: {
         lat: post.lat,
-        long: post.long,
+        lng: post.lng,
       },
     });
   };

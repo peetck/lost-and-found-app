@@ -24,7 +24,7 @@ const MapScreen = (props) => {
     const camera = await map.current.getCamera();
     camera.center = {
       latitude: location.lat,
-      longitude: location.long,
+      longitude: location.lng,
     };
     map.current.animateCamera(camera);
     setSelectedLocation(location);
@@ -34,7 +34,7 @@ const MapScreen = (props) => {
   if (selectedLocation) {
     markerCoordinates = {
       latitude: selectedLocation.lat,
-      longitude: selectedLocation.long,
+      longitude: selectedLocation.lng,
     };
   }
 
@@ -44,7 +44,7 @@ const MapScreen = (props) => {
     }
     setSelectedLocation({
       lat: event.nativeEvent.coordinate.latitude,
-      long: event.nativeEvent.coordinate.longitude,
+      lng: event.nativeEvent.coordinate.longitude,
     });
   };
 

@@ -54,10 +54,10 @@ const CreatePostScreen = (props) => {
       mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
         location.lat
       },${
-        location.long
+        location.lng
       }&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${
         location.lat
-      },${location.long}&key=${"AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs"}`,
+      },${location.lng}&key=${"AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs"}`,
     });
     setIsLoadingLocation(false);
   };
@@ -80,7 +80,7 @@ const CreatePostScreen = (props) => {
       readonly: false,
       initialLocation: {
         lat: selectedLocation.lat,
-        long: selectedLocation.long,
+        lng: selectedLocation.lng,
       },
     });
   };
