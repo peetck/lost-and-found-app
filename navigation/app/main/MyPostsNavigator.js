@@ -5,11 +5,11 @@ import { Ionicons } from "@expo/vector-icons";
 
 import MyPostScreen, {
   screenOptions as myPostScreenOptions,
-} from "../../../screens/app/main/MyPostScreen";
+} from "../../../screens/app/main/MyPostsScreen";
 
 const Stack = createStackNavigator();
 
-const MyPostNavigator = (props) => {
+const MyPostsNavigator = (props) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -32,4 +32,4 @@ export const navigatorOptions = {
   ),
 };
 
-export default MyPostNavigator;
+export default MyPostsNavigator;
