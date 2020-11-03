@@ -9,7 +9,7 @@ import MyText from "../../../components/UI/MyText";
 import CategoryList from "../../../components/app/main/CategoryList";
 import HeaderButton from "../../../components/UI/HeaderButton";
 
-const MyPostScreen = (props) => {
+const MyPostsScreen = (props) => {
   const dispatch = useDispatch();
   const myPosts = useSelector((state) => state.posts.myPosts);
 
@@ -64,4 +64,4 @@ export const screenOptions = {
   headerShown: false,
 };
 
-export default MyPostScreen;
+export default MyPostsScreen;

@@ -7,9 +7,9 @@ import colors from "../../../shared/colors";
 import HomeNavigator, {
   navigatorOptions as homeNavigatorOptions,
 } from "./HomeNavigator";
-import MyPostNavigator, {
-  navigatorOptions as myPostNavigatorOptions,
-} from "./MyPostNavigator";
+import MyPostsNavigator, {
+  navigatorOptions as myPostsNavigatorOptions,
+} from "./MyPostsNavigator";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -41,9 +41,9 @@ const TabNavigator = (props) => {
         options={homeNavigatorOptions}
       />
       <Tab.Screen
-        name="MyPostNavigator"
-        component={MyPostNavigator}
-        options={myPostNavigatorOptions}
+        name="MyPostsNavigator"
+        component={MyPostsNavigator}
+        options={myPostsNavigatorOptions}
       />
     </Tab.Navigator>
   );
