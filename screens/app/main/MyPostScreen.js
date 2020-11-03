@@ -60,35 +60,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export const screenOptions = (navData) => {
-  return {
-    headerTitle: "My Post",
-    headerTitleStyle: {
-      fontFamily: "kanit-light",
-    },
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          iconName="ios-menu"
-          color="black"
-          onPress={() => {
-            navData.navigation.toggleDrawer();
-          }}
-        />
-      </HeaderButtons>
-    ),
-    headerRight: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          iconName="md-add"
-          color="black"
-          onPress={() => {
-            navData.navigation.navigate("CreatePost");
-          }}
-        />
-      </HeaderButtons>
-    ),
-  };
+export const screenOptions = {
+  headerShown: false,
 };
 
 export default MyPostScreen;

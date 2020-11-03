@@ -23,10 +23,10 @@ const HomeNavigator = (props) => {
 
 export const navigatorOptions = {
   title: "Home",
-  tabBarIcon: ({ size, color }) => (
+  tabBarIcon: ({ color }) => (
     <Ionicons
       name={Platform.OS === "android" ? "md-home" : "ios-home"}
-      size={size}
+      size={25}
       color={color}
     />
   ),

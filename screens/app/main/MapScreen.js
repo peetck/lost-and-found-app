@@ -14,7 +14,7 @@ const MapScreen = (props) => {
 
   const mapRegion = {
     latitude: selectedLocation.lat,
-    longitude: selectedLocation.long,
+    longitude: selectedLocation.lng,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };

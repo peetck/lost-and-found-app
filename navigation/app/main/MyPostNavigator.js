@@ -23,10 +23,10 @@ const MyPostNavigator = (props) => {
 
 export const navigatorOptions = {
   title: "My Post",
-  tabBarIcon: ({ size, color }) => (
+  tabBarIcon: ({ color }) => (
     <Ionicons
       name={Platform.OS === "android" ? "md-bookmark" : "ios-bookmark"}
-      size={size}
+      size={25}
       color={color}
     />
   ),
