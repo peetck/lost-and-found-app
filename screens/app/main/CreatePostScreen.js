@@ -82,6 +82,7 @@ const CreatePostScreen = (props) => {
         lat: selectedLocation.lat,
         lng: selectedLocation.lng,
       },
+      from: "CreatePost",
     });
   };
 
