@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import firebase from "firebase";
 import * as geofirestore from "geofirestore";
-import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useSelector } from "react-redux";
-import { Ionicons } from "@expo/vector-icons";
 
 import CategoryList from "../../../components/app/main/CategoryList";
 import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
 import { getCurrentPosition } from "../../../shared/utils";
 import Post from "../../../models/post";
-import MyText from "../../../components/UI/MyText";
 
 const SearchScreen = (props) => {
   const initialCategories = useSelector((state) =>
@@ -20,10 +24,13 @@ const SearchScreen = (props) => {
     initialCategories
   );
   const [selectedLocation, setSelectedLocation] = useState();
-  const [posts, setPosts] = useState("");
+  const [posts, setPosts] = useState([]);
+  const [showPosts, setShowPosts] = useState([]);
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
   const { params } = props.route;
 
   const getLocation = async () => {
+    setIsLoadingLocation(true);
     let location;
     if (params) {
       location = params.location;
@@ -40,6 +47,7 @@ const SearchScreen = (props) => {
         location.lat
       },${location.lng}&key=${"AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs"}`,
     });
+    setIsLoadingLocation(false);
   };
 
   useEffect(() => {
@@ -104,14 +112,21 @@ const SearchScreen = (props) => {
     });
 
     setPosts(result);
+    setShowPosts(result);
   };
+
+  useEffect(() => {
+    setShowPosts(
+      posts.filter((post) => selectedCategories.includes(post.categoryId))
+    );
+  }, [selectedCategories]);
 
   useEffect(() => {
     fetchPosts();
   }, [selectedLocation]);
 
-  return (
-    <View style={styles.screen}>
+  const header = (
+    <View>
       <CategoryList
         inputMode
         many
@@ -119,25 +134,34 @@ const SearchScreen = (props) => {
         onChange={setSelectedCategories}
       />
 
-      <TouchableOpacity
-        style={styles.inputContainer}
-        activeOpacity={0.6}
-        onPress={pickLocationHandler}
-      >
-        {selectedLocation ? (
-          <Image
-            style={styles.image}
-            source={{ uri: selectedLocation.mapUrl }}
-          />
-        ) : (
-          <View style={styles.center}>
-            <Ionicons name="md-camera" size={80} color="black" />
-            <MyText style={styles.text}>Take a picture</MyText>
-          </View>
-        )}
-      </TouchableOpacity>
+      {isLoadingLocation ? (
+        <View style={styles.inputContainer}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      ) : (
+        <TouchableOpacity
+          style={styles.inputContainer}
+          activeOpacity={0.6}
+          onPress={pickLocationHandler}
+        >
+          {selectedLocation && (
+            <Image
+              style={styles.image}
+              source={{ uri: selectedLocation.mapUrl }}
+            />
+          )}
+        </TouchableOpacity>
+      )}
+    </View>
+  );
 
-      <PostList data={posts} />
+  return (
+    <View style={styles.screen}>
+      <PostList
+        data={showPosts}
+        navigation={props.navigation}
+        header={header}
+      />
     </View>
   );
 };
