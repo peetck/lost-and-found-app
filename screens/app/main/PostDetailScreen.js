@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useSelector } from "react-redux";
+import { CardStyleInterpolators } from "@react-navigation/stack";
 
 const PostDetailScreen = (props) => {
   const posts = useSelector((state) => state.posts.posts);
@@ -75,6 +76,7 @@ export const screenOptions = (navData) => {
     headerTitleStyle: {
       fontFamily: "kanit-light",
     },
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   };
 };
 

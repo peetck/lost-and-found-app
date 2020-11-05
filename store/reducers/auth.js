@@ -6,21 +6,31 @@ const initialState = {
   imageUrl: null,
 };
 
-export default (state = initialState, action) => {
+const setUser = (state, action) => {
+  const userData = action.userData;
+  return {
+    ...state,
+    email: userData.email,
+    nickname: userData.nickname,
+    imageUrl: userData.imageUrl,
+  };
+};
+
+const logout = (state, action) => {
+  return {
+    ...initialState,
+  };
+};
+
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
-      const userData = action.userData;
-      return {
-        ...state,
-        email: userData.email,
-        nickname: userData.nickname,
-        imageUrl: userData.imageUrl,
-      };
+      return setUser(state, action);
     case LOGOUT:
-      return {
-        ...initialState,
-      };
+      return logout(state, action);
     default:
       return state;
   }
 };
+
+export default reducer;

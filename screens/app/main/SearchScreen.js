@@ -9,12 +9,14 @@ import {
 import firebase from "firebase";
 import * as geofirestore from "geofirestore";
 import { useSelector } from "react-redux";
+import { CardStyleInterpolators } from "@react-navigation/stack";
 
 import CategoryList from "../../../components/app/main/CategoryList";
 import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
 import { getCurrentPosition } from "../../../shared/utils";
 import Post from "../../../models/post";
+import MyText from "../../../components/UI/MyText";
 
 const SearchScreen = (props) => {
   const initialCategories = useSelector((state) =>
@@ -134,13 +136,17 @@ const SearchScreen = (props) => {
         onChange={setSelectedCategories}
       />
 
+      <View style={styles.titleContainer}>
+        <MyText style={styles.title}>Location</MyText>
+      </View>
+
       {isLoadingLocation ? (
-        <View style={styles.inputContainer}>
+        <View style={styles.mapContainer}>
           <ActivityIndicator size="large" color={colors.primary} />
         </View>
       ) : (
         <TouchableOpacity
-          style={styles.inputContainer}
+          style={styles.mapContainer}
           activeOpacity={0.6}
           onPress={pickLocationHandler}
         >
@@ -152,6 +158,10 @@ const SearchScreen = (props) => {
           )}
         </TouchableOpacity>
       )}
+
+      <View style={styles.titleContainer}>
+        <MyText style={styles.title}>Result (~10km)</MyText>
+      </View>
     </View>
   );
 
@@ -173,23 +183,17 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: 25,
   },
-  searchContainer: {
-    flexDirection: "row",
+  mapContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.lightGrey,
-    borderRadius: 10,
-    marginTop: 25,
-    marginBottom: 25,
-  },
-  inputContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 25,
+    marginTop: 5,
     marginHorizontal: 10,
     height: 200,
     borderRadius: 10,
     backgroundColor: colors.lightGrey,
+  },
+  titleContainer: {
+    paddingVertical: 25,
   },
   center: {
     justifyContent: "center",
@@ -199,14 +203,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  searchIcon: {
-    padding: 8,
-  },
-  searchTextInput: {
-    flex: 1,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
-    fontSize: 16,
+  title: {
+    fontFamily: "kanit",
+    fontSize: 19,
   },
 });
 
@@ -215,6 +214,7 @@ export const screenOptions = {
   headerTitleStyle: {
     fontFamily: "kanit-light",
   },
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 };
 
 export default SearchScreen;
