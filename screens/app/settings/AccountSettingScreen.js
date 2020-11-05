@@ -48,6 +48,7 @@ const AccountSettingScreen = (props) => {
         </View>
       </ScrollView>
     </View>
+
   );
 };
 

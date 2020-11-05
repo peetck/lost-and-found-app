@@ -19,61 +19,77 @@ const ProfileSettingScreen = (props) => {
   );
 
   return (
-    <View style={styles.screen}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.contentContainer}>
-          <TouchableOpacity>
-            <Image
-              style={styles.image}
-              source={{
-                uri: pickedImage,
-              }}
-            />
-          </TouchableOpacity>
-        </View>
 
-        <SettingItem
-          HeaderText="Nickname"
-          title="Picnic"
-          onPress={() => {
-            props.navigation.navigate("NicknameEdit");
-          }}
-          color="default"
-        />
-        <SettingItem
-          HeaderText="Tel"
-          title="081 000 0000"
-          onPress={() => {}}
-          color="default"
-        />
-        <SettingItem
-          HeaderText="Email"
-          title="example@hotmail.com"
-          onPress={() => {}}
-          color="default"
-        />
-        <SettingItem
-          HeaderText="Birthday"
-          title="01-05-2000"
-          onPress={() => {}}
-          color="default"
-        />
-      </ScrollView>
+    <View style = {styles.container}>
+
+      {/* image part */}
+
+      <View style = {styles.containerImage}>
+        <View style = {styles.containerLayoutImage}>
+
+          {/* Visual Image*/}
+          <View style = {{width: 100, height: 100, borderRadius: 60, backgroundColor: '#BED7D1'}} />
+
+        </View>
+      </View>
+
+      {/* Content part */}
+      <View style = {styles.containerContents}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <SettingItem HeaderText = 'Nickname' title = 'Pepper' color = 'default' onPress = {
+              () => {
+                console.log(1)
+              }
+            }></SettingItem>
+            <SettingItem HeaderText = 'Tel' title = '081 000 0000' color = 'default' onPress = {
+              () => {
+                console.log(2)
+              }
+            }></SettingItem>
+            <SettingItem HeaderText = 'Email' title = 'example@hotmail.com' color = 'default' onPress = {
+              () => {
+                console.log(3)
+              }
+            } ></SettingItem>
+            <SettingItem HeaderText = 'Birthday' title = '01-05-2000' color = 'default' onPress = {
+              () => {
+                console.log(4)
+              }
+            } ></SettingItem>
+            
+          </ScrollView>
+      </View>
+      
+      
     </View>
+
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  containerImage: {
+    flex: 1,
+    backgroundColor: '#FFDFD3'
+  },
+  containerLayoutImage: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  containerContents: {
+    flex: 3,
+    backgroundColor: 'white'
+  },
   screen: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 15,
     backgroundColor: "white",
   },
-  contentContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
+
 });
 
 export const screenOptions = {
