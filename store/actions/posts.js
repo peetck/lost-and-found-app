@@ -49,7 +49,8 @@ export const fetchAllPosts = (radius) => {
             data.coordinates.longitude,
             expirationDate,
             data.uid,
-            post.distance
+            post.distance,
+            data.address
           )
         );
       }
@@ -103,7 +104,8 @@ export const fetchMyPosts = () => {
             data.coordinates.longitude,
             new Date(data.expirationDate),
             data.uid,
-            distance
+            distance,
+            data.address
           )
         );
       }
@@ -129,6 +131,15 @@ export const createPost = (
     const firestore = firebase.firestore();
     const geoFirestore = geofirestore.initializeApp(firestore);
     const postsCollection = geoFirestore.collection("posts");
+
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${selectedLocation.lat},${selectedLocation.lng}&key=AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs`
+    );
+
+    const resData = await response.json();
+
+    const address = resData.results[0].formatted_address;
+
     const { id } = await postsCollection.add({
       title,
       description,
@@ -140,6 +151,7 @@ export const createPost = (
       mapUrl: selectedLocation.mapUrl,
       expirationDate: expirationDate.toISOString(),
       uid,
+      address,
     });
 
     const ref = firebase.storage().ref().child("posts");
@@ -176,7 +188,8 @@ export const createPost = (
         selectedLocation.lng,
         expirationDate,
         uid,
-        distance
+        distance,
+        address
       ),
     });
   };

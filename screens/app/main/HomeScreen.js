@@ -65,7 +65,7 @@ const HomeScreen = (props) => {
           color="black"
           style={styles.searchIcon}
         />
-        <MyText style={styles.searchText}>Search</MyText>
+        <MyText style={styles.searchText}>Search by location</MyText>
       </TouchableOpacity>
 
       <CategoryList />

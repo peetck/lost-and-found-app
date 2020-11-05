@@ -5,31 +5,45 @@ const initialState = {
   myPosts: [],
 };
 
-export default (state = initialState, action) => {
+const setPosts = (state, action) => {
+  const posts = action.posts;
+  posts.sort((postA, postB) => postA.distance - postB.distance);
+  return {
+    ...state,
+    posts: posts,
+  };
+};
+
+const setMyPosts = (state, action) => {
+  const myPosts = action.myPosts;
+  myPosts.sort((postA, postB) => postA.distance - postB.distance);
+  return {
+    ...state,
+    myPosts: myPosts,
+  };
+};
+
+const createPost = (state, action) => {
+  const post = action.post;
+  const updatedMyPosts = [post, ...state.myPosts];
+  updatedMyPosts.sort((postA, postB) => postA.distance - postB.distance);
+  return {
+    ...state,
+    myPosts: updatedMyPosts,
+  };
+};
+
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_POSTS:
-      const posts = action.posts;
-      posts.sort((postA, postB) => postA.distance - postB.distance);
-      return {
-        ...state,
-        posts: posts,
-      };
+      return setPosts(state, action);
     case SET_MY_POSTS:
-      const myPosts = action.myPosts;
-      myPosts.sort((postA, postB) => postA.distance - postB.distance);
-      return {
-        ...state,
-        myPosts: myPosts,
-      };
+      return setMyPosts(state, action);
     case CREATE_POST:
-      const post = action.post;
-      const updatedMyPosts = [post, ...state.myPosts];
-      updatedMyPosts.sort((postA, postB) => postA.distance - postB.distance);
-      return {
-        ...state,
-        myPosts: updatedMyPosts,
-      };
+      return createPost(state, action);
     default:
       return state;
   }
 };
+
+export default reducer;

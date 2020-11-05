@@ -14,6 +14,7 @@ import {
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "react-native-loading-spinner-overlay";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
@@ -28,18 +29,22 @@ import {
 import { createPost } from "../../../store/actions/posts";
 
 const CreatePostScreen = (props) => {
+  const { params } = props.route;
+
   const dispatch = useDispatch();
-  const { showActionSheetWithOptions } = useActionSheet();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const initialCategoryId = useSelector(
     (state) => state.categories.categories[0].id
   );
+
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState(initialCategoryId);
   const [selectedImage, setSelectedImage] = useState();
   const [selectedLocation, setSelectedLocation] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
-  const { params } = props.route;
 
   const getLocation = async () => {
     setIsLoadingLocation(true);
@@ -82,28 +87,30 @@ const CreatePostScreen = (props) => {
         lat: selectedLocation.lat,
         lng: selectedLocation.lng,
       },
+      from: "CreatePost",
     });
   };
 
   const createPostHandler = useCallback(async () => {
-    if (!selectedImage) {
-      return;
+    setIsLoading(true);
+    if (selectedImage) {
+      try {
+        await dispatch(
+          createPost(
+            title,
+            description,
+            categoryId,
+            selectedImage,
+            selectedLocation,
+            new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) // next 2 day
+          )
+        );
+        props.navigation.goBack();
+      } catch (error) {
+        console.log(error);
+      }
     }
-    try {
-      await dispatch(
-        createPost(
-          title,
-          description,
-          categoryId,
-          selectedImage,
-          selectedLocation,
-          new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) // next 2 day
-        )
-      );
-      props.navigation.goBack();
-    } catch (error) {
-      console.log(error);
-    }
+    setIsLoading(false);
   }, [
     dispatch,
     title,
@@ -129,15 +136,23 @@ const CreatePostScreen = (props) => {
 
   return (
     <ScrollView style={styles.screen}>
-      <View style={styles.titleInputContainer}>
+      <Spinner
+        visible={isLoading}
+        color={colors.primary}
+        overlayColor="rgba(255,255,255, 0.5)"
+        animation="fade"
+      />
+
+      <View style={{ ...styles.titleContainer, paddingTop: 25 }}>
+        <MyText style={styles.title}>Information</MyText>
+      </View>
+
+      <View style={styles.textInputContainer}>
         <MyTextInput
           placeholder="Title"
           value={title}
           onChangeText={setTitle}
         />
-      </View>
-
-      <View style={styles.descriptionInputContainer}>
         <MyTextInput
           placeholder="Description"
           value={description}
@@ -145,8 +160,10 @@ const CreatePostScreen = (props) => {
         />
       </View>
 
-      <View style={styles.categoryListContainer}>
-        <CategoryList inputMode onChange={setCategoryId} value={categoryId} />
+      <CategoryList inputMode onChange={setCategoryId} value={categoryId} />
+
+      <View style={styles.titleContainer}>
+        <MyText style={styles.title}>Image</MyText>
       </View>
 
       <TouchableOpacity
@@ -159,10 +176,14 @@ const CreatePostScreen = (props) => {
         ) : (
           <View style={styles.center}>
             <Ionicons name="md-camera" size={80} color="black" />
-            <MyText style={styles.text}>Take a picture</MyText>
+            <MyText style={styles.imageText}>Take a picture</MyText>
           </View>
         )}
       </TouchableOpacity>
+
+      <View style={styles.titleContainer}>
+        <MyText style={styles.title}>Location</MyText>
+      </View>
 
       {isLoadingLocation ? (
         <View style={styles.inputContainer}>
@@ -192,23 +213,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "white",
   },
-  titleInputContainer: {
-    paddingTop: 30,
-    paddingHorizontal: 10,
+  titleContainer: {
+    paddingVertical: 25,
   },
-  descriptionInputContainer: {
-    paddingTop: 10,
+  textInputContainer: {
     paddingHorizontal: 10,
-  },
-  categoryListContainer: {
-    paddingVertical: 15,
-    paddingHorizontal: 10,
+    paddingBottom: 15,
   },
   inputContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 25,
     marginHorizontal: 10,
+    marginTop: 5,
     height: 200,
     borderRadius: 10,
     backgroundColor: colors.lightGrey,
@@ -221,8 +237,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  text: {
+  imageText: {
     fontSize: 16,
+  },
+  title: {
+    fontFamily: "kanit",
+    fontSize: 19,
   },
 });
 

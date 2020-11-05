@@ -10,7 +10,8 @@ class Post {
     lng,
     expirationDate,
     uid,
-    distance
+    distance,
+    address
   ) {
     this.id = id;
     this.categoryId = categoryId;

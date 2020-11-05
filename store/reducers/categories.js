@@ -4,15 +4,21 @@ const initialState = {
   categories: [],
 };
 
-export default (state = initialState, action) => {
+const setCategories = (state, action) => {
+  const categories = action.categories;
+  return {
+    ...state,
+    categories: categories,
+  };
+};
+
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CATEGORIES:
-      const categories = action.categories;
-      return {
-        ...state,
-        categories,
-      };
+      return setCategories(state, action);
     default:
       return state;
   }
 };
+
+export default reducer;

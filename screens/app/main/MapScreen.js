@@ -53,7 +53,7 @@ const MapScreen = (props) => {
       // could show an alert!
       return;
     }
-    props.navigation.navigate("CreatePost", {
+    props.navigation.navigate(props.route.params.from, {
       location: selectedLocation,
     });
   }, [selectedLocation]);
