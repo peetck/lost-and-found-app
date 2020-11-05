@@ -36,22 +36,22 @@ const ProfileSettingScreen = (props) => {
       {/* Content part */}
       <View style = {styles.containerContents}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <SettingItem HeaderText = 'Nickname' title = 'Pepper' color = 'default' onPress = {
+            <SettingItem HeaderText = 'Nickname' title = 'Pepper' color = 'default' type = 'text' onPress = {
               () => {
                 console.log(1)
               }
             }></SettingItem>
-            <SettingItem HeaderText = 'Tel' title = '081 000 0000' color = 'default' onPress = {
+            <SettingItem HeaderText = 'Telephone' title = '081 000 0000' color = 'default' type = 'text' onPress = {
               () => {
                 console.log(2)
               }
             }></SettingItem>
-            <SettingItem HeaderText = 'Email' title = 'example@hotmail.com' color = 'default' onPress = {
+            <SettingItem HeaderText = 'Email' title = 'example@hotmail.com' color = 'default' type = 'text' onPress = {
               () => {
                 console.log(3)
               }
             } ></SettingItem>
-            <SettingItem HeaderText = 'Birthday' title = '01-05-2000' color = 'default' onPress = {
+            <SettingItem HeaderText = 'Birthday' title = '01-05-2000' color = 'default' type = 'text' onPress = {
               () => {
                 console.log(4)
               }
