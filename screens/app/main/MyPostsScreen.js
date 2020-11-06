@@ -1,6 +1,7 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
 
 import PostList from "../../../components/app/main/PostList";
 import { fetchMyPosts } from "../../../store/actions/posts";
@@ -10,16 +11,24 @@ import CategoryList from "../../../components/app/main/CategoryList";
 const MyPostsScreen = (props) => {
   const dispatch = useDispatch();
   const myPosts = useSelector((state) => state.posts.myPosts);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const isFocused = useIsFocused();
 
-  const loadPosts = useCallback(async () => {
+  const loadMyPosts = useCallback(async () => {
     // setIsLoading(true);
     await dispatch(fetchMyPosts());
     // setIsLoading(false);
   }, [dispatch]);
 
   useEffect(() => {
-    loadPosts();
-  }, [loadPosts]);
+    loadMyPosts();
+  }, [loadMyPosts]);
+
+  const onRefresh = async () => {
+    setIsRefreshing(true);
+    await loadMyPosts();
+    setIsRefreshing(false);
+  };
 
   const header = (
     <View>
@@ -35,7 +44,13 @@ const MyPostsScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <PostList data={myPosts} navigation={props.navigation} header={header} />
+      <PostList
+        data={myPosts}
+        navigation={props.navigation}
+        header={header}
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
+      />
     </View>
   );
 };

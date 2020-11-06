@@ -1,9 +1,10 @@
-import { LOGOUT, SET_USER } from "../actions/auth";
+import { LOGOUT, SET_LOCATION, SET_USER } from "../actions/auth";
 
 const initialState = {
   email: "",
   nickname: "",
   imageUrl: null,
+  location: null,
 };
 
 const setUser = (state, action) => {
@@ -13,6 +14,13 @@ const setUser = (state, action) => {
     email: userData.email,
     nickname: userData.nickname,
     imageUrl: userData.imageUrl,
+  };
+};
+
+const setLocation = (state, action) => {
+  return {
+    ...state,
+    location: action.location,
   };
 };
 
@@ -26,6 +34,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
       return setUser(state, action);
+    case SET_LOCATION:
+      return setLocation(state, action);
     case LOGOUT:
       return logout(state, action);
     default:

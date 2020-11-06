@@ -2,7 +2,6 @@ import firebase from "firebase";
 import * as geofirestore from "geofirestore";
 import * as geokit from "geokit";
 
-import { getCurrentPosition } from "../../shared/utils";
 import Post from "../../models/post";
 
 export const SET_POSTS = "SET_POSTS";
@@ -10,11 +9,11 @@ export const SET_MY_POSTS = "SET_MY_POSTS";
 export const CREATE_POST = "CREATE_POST";
 
 export const fetchAllPosts = (radius) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     const posts = [];
 
     // current user location
-    const currentPosition = await getCurrentPosition();
+    const currentPosition = getState().auth.location;
 
     const firestore = firebase.firestore();
     const geoFirestore = geofirestore.initializeApp(firestore);
@@ -64,7 +63,7 @@ export const fetchAllPosts = (radius) => {
 };
 
 export const fetchMyPosts = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     // current user location
 
     const uid = firebase.auth().currentUser.uid;
@@ -76,7 +75,7 @@ export const fetchMyPosts = () => {
 
     const myPosts = [];
 
-    const currentPosition = await getCurrentPosition();
+    const currentPosition = getState().auth.location;
 
     response.forEach((post) => {
       const id = post.id;
@@ -126,7 +125,7 @@ export const createPost = (
   selectedLocation,
   expirationDate
 ) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     const uid = firebase.auth().currentUser.uid;
     const firestore = firebase.firestore();
     const geoFirestore = geofirestore.initializeApp(firestore);
@@ -168,7 +167,7 @@ export const createPost = (
       { merge: true }
     );
 
-    const currentPosition = await getCurrentPosition();
+    const currentPosition = getState().auth.location;
 
     const distance = geokit.distance(currentPosition, {
       lat: selectedLocation.lat,

@@ -3,13 +3,14 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
-import { getCurrentPosition } from "../../../shared/utils";
 
 const MapScreen = (props) => {
   const { initialLocation, readonly } = props.route.params;
   const [selectedLocation, setSelectedLocation] = useState(initialLocation);
+  const currentLocation = useSelector((state) => state.auth.location);
   const map = useRef(null);
 
   const mapRegion = {
@@ -20,7 +21,7 @@ const MapScreen = (props) => {
   };
 
   const getCurrentLocationHandler = async () => {
-    const location = await getCurrentPosition();
+    const location = currentLocation;
     const camera = await map.current.getCamera();
     camera.center = {
       latitude: location.lat,

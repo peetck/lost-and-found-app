@@ -21,11 +21,7 @@ import MyText from "../../../components/UI/MyText";
 import MyTextInput from "../../../components/UI/MyTextInput";
 import CategoryList from "../../../components/app/main/CategoryList";
 import colors from "../../../shared/colors";
-import {
-  takeImage,
-  takeImageActionSheetOptions,
-  getCurrentPosition,
-} from "../../../shared/utils";
+import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
 import { createPost } from "../../../store/actions/posts";
 
 const CreatePostScreen = (props) => {
@@ -42,7 +38,8 @@ const CreatePostScreen = (props) => {
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState(initialCategoryId);
   const [selectedImage, setSelectedImage] = useState();
-  const [selectedLocation, setSelectedLocation] = useState();
+  const currentLocation = useSelector((state) => state.auth.location);
+  const [selectedLocation, setSelectedLocation] = useState(currentLocation);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
 
@@ -51,8 +48,8 @@ const CreatePostScreen = (props) => {
     let location;
     if (params) {
       location = params.location;
-    } else if (!selectedLocation) {
-      location = await getCurrentPosition();
+    } else {
+      location = selectedLocation;
     }
     setSelectedLocation({
       ...location,
