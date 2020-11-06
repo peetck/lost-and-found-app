@@ -58,7 +58,7 @@ export const takeImage = async (index) => {
   return image.uri;
 };
 
-export const getCurrentPosition = async () => {
+export const getCurrentLocation = async () => {
   const { status } = await Permissions.askAsync(Permissions.LOCATION);
   if (status !== "granted") {
     Alert.alert(

@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import AuthNavigator from "../navigation/auth/AuthNavigator";
 import DrawerNavigator from "../navigation/app/DrawerNavigator";
 import colors from "../shared/colors";
-import { loginSuccess } from "../store/actions/auth";
+import { loginSuccess, fetchLocation } from "../store/actions/auth";
 import { fetchCategories } from "../store/actions/categories";
 
 const StartupScreen = (props) => {
@@ -17,12 +17,11 @@ const StartupScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   let isAutoLogin = true;
 
-  const loadCategories = async () => {
+  const init = async () => {
     await dispatch(fetchCategories());
-  };
+    await dispatch(fetchLocation());
 
-  useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
+    return firebase.auth().onAuthStateChanged(async (user) => {
       setIsLoading(true);
       if (user) {
         if (isAutoLogin) {
@@ -36,8 +35,10 @@ const StartupScreen = (props) => {
       setIsLoading(false);
       isAutoLogin = false;
     });
+  };
 
-    loadCategories();
+  useEffect(() => {
+    const unsubscribe = init();
 
     // clean up function
     return () => unsubscribe();

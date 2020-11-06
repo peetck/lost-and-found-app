@@ -14,7 +14,6 @@ import { CardStyleInterpolators } from "@react-navigation/stack";
 import CategoryList from "../../../components/app/main/CategoryList";
 import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
-import { getCurrentPosition } from "../../../shared/utils";
 import Post from "../../../models/post";
 import MyText from "../../../components/UI/MyText";
 
@@ -25,7 +24,8 @@ const SearchScreen = (props) => {
   const [selectedCategories, setSelectedCategories] = useState(
     initialCategories
   );
-  const [selectedLocation, setSelectedLocation] = useState();
+  const currentLocation = useSelector((state) => state.auth.location);
+  const [selectedLocation, setSelectedLocation] = useState(currentLocation);
   const [posts, setPosts] = useState([]);
   const [showPosts, setShowPosts] = useState([]);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
@@ -36,8 +36,8 @@ const SearchScreen = (props) => {
     let location;
     if (params) {
       location = params.location;
-    } else if (!selectedLocation) {
-      location = await getCurrentPosition();
+    } else {
+      location = selectedLocation;
     }
     setSelectedLocation({
       ...location,

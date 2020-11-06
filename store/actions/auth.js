@@ -1,6 +1,10 @@
 import firebase from "firebase";
+import * as Location from "expo-location";
+
+import { getCurrentLocation } from "../../shared/utils";
 
 export const SET_USER = "SET_USER";
+export const SET_LOCATION = "SET_LOCATION";
 export const LOGOUT = "LOGOUT";
 
 export const loginSuccess = () => {
@@ -16,6 +20,34 @@ export const loginSuccess = () => {
         nickname: userData.nickname,
         imageUrl: userData.imageUrl,
       },
+    });
+  };
+};
+
+export const fetchLocation = () => {
+  return async (dispatch) => {
+    const currentLocation = await getCurrentLocation();
+
+    await Location.watchPositionAsync(
+      {
+        accuracy: 3,
+        timeInterval: 10000,
+        distanceInterval: 100,
+      },
+      (location) => {
+        dispatch({
+          type: SET_LOCATION,
+          location: {
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
+          },
+        });
+      }
+    );
+
+    dispatch({
+      type: SET_LOCATION,
+      location: currentLocation,
     });
   };
 };
