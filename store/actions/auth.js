@@ -20,6 +20,20 @@ export const loginSuccess = () => {
   };
 };
 
+export const changeNickname = (nickname) => {
+  return async (dispatch, getState) => {
+    const { uid } = firebase.auth().currentUser;
+    const userData = getState().auth;
+    await firebase.firestore().collection("users").doc(uid).set({
+      email: userData.email,
+      nickname: nickname,
+      imageUrl: userData.imageUrl,
+    });
+
+    dispatch(loginSuccess());
+  };
+};
+
 export const login = (email, password) => {
   return async (dispatch) => {
     await firebase.auth().signInWithEmailAndPassword(email, password);
