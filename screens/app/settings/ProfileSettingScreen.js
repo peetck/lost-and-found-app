@@ -10,32 +10,58 @@ import {
   Button,
 } from "react-native";
 import Constants from "expo-constants";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
+import {
+  useActionSheet,
+  connectActionSheet,
+} from "@expo/react-native-action-sheet";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
-import { changeNickname } from "../../../store/actions/auth";
+import { changeNickname, changeImage } from "../../../store/actions/auth";
+import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
+
 
 const ProfileSettingScreen = (props) => {
+
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth);
+
+  const { showActionSheetWithOptions } = useActionSheet();
+
   const [pickedImage, setPickedImage] = useState(
     "https://static.wixstatic.com/media/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.png/v1/fill/w_173,h_172,al_c,q_85,usm_0.66_1.00_0.01/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.webp"
   );
+  const [selectedImage, setSelectedImage] = useState();
+  
+  {/* Function */}
+  const takeImageHandler = () => {
+    showActionSheetWithOptions(takeImageActionSheetOptions, async (index) => {
+      if (index !== 2) {
+        const imageUri = await takeImage(index);
+        setSelectedImage(imageUri);
+        await dispatch(changeImage(imageUri));
+      }
+    });
+  };
 
+
+  {/* Return JSX */}
   return (
-    <View style={styles.container}>
-      {/* image part */}
 
+    <View style={styles.container}>
+
+      {/* image part */}
       <View style={styles.containerImage}>
         <View style={styles.containerLayoutImage}>
-          {/* Visual Image*/}
-          <View
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 60,
-              backgroundColor: "#BED7D1",
-            }}
-          />
+
+          {/* Image */ }
+            <TouchableOpacity activeOpacity={0.6} onPress = {takeImageHandler} >
+              <Image source={{ uri: user.imageUrl }} style = {styles.imageStyle} />
+              <View style = {styles.iconContainer} >
+                <Ionicons name="md-camera" size={25} color="black" />
+              </View>
+            </TouchableOpacity>
         </View>
       </View>
 
@@ -108,6 +134,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "white",
   },
+  iconContainer: {
+    position: 'absolute',
+    right: 2,
+    bottom: -2 
+  },
+  imageStyle: {
+    width: 100,
+    height: 100,
+    borderRadius: 60 
+  }
 });
 
 export const screenOptions = {

@@ -66,6 +66,20 @@ export const changeNickname = (nickname) => {
   };
 };
 
+export const changeImage = (imageUrl) => {
+  return async (dispatch, getState) => {
+    const { uid } = firebase.auth().currentUser;
+    const userData = getState().auth;
+    await firebase.firestore().collection("users").doc(uid).set({
+      email: userData.email,
+      nickname: userData.nickname,
+      imageUrl: imageUrl,
+    });
+
+    dispatch(loginSuccess());
+  };
+};
+
 export const login = (email, password) => {
   return async (dispatch) => {
     await firebase.auth().signInWithEmailAndPassword(email, password);
