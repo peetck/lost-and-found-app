@@ -34,7 +34,7 @@ const SettingItem = (props) => {
           <MyText 
             style={{
                 color: defaultColor,
-                paddingTop: 5,
+                paddingTop: 4,
                 fontSize: 15,
                 fontFamily: "kanit-bold",
               }}
@@ -53,18 +53,21 @@ const SettingItem = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 2
+    paddingLeft: 2,
+    
   },
   containerText: {
     flex: 1,
-    padding: 10
+    padding: 10,
+    
   },
   containerButtonText: {
     flexDirection: 'row'
   },
   contentBox: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    borderBottomWidth: 0.2,
   },
   contentIcon: {
     padding: 8,
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
   contentText: {
     fontSize: 13,
     marginTop: 1,
-    color: '#0084ff'
+    color: '#0084ff',
   },
 });
 
