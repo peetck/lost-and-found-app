@@ -15,7 +15,7 @@ import SettingItem from "../../../components/app/settings/SettingItem";
 const AccountSettingScreen = (props) => {
   return (
 
-    <View style = {{flex: 1}}>
+    <View style = {styles.contentContainer}>
       <ScrollView showsVerticalScrollIndicator={false} >
 
         <SettingItem HeaderText = 'Telephone' title = '081 000 0000' color = 'default' type = 'text' />

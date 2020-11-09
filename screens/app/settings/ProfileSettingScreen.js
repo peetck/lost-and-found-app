@@ -33,6 +33,8 @@ const ProfileSettingScreen = (props) => {
     "https://static.wixstatic.com/media/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.png/v1/fill/w_173,h_172,al_c,q_85,usm_0.66_1.00_0.01/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.webp"
   );
   const [selectedImage, setSelectedImage] = useState();
+
+  const [editTile, setEditTitle] = useState();
   
   {/* Function */}
   const takeImageHandler = () => {
@@ -70,12 +72,11 @@ const ProfileSettingScreen = (props) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <SettingItem
             HeaderText="Nickname"
-            title="Pepper"
+            title={user.nickname}
             color="default"
             type="text"
-            onPress={async () => {
-              console.log('sss')
-              await dispatch(changeNickname("oooooo"));
+            onPress={() => {
+              props.navigation.navigate('ChangeNameSetting')
             }}
           ></SettingItem>
           <SettingItem

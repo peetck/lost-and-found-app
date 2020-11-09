@@ -66,10 +66,23 @@ export const changeNickname = (nickname) => {
   };
 };
 
-export const changeImage = (imageUrl) => {
+export const changeImage = (userImage) => {
   return async (dispatch, getState) => {
     const { uid } = firebase.auth().currentUser;
     const userData = getState().auth;
+
+    let ref = firebase.storage().ref().child("user_image");
+    fileName = userImage;
+
+    if (userImage){
+      const file = await fetch(userImage);
+      const fileBlob = await file.blob();
+      fileName = uid + ".jpg";
+      await ref.child(fileName).put(fileBlob);
+    }
+
+    const imageUrl = await ref.child(fileName).getDownloadURL();
+
     await firebase.firestore().collection("users").doc(uid).set({
       email: userData.email,
       nickname: userData.nickname,
