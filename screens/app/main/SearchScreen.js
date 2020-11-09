@@ -24,7 +24,7 @@ const SearchScreen = (props) => {
   const [selectedCategories, setSelectedCategories] = useState(
     initialCategories
   );
-  const currentLocation = useSelector((state) => state.auth.location);
+  const currentLocation = useSelector((state) => state.user.location);
   const [selectedLocation, setSelectedLocation] = useState(currentLocation);
   const [posts, setPosts] = useState([]);
   const [showPosts, setShowPosts] = useState([]);

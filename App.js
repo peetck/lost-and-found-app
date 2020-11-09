@@ -9,7 +9,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 import StartupScreen from "./screens/StartupScreen";
-import authReducer from "./store/reducers/auth";
+import userReducer from "./store/reducers/user";
 import postsReducer from "./store/reducers/posts";
 import categoriesReducer from "./store/reducers/categories";
 
@@ -32,7 +32,7 @@ if (!firebase.apps.length) {
 }
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  user: userReducer,
   posts: postsReducer,
   categories: categoriesReducer,
 });

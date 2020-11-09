@@ -14,21 +14,37 @@ import SettingItem from "../../../components/app/settings/SettingItem";
 
 const AccountSettingScreen = (props) => {
   return (
-
-    <View style = {styles.contentContainer}>
-      <ScrollView showsVerticalScrollIndicator={false} >
-
-        <SettingItem HeaderText = 'Telephone' title = '081 000 0000' color = 'default' type = 'text' />
-        <SettingItem HeaderText = 'Email' title = 'Registered' color = 'default' type = 'text' />
-        <SettingItem HeaderText = 'Change Password' title = 'Registered' color = 'default' type = 'text' onPress = {() => {
-          props.navigation.navigate('ChangePasswordSetting')
-        }} />
-        <SettingItem HeaderText = 'Delete Account' title = '' color = 'red' type = 'single' />
-
+    <View style={styles.contentContainer}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <SettingItem
+          HeaderText="Telephone"
+          title="081 000 0000"
+          color="default"
+          type="text"
+        />
+        <SettingItem
+          HeaderText="Email"
+          title="Registered"
+          color="default"
+          type="text"
+        />
+        <SettingItem
+          HeaderText="Change Password"
+          title="Registered"
+          color="default"
+          type="text"
+          onPress={() => {
+            props.navigation.navigate("ChangePasswordSetting");
+          }}
+        />
+        <SettingItem
+          HeaderText="Delete Account"
+          title=""
+          color="red"
+          type="single"
+        />
       </ScrollView>
-
     </View>
-
   );
 };
 

@@ -1,4 +1,10 @@
-import { LOGOUT, SET_LOCATION, SET_USER } from "../actions/auth";
+import {
+  LOGOUT,
+  SET_IMAGE_URL,
+  SET_LOCATION,
+  SET_NICKNAME,
+  SET_USER,
+} from "../actions/user";
 
 const initialState = {
   email: "",
@@ -24,6 +30,20 @@ const setLocation = (state, action) => {
   };
 };
 
+const setNickname = (state, action) => {
+  return {
+    ...state,
+    nickname: action.nickname,
+  };
+};
+
+const setImageUrl = (state, action) => {
+  return {
+    ...state,
+    imageUrl: action.imageUrl,
+  };
+};
+
 const logout = (state, action) => {
   return {
     ...initialState,
@@ -36,6 +56,10 @@ const reducer = (state = initialState, action) => {
       return setUser(state, action);
     case SET_LOCATION:
       return setLocation(state, action);
+    case SET_NICKNAME:
+      return setNickname(state, action);
+    case SET_IMAGE_URL:
+      return setImageUrl(state, action);
     case LOGOUT:
       return logout(state, action);
     default:

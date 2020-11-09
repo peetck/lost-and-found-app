@@ -8,20 +8,17 @@ export const SET_POSTS = "SET_POSTS";
 export const SET_MY_POSTS = "SET_MY_POSTS";
 export const CREATE_POST = "CREATE_POST";
 
-export const fetchAllPosts = (radius) => {
-  return async (dispatch, getState) => {
+export const fetchAllPosts = (currentLocation, radius) => {
+  return async (dispatch) => {
     const posts = [];
-
-    // current user location
-    const currentPosition = getState().auth.location;
 
     const firestore = firebase.firestore();
     const geoFirestore = geofirestore.initializeApp(firestore);
     const postsCollection = geoFirestore.collection("posts");
     const query = postsCollection.near({
       center: new firebase.firestore.GeoPoint(
-        currentPosition.lat,
-        currentPosition.lng
+        currentLocation.lat,
+        currentLocation.lng
       ),
       radius: radius,
     });
@@ -75,7 +72,7 @@ export const fetchMyPosts = () => {
 
     const myPosts = [];
 
-    const currentPosition = getState().auth.location;
+    const currentPosition = getState().user.location;
 
     response.forEach((post) => {
       const id = post.id;
@@ -160,14 +157,13 @@ export const createPost = (
     await ref.child(fileName).put(fileBlob);
     const imageUrl = await ref.child(fileName).getDownloadURL();
 
-    await firebase.firestore().collection("posts").doc(id).set(
-      {
-        imageUrl,
-      },
-      { merge: true }
-    );
+    await firebase
+      .firestore()
+      .collection("posts")
+      .doc(id)
+      .set({ imageUrl }, { merge: true });
 
-    const currentPosition = getState().auth.location;
+    const currentPosition = getState().user.location;
 
     const distance = geokit.distance(currentPosition, {
       lat: selectedLocation.lat,

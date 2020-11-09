@@ -18,14 +18,12 @@ import {
 } from "@expo/react-native-action-sheet";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
-import { changeNickname, changeImage } from "../../../store/actions/auth";
+import { changeNickname, changeImage } from "../../../store/actions/user";
 import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
 
-
 const ProfileSettingScreen = (props) => {
-
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.user);
 
   const { showActionSheetWithOptions } = useActionSheet();
 
@@ -35,8 +33,10 @@ const ProfileSettingScreen = (props) => {
   const [selectedImage, setSelectedImage] = useState();
 
   const [editTile, setEditTitle] = useState();
-  
-  {/* Function */}
+
+  {
+    /* Function */
+  }
   const takeImageHandler = () => {
     showActionSheetWithOptions(takeImageActionSheetOptions, async (index) => {
       if (index !== 2) {
@@ -47,23 +47,21 @@ const ProfileSettingScreen = (props) => {
     });
   };
 
-
-  {/* Return JSX */}
+  {
+    /* Return JSX */
+  }
   return (
-
     <View style={styles.container}>
-
       {/* image part */}
       <View style={styles.containerImage}>
         <View style={styles.containerLayoutImage}>
-
-          {/* Image */ }
-            <TouchableOpacity activeOpacity={0.6} onPress = {takeImageHandler} >
-              <Image source={{ uri: user.imageUrl }} style = {styles.imageStyle} />
-              <View style = {styles.iconContainer} >
-                <Ionicons name="md-camera" size={25} color="black" />
-              </View>
-            </TouchableOpacity>
+          {/* Image */}
+          <TouchableOpacity activeOpacity={0.6} onPress={takeImageHandler}>
+            <Image source={{ uri: user.imageUrl }} style={styles.imageStyle} />
+            <View style={styles.iconContainer}>
+              <Ionicons name="md-camera" size={25} color="black" />
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -76,7 +74,7 @@ const ProfileSettingScreen = (props) => {
             color="default"
             type="text"
             onPress={() => {
-              props.navigation.navigate('ChangeNameSetting')
+              props.navigation.navigate("ChangeNameSetting");
             }}
           ></SettingItem>
           <SettingItem
@@ -127,15 +125,15 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   iconContainer: {
-    position: 'absolute',
+    position: "absolute",
     right: 2,
-    bottom: -2 
+    bottom: -2,
   },
   imageStyle: {
     width: 100,
     height: 100,
-    borderRadius: 60 
-  }
+    borderRadius: 60,
+  },
 });
 
 export const screenOptions = {

@@ -18,13 +18,14 @@ import { fetchAllPosts } from "../../../store/actions/posts";
 
 const HomeScreen = (props) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts.posts);
+  const currentLocation = useSelector((state) => state.user.location);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const isFocused = useIsFocused();
 
   const loadPosts = useCallback(async () => {
-    await dispatch(fetchAllPosts(10));
+    await dispatch(fetchAllPosts(currentLocation, 10));
   }, [dispatch]);
 
   useEffect(() => {

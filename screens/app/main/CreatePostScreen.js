@@ -38,7 +38,7 @@ const CreatePostScreen = (props) => {
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState(initialCategoryId);
   const [selectedImage, setSelectedImage] = useState();
-  const currentLocation = useSelector((state) => state.auth.location);
+  const currentLocation = useSelector((state) => state.user.location);
   const [selectedLocation, setSelectedLocation] = useState(currentLocation);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);

@@ -5,6 +5,8 @@ import { getCurrentLocation } from "../../shared/utils";
 
 export const SET_USER = "SET_USER";
 export const SET_LOCATION = "SET_LOCATION";
+export const SET_NICKNAME = "SET_NICKNAME";
+export const SET_IMAGE_URL = "SET_IMAGE_URL";
 export const LOGOUT = "LOGOUT";
 
 export const loginSuccess = () => {
@@ -53,28 +55,29 @@ export const fetchLocation = () => {
 };
 
 export const changeNickname = (nickname) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     const { uid } = firebase.auth().currentUser;
-    const userData = getState().auth;
-    await firebase.firestore().collection("users").doc(uid).set({
-      email: userData.email,
-      nickname: nickname,
-      imageUrl: userData.imageUrl,
-    });
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(uid)
+      .set({ nickname: nickname }, { merge: true });
 
-    dispatch(loginSuccess());
+    dispatch({
+      type: SET_NICKNAME,
+      nickname: nickname,
+    });
   };
 };
 
 export const changeImage = (userImage) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     const { uid } = firebase.auth().currentUser;
-    const userData = getState().auth;
 
     let ref = firebase.storage().ref().child("user_image");
     fileName = userImage;
 
-    if (userImage){
+    if (userImage) {
       const file = await fetch(userImage);
       const fileBlob = await file.blob();
       fileName = uid + ".jpg";
@@ -83,16 +86,18 @@ export const changeImage = (userImage) => {
 
     const imageUrl = await ref.child(fileName).getDownloadURL();
 
-    await firebase.firestore().collection("users").doc(uid).set({
-      email: userData.email,
-      nickname: userData.nickname,
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(uid)
+      .set({ imageUrl: imageUrl }, { merge: true });
+
+    dispatch({
+      type: SET_IMAGE_URL,
       imageUrl: imageUrl,
     });
-
-    dispatch(loginSuccess());
   };
 };
-
 
 export const login = (email, password) => {
   return async (dispatch) => {
