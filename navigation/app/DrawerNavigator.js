@@ -15,7 +15,7 @@ import SettingsNavigator, {
   navigatorOptions as settingsNavigatorOptions,
 } from "./settings/SettingsNavigator";
 import MyText from "../../components/UI/MyText";
-import { logout } from "../../store/actions/auth";
+import { logout } from "../../store/actions/user";
 
 const Drawer = createDrawerNavigator();
 

@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import AuthNavigator from "../navigation/auth/AuthNavigator";
 import DrawerNavigator from "../navigation/app/DrawerNavigator";
 import colors from "../shared/colors";
-import { loginSuccess, fetchLocation } from "../store/actions/auth";
+import { loginSuccess, fetchLocation } from "../store/actions/user";
 import { fetchCategories } from "../store/actions/categories";
 
 const StartupScreen = (props) => {

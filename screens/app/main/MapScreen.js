@@ -10,7 +10,7 @@ import HeaderButton from "../../../components/UI/HeaderButton";
 const MapScreen = (props) => {
   const { initialLocation, readonly } = props.route.params;
   const [selectedLocation, setSelectedLocation] = useState(initialLocation);
-  const currentLocation = useSelector((state) => state.auth.location);
+  const currentLocation = useSelector((state) => state.user.location);
   const map = useRef(null);
 
   const mapRegion = {

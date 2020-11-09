@@ -9,7 +9,7 @@ import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
-import { login } from "../../store/actions/auth";
+import { login } from "../../store/actions/user";
 
 const LoginScreen = (props) => {
   const dispatch = useDispatch();

@@ -18,14 +18,12 @@ import {
 } from "@expo/react-native-action-sheet";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
-import { changeNickname, changeImage } from "../../../store/actions/auth";
+import { changeNickname, changeImage } from "../../../store/actions/user";
 import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
 
-
 const ProfileSettingScreen = (props) => {
-
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.user);
 
   const { showActionSheetWithOptions } = useActionSheet();
 
@@ -33,8 +31,12 @@ const ProfileSettingScreen = (props) => {
     "https://static.wixstatic.com/media/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.png/v1/fill/w_173,h_172,al_c,q_85,usm_0.66_1.00_0.01/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.webp"
   );
   const [selectedImage, setSelectedImage] = useState();
-  
-  {/* Function */}
+
+  const [editTile, setEditTitle] = useState();
+
+  {
+    /* Function */
+  }
   const takeImageHandler = () => {
     showActionSheetWithOptions(takeImageActionSheetOptions, async (index) => {
       if (index !== 2) {
@@ -45,23 +47,21 @@ const ProfileSettingScreen = (props) => {
     });
   };
 
-
-  {/* Return JSX */}
+  {
+    /* Return JSX */
+  }
   return (
-
     <View style={styles.container}>
-
       {/* image part */}
       <View style={styles.containerImage}>
         <View style={styles.containerLayoutImage}>
-
-          {/* Image */ }
-            <TouchableOpacity activeOpacity={0.6} onPress = {takeImageHandler} >
-              <Image source={{ uri: user.imageUrl }} style = {styles.imageStyle} />
-              <View style = {styles.iconContainer} >
-                <Ionicons name="md-camera" size={25} color="black" />
-              </View>
-            </TouchableOpacity>
+          {/* Image */}
+          <TouchableOpacity activeOpacity={0.6} onPress={takeImageHandler}>
+            <Image source={{ uri: user.imageUrl }} style={styles.imageStyle} />
+            <View style={styles.iconContainer}>
+              <Ionicons name="md-camera" size={25} color="black" />
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -70,12 +70,11 @@ const ProfileSettingScreen = (props) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <SettingItem
             HeaderText="Nickname"
-            title="Pepper"
+            title={user.nickname}
             color="default"
             type="text"
-            onPress={async () => {
-              console.log('sss')
-              await dispatch(changeNickname("oooooo"));
+            onPress={() => {
+              props.navigation.navigate("ChangeNameSetting");
             }}
           ></SettingItem>
           <SettingItem
@@ -83,27 +82,18 @@ const ProfileSettingScreen = (props) => {
             title="081 000 0000"
             color="default"
             type="text"
-            onPress={() => {
-              console.log(2);
-            }}
           ></SettingItem>
           <SettingItem
             HeaderText="Email"
             title="example@hotmail.com"
             color="default"
             type="text"
-            onPress={() => {
-              console.log(3);
-            }}
           ></SettingItem>
           <SettingItem
             HeaderText="Birthday"
             title="01-05-2000"
             color="default"
             type="text"
-            onPress={() => {
-              console.log(4);
-            }}
           ></SettingItem>
         </ScrollView>
       </View>
@@ -117,7 +107,7 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     flex: 1,
-    backgroundColor: "#FFDFD3",
+    backgroundColor: "#e6f8f9",
   },
   containerLayoutImage: {
     flex: 1,
@@ -135,15 +125,15 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   iconContainer: {
-    position: 'absolute',
+    position: "absolute",
     right: 2,
-    bottom: -2 
+    bottom: -2,
   },
   imageStyle: {
     width: 100,
     height: 100,
-    borderRadius: 60 
-  }
+    borderRadius: 60,
+  },
 });
 
 export const screenOptions = {
