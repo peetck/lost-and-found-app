@@ -44,9 +44,9 @@ const ChangeNameSettingScreen = (props) => {
             setText(text);
         }}
         value = {text}
-        ></TextInput>
+        />
         <View style = {{marginTop: 12}}>
-            <Button title = 'Save' 
+            <Button title = 'Save' color = '#3fc5f0'
             onPress = {async () => {
                 await dispatch(changeNickname(text));
                 props.navigation.navigate('ProfileSetting');
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 15,
-    backgroundColor: "white",
+    backgroundColor: "white"
   },
   contentContainer: {
     flex: 1,

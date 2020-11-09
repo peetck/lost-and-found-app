@@ -84,27 +84,18 @@ const ProfileSettingScreen = (props) => {
             title="081 000 0000"
             color="default"
             type="text"
-            onPress={() => {
-              console.log(2);
-            }}
           ></SettingItem>
           <SettingItem
             HeaderText="Email"
             title="example@hotmail.com"
             color="default"
             type="text"
-            onPress={() => {
-              console.log(3);
-            }}
           ></SettingItem>
           <SettingItem
             HeaderText="Birthday"
             title="01-05-2000"
             color="default"
             type="text"
-            onPress={() => {
-              console.log(4);
-            }}
           ></SettingItem>
         </ScrollView>
       </View>
@@ -118,7 +109,7 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     flex: 1,
-    backgroundColor: "#FFDFD3",
+    backgroundColor: "#e6f8f9",
   },
   containerLayoutImage: {
     flex: 1,

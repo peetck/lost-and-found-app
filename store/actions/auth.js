@@ -93,6 +93,7 @@ export const changeImage = (userImage) => {
   };
 };
 
+
 export const login = (email, password) => {
   return async (dispatch) => {
     await firebase.auth().signInWithEmailAndPassword(email, password);
