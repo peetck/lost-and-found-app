@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   password: {
     borderWidth: 0.5,
     borderRadius: 3,
-    height: 38,
+    height: 41,
     fontSize: 19,
     paddingHorizontal: 7,
     alignContent: "space-between",
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   checkPassword: {
     borderWidth: 0.5,
     borderRadius: 3,
-    height: 38,
+    height: 41,
     fontSize: 19,
     paddingHorizontal: 7,
     marginTop: 13,
