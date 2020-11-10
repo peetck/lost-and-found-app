@@ -26,7 +26,7 @@ const HomeScreen = (props) => {
 
   const loadPosts = useCallback(async () => {
     await dispatch(fetchAllPosts(currentLocation, 10));
-  }, [dispatch]);
+  }, [dispatch, currentLocation]);
 
   useEffect(() => {
     loadPosts();

@@ -59,8 +59,8 @@ export const fetchAllPosts = (currentLocation, radius) => {
   };
 };
 
-export const fetchMyPosts = () => {
-  return async (dispatch, getState) => {
+export const fetchMyPosts = (currentLocation) => {
+  return async (dispatch) => {
     // current user location
 
     const uid = firebase.auth().currentUser.uid;
@@ -72,8 +72,6 @@ export const fetchMyPosts = () => {
 
     const myPosts = [];
 
-    const currentPosition = getState().user.location;
-
     response.forEach((post) => {
       const id = post.id;
       const data = post.data();
@@ -82,7 +80,7 @@ export const fetchMyPosts = () => {
 
       const dateDiff = expirationDate.getTime() - new Date();
 
-      const distance = geokit.distance(currentPosition, {
+      const distance = geokit.distance(currentLocation, {
         lat: data.coordinates.latitude,
         lng: data.coordinates.longitude,
       });
