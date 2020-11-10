@@ -110,7 +110,7 @@ const CreatePostScreen = (props) => {
           "Post Created",
           "brah brah brah",
           colors.success,
-          3000,
+          2000,
           <Ionicons name="md-checkmark-circle" color="white" size={24} />
         );
         props.navigation.goBack();

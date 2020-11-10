@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.primary,
     padding: 10,
-    borderRadius: 25,
+    borderRadius: 10,
   },
   title: {
     color: "white",
