@@ -25,8 +25,12 @@ const HomeScreen = (props) => {
   const isFocused = useIsFocused();
 
   const loadPosts = useCallback(async () => {
-    await dispatch(fetchAllPosts(currentLocation, 10));
-  }, [dispatch]);
+    try {
+      await dispatch(fetchAllPosts(currentLocation, 10));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch, currentLocation]);
 
   useEffect(() => {
     loadPosts();

@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
+import { Toast } from "popup-ui";
 
 export const takeImageActionSheetOptions = {
   options: ["Take Picture", "Choose from gallery", "Cancel"],
@@ -82,4 +83,14 @@ export const getCurrentLocation = async () => {
       ]);
     }
   }
+};
+
+export const showToast = (title, text, color, duration, icon) => {
+  Toast.show({
+    title: title,
+    text: text,
+    color: color,
+    timing: duration,
+    icon: icon,
+  });
 };

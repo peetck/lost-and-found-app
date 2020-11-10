@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import firebase from "firebase";
 import "firebase/firestore";
+import * as Facebook from "expo-facebook";
 
 import StartupScreen from "./screens/StartupScreen";
 import userReducer from "./store/reducers/user";
@@ -30,6 +31,8 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+
+Facebook.initializeAsync("1030138017425746", "lost-and-found");
 
 const rootReducer = combineReducers({
   user: userReducer,

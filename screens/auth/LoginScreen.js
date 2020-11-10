@@ -1,15 +1,24 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+} from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import Constants from "expo-constants";
 import { useDispatch } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
 
 import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
-import { login } from "../../store/actions/user";
+import { login, loginWithFacebook } from "../../store/actions/user";
+import { showToast } from "../../shared/utils";
+import Loader from "../../components/UI/Loader";
 
 const LoginScreen = (props) => {
   const dispatch = useDispatch();
@@ -17,14 +26,41 @@ const LoginScreen = (props) => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const loginHandler = async () => {
+  const loginHandler = async (method) => {
     setIsLoading(true);
-    try {
-      await dispatch(login(email, password));
-    } catch (error) {
-      // TODO: handler error
-      setIsLoading(false);
-      console.log(error);
+    if (method === "email") {
+      try {
+        await dispatch(login(email, password));
+        showToast(
+          "Login Success",
+          "Welcome to Lost & Found App.",
+          colors.success,
+          2000,
+          <Ionicons name="md-checkmark-circle" color="white" size={24} />
+        );
+      } catch (error) {
+        showToast(
+          "Error",
+          error.message,
+          colors.error,
+          2000,
+          <Ionicons name="md-close-circle" color="white" size={24} />
+        );
+        setIsLoading(false);
+      }
+    } else if (method === "facebook") {
+      try {
+        await dispatch(loginWithFacebook());
+        showToast(
+          "Login Success",
+          "Welcome to Lost & Found App.",
+          colors.success,
+          2000,
+          <Ionicons name="md-checkmark-circle" color="white" size={24} />
+        );
+      } catch (error) {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -39,6 +75,8 @@ const LoginScreen = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.contentContainer}>
+          <Loader visible={isLoading} />
+
           <AuthHeader
             style={styles.centerContainer}
             title="Lost & Found"
@@ -60,7 +98,26 @@ const LoginScreen = (props) => {
             />
           </View>
 
-          <MyButton title="Login" onPress={loginHandler} loading={isLoading} />
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1, paddingRight: 30 }}>
+              <MyButton title="Login" onPress={() => loginHandler("email")} />
+            </View>
+            <View style={{ flex: 0.4 }}>
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#edebeb",
+                  borderRadius: 10,
+                }}
+                activeOpacity={0.6}
+                onPress={() => loginHandler("facebook")}
+              >
+                <Ionicons name="logo-facebook" size={45} color="#4267B2" />
+              </TouchableOpacity>
+            </View>
+          </View>
 
           <View style={styles.centerContainer}>
             <MyText>Doesn't have an account ?</MyText>

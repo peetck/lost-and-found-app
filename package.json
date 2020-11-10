@@ -22,11 +22,12 @@
     "expo-status-bar": "^1.0.2",
     "firebase": "7.9.0",
     "geofirestore": "^4.3.0",
+    "popup-ui": "^1.2.2",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
+    "react-native-animated-loader": "0.0.8",
     "react-native-gesture-handler": "~1.6.0",
-    "react-native-loading-spinner-overlay": "^2.0.0",
     "react-native-maps": "0.27.1",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",
@@ -36,7 +37,9 @@
     "react-navigation-header-buttons": "^5.0.2",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "lottie-react-native": "~2.6.1",
+    "expo-facebook": "~8.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import * as Location from "expo-location";
+import * as Facebook from "expo-facebook";
 
 import { getCurrentLocation } from "../../shared/utils";
 
@@ -75,7 +76,7 @@ export const changeImage = (userImage) => {
     const { uid } = firebase.auth().currentUser;
 
     let ref = firebase.storage().ref().child("user_image");
-    fileName = userImage;
+    let fileName = userImage;
 
     if (userImage) {
       const file = await fetch(userImage);
@@ -130,6 +131,41 @@ export const signUp = (email, password, nickname, image) => {
     });
 
     dispatch(loginSuccess());
+  };
+};
+
+export const loginWithFacebook = () => {
+  return async (dispatch) => {
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync();
+
+    if (type === "success") {
+      await firebase
+        .auth()
+        .setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+      const credential = firebase.auth.FacebookAuthProvider.credential(token);
+      const facebookProfileData = await firebase
+        .auth()
+        .signInWithCredential(credential);
+
+      const uid = facebookProfileData.user.uid;
+      const email = facebookProfileData.additionalUserInfo.profile.email;
+      const nickname = facebookProfileData.additionalUserInfo.profile.name;
+      const imageUrl =
+        facebookProfileData.additionalUserInfo.profile.picture.data.url;
+      const isNewUser = facebookProfileData.additionalUserInfo.isNewUser;
+
+      if (isNewUser) {
+        await firebase.firestore().collection("users").doc(uid).set({
+          email: email,
+          nickname: nickname,
+          imageUrl: imageUrl,
+        });
+      }
+
+      dispatch(loginSuccess());
+    } else {
+      throw new Error("");
+    }
   };
 };
 

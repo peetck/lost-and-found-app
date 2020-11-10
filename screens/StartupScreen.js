@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { useDispatch } from "react-redux";
+import { Root } from "popup-ui";
 
 import AuthNavigator from "../navigation/auth/AuthNavigator";
 import DrawerNavigator from "../navigation/app/DrawerNavigator";
@@ -17,11 +18,15 @@ const StartupScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   let isAutoLogin = true;
 
-  const init = async () => {
-    await dispatch(fetchCategories());
-    await dispatch(fetchLocation());
+  useEffect(() => {
+    const init = async () => {
+      await dispatch(fetchCategories());
+      await dispatch(fetchLocation());
+    };
 
-    return firebase.auth().onAuthStateChanged(async (user) => {
+    init();
+
+    const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       setIsLoading(true);
       if (user) {
         if (isAutoLogin) {
@@ -35,10 +40,6 @@ const StartupScreen = (props) => {
       setIsLoading(false);
       isAutoLogin = false;
     });
-  };
-
-  useEffect(() => {
-    const unsubscribe = init();
 
     // clean up function
     return () => unsubscribe();
@@ -53,11 +54,13 @@ const StartupScreen = (props) => {
   }
 
   return (
-    <NavigationContainer>
-      <ActionSheetProvider>
-        {isAuth ? <DrawerNavigator /> : <AuthNavigator />}
-      </ActionSheetProvider>
-    </NavigationContainer>
+    <Root>
+      <NavigationContainer>
+        <ActionSheetProvider>
+          {isAuth ? <DrawerNavigator /> : <AuthNavigator />}
+        </ActionSheetProvider>
+      </NavigationContainer>
+    </Root>
   );
 };
 

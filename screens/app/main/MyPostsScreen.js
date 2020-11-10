@@ -11,18 +11,21 @@ import CategoryList from "../../../components/app/main/CategoryList";
 const MyPostsScreen = (props) => {
   const dispatch = useDispatch();
   const myPosts = useSelector((state) => state.posts.myPosts);
+  const currentLocation = useSelector((state) => state.user.location);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const isFocused = useIsFocused();
 
   const loadMyPosts = useCallback(async () => {
-    // setIsLoading(true);
-    await dispatch(fetchMyPosts());
-    // setIsLoading(false);
-  }, [dispatch]);
+    try {
+      await dispatch(fetchMyPosts(currentLocation));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch, currentLocation]);
 
   useEffect(() => {
     loadMyPosts();
-  }, [loadMyPosts]);
+  }, [loadMyPosts, isFocused]);
 
   const onRefresh = async () => {
     setIsRefreshing(true);
