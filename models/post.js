@@ -24,6 +24,7 @@ class Post {
     this.expirationDate = expirationDate;
     this.uid = uid;
     this.distance = distance;
+    this.address = address;
   }
 }
 
