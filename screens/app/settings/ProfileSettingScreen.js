@@ -85,7 +85,7 @@ const ProfileSettingScreen = (props) => {
           ></SettingItem>
           <SettingItem
             HeaderText="Email"
-            title="example@hotmail.com"
+            title={user.email}
             color="default"
             type="text"
           ></SettingItem>

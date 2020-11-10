@@ -9,10 +9,14 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
+import { useSelector } from "react-redux";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
 
 const AccountSettingScreen = (props) => {
+
+  const user = useSelector((state) => state.user);
+
   return (
     <View style={styles.contentContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -24,7 +28,7 @@ const AccountSettingScreen = (props) => {
         />
         <SettingItem
           HeaderText="Email"
-          title="Registered"
+          title= {user.email}
           color="default"
           type="text"
         />
