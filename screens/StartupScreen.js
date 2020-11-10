@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { useDispatch } from "react-redux";
+import { Root } from "popup-ui";
 
 import AuthNavigator from "../navigation/auth/AuthNavigator";
 import DrawerNavigator from "../navigation/app/DrawerNavigator";
@@ -53,11 +54,13 @@ const StartupScreen = (props) => {
   }
 
   return (
-    <NavigationContainer>
-      <ActionSheetProvider>
-        {isAuth ? <DrawerNavigator /> : <AuthNavigator />}
-      </ActionSheetProvider>
-    </NavigationContainer>
+    <Root>
+      <NavigationContainer>
+        <ActionSheetProvider>
+          {isAuth ? <DrawerNavigator /> : <AuthNavigator />}
+        </ActionSheetProvider>
+      </NavigationContainer>
+    </Root>
   );
 };
 

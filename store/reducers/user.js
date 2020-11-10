@@ -46,7 +46,10 @@ const setImageUrl = (state, action) => {
 
 const logout = (state, action) => {
   return {
-    ...initialState,
+    ...state,
+    email: "",
+    nickname: "",
+    imageUrl: null,
   };
 };
 

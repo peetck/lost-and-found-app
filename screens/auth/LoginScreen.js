@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import Constants from "expo-constants";
 import { useDispatch } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
 
 import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
@@ -10,6 +11,8 @@ import MyTextInput from "../../components/UI/MyTextInput";
 import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
 import { login } from "../../store/actions/user";
+import { showToast } from "../../shared/utils";
+import Loader from "../../components/UI/Loader";
 
 const LoginScreen = (props) => {
   const dispatch = useDispatch();
@@ -21,11 +24,24 @@ const LoginScreen = (props) => {
     setIsLoading(true);
     try {
       await dispatch(login(email, password));
+      showToast(
+        "Login Success",
+        "Welcome to Lost & Found App.",
+        colors.success,
+        3000,
+        <Ionicons name="md-checkmark-circle" color="white" size={24} />
+      );
     } catch (error) {
-      // TODO: handler error
-      setIsLoading(false);
+      showToast(
+        "Error",
+        error.message,
+        colors.error,
+        3000,
+        <Ionicons name="md-close-circle" color="white" size={24} />
+      );
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   const switchToSignUpHandler = () => {
@@ -39,6 +55,8 @@ const LoginScreen = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.contentContainer}>
+          <Loader visible={isLoading} />
+
           <AuthHeader
             style={styles.centerContainer}
             title="Lost & Found"
@@ -60,7 +78,7 @@ const LoginScreen = (props) => {
             />
           </View>
 
-          <MyButton title="Login" onPress={loginHandler} loading={isLoading} />
+          <MyButton title="Login" onPress={loginHandler} />
 
           <View style={styles.centerContainer}>
             <MyText>Doesn't have an account ?</MyText>

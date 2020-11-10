@@ -16,9 +16,11 @@ const MyPostsScreen = (props) => {
   const isFocused = useIsFocused();
 
   const loadMyPosts = useCallback(async () => {
-    // setIsLoading(true);
-    await dispatch(fetchMyPosts(currentLocation));
-    // setIsLoading(false);
+    try {
+      await dispatch(fetchMyPosts(currentLocation));
+    } catch (error) {
+      console.log(error);
+    }
   }, [dispatch, currentLocation]);
 
   useEffect(() => {

@@ -14,15 +14,19 @@ import {
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
 import { useDispatch, useSelector } from "react-redux";
-import Spinner from "react-native-loading-spinner-overlay";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
 import MyTextInput from "../../../components/UI/MyTextInput";
 import CategoryList from "../../../components/app/main/CategoryList";
 import colors from "../../../shared/colors";
-import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
+import {
+  takeImage,
+  takeImageActionSheetOptions,
+  showToast,
+} from "../../../shared/utils";
 import { createPost } from "../../../store/actions/posts";
+import Loader from "../../../components/UI/Loader";
 
 const CreatePostScreen = (props) => {
   const { params } = props.route;
@@ -102,6 +106,13 @@ const CreatePostScreen = (props) => {
             new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) // next 2 day
           )
         );
+        showToast(
+          "Post Created",
+          "brah brah brah",
+          colors.success,
+          3000,
+          <Ionicons name="md-checkmark-circle" color="white" size={24} />
+        );
         props.navigation.goBack();
       } catch (error) {
         console.log(error);
@@ -133,12 +144,7 @@ const CreatePostScreen = (props) => {
 
   return (
     <ScrollView style={styles.screen}>
-      <Spinner
-        visible={isLoading}
-        color={colors.primary}
-        overlayColor="rgba(255,255,255, 0.5)"
-        animation="fade"
-      />
+      <Loader visible={isLoading} />
 
       <View style={{ ...styles.titleContainer, paddingTop: 25 }}>
         <MyText style={styles.title}>Information</MyText>

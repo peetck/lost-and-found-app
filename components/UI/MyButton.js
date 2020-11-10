@@ -1,26 +1,13 @@
 import React from "react";
-import {
-  View,
-  TouchableOpacity,
-  ActivityIndicator,
-  StyleSheet,
-} from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 
 import MyText from "./MyText";
 import Colors from "../../shared/colors";
 
 const MyButton = (props) => {
-  if (props.loading) {
-    return (
-      <View style={styles.button}>
-        <ActivityIndicator size={25} color="white"/>
-      </View>
-    );
-  }
-
   return (
     <TouchableOpacity
-      style={{...styles.button, ...props.style}}
+      style={{ ...styles.button, ...props.style }}
       onPress={props.onPress}
       activeOpacity={0.6}
     >
