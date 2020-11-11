@@ -13,8 +13,14 @@ const PostList = (props) => {
       distance={itemData.item.distance}
       onPress={() => {
         props.navigation.navigate("PostDetail", {
-          postId: itemData.item.id,
           title: itemData.item.title,
+          description: itemData.item.description,
+          imageUrl: itemData.item.imageUrl,
+          mapUrl: itemData.item.mapUrl,
+          location: {
+            lat: itemData.item.lat,
+            lng: itemData.item.lng,
+          },
         });
       }}
     />

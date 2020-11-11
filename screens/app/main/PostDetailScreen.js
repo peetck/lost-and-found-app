@@ -7,25 +7,17 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { useSelector } from "react-redux";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 
 const PostDetailScreen = (props) => {
-  const posts = useSelector((state) => state.posts.posts);
-  const myPosts = useSelector((state) => state.posts.myPosts);
-
-  const postId = props.route.params.postId;
-  const postsIndex = posts.findIndex((post) => post.id === postId);
-  const myPostsIndex = myPosts.findIndex((post) => post.id === postId);
-
-  const post = postsIndex >= 0 ? posts[postsIndex] : myPosts[myPostsIndex];
+  const { description, imageUrl, mapUrl, location } = props.route.params;
 
   const pressLocationHandler = () => {
     props.navigation.navigate("Map", {
       readonly: true,
       initialLocation: {
-        lat: post.lat,
-        lng: post.lng,
+        lat: location.lat,
+        lng: location.lng,
       },
     });
   };
@@ -33,11 +25,11 @@ const PostDetailScreen = (props) => {
   return (
     <ScrollView style={styles.screen}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: post.imageUrl }} />
+        <Image style={styles.image} source={{ uri: imageUrl }} />
       </View>
 
       <View style={styles.descriptionContainer}>
-        <Text>{post.description}</Text>
+        <Text>{description}</Text>
       </View>
 
       <TouchableOpacity
@@ -45,7 +37,7 @@ const PostDetailScreen = (props) => {
         activeOpacity={0.6}
         onPress={pressLocationHandler}
       >
-        <Image style={styles.image} source={{ uri: post.mapUrl }} />
+        <Image style={styles.image} source={{ uri: mapUrl }} />
       </TouchableOpacity>
     </ScrollView>
   );

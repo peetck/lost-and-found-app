@@ -22,27 +22,24 @@ const StartupScreen = (props) => {
     const init = async () => {
       await dispatch(fetchCategories());
       await dispatch(fetchLocation());
-    };
-
-    init();
-
-    const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
-      setIsLoading(true);
-      if (user) {
-        if (isAutoLogin) {
-          // if firebase autologin success -> fetch user data
-          await dispatch(loginSuccess());
+      firebase.auth().onAuthStateChanged(async (user) => {
+        setIsLoading(true);
+        if (user) {
+          if (isAutoLogin) {
+            // if firebase autologin success -> fetch user data
+            await dispatch(loginSuccess());
+          }
+          setIsAuth(true);
+        } else {
+          setIsAuth(false);
         }
-        setIsAuth(true);
-      } else {
-        setIsAuth(false);
-      }
-      setIsLoading(false);
-      isAutoLogin = false;
-    });
-
+        setIsLoading(false);
+        isAutoLogin = false;
+      });
+    };
+    init();
     // clean up function
-    return () => unsubscribe();
+    // return () => unsubscribe();
   }, []);
 
   if (isLoading) {
