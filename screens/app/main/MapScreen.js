@@ -16,8 +16,8 @@ const MapScreen = (props) => {
   const mapRegion = {
     latitude: selectedLocation.lat,
     longitude: selectedLocation.lng,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.02
   };
 
   const getCurrentLocationHandler = async () => {
@@ -31,13 +31,10 @@ const MapScreen = (props) => {
     setSelectedLocation(location);
   };
 
-  let markerCoordinates;
-  if (selectedLocation) {
-    markerCoordinates = {
-      latitude: selectedLocation.lat,
-      longitude: selectedLocation.lng,
-    };
-  }
+  const markerCoordinates = {
+    latitude: selectedLocation.lat,
+    longitude: selectedLocation.lng,
+  };
 
   const selectLocationHandler = (event) => {
     if (readonly) {
@@ -84,8 +81,19 @@ const MapScreen = (props) => {
         onPress={selectLocationHandler}
         ref={map}
       >
-        {markerCoordinates && (
-          <Marker title="Picked Location" coordinate={markerCoordinates} />
+        <Marker title="Picked Location" coordinate={markerCoordinates} />
+
+        {props.route.params.from === "Search" && (
+          <MapView.Circle
+            center={{
+              latitude: selectedLocation.lat,
+              longitude: selectedLocation.lng,
+            }}
+            radius={10000}
+            fillColor="rgba(255, 255, 255, 0.1)"
+            strokeColor="red"
+            strokeWidth={2}
+          />
         )}
       </MapView>
       {!readonly && (

@@ -10,8 +10,15 @@ import CategoryList from "../../../components/app/main/CategoryList";
 
 const MyPostsScreen = (props) => {
   const dispatch = useDispatch();
-  const myPosts = useSelector((state) => state.posts.myPosts);
   const currentLocation = useSelector((state) => state.user.location);
+  const initialCategories = useSelector((state) =>
+    state.categories.categories.map((category) => category.id)
+  );
+  const [selectedCategories, setSelectedCategories] = useState(
+    initialCategories
+  );
+  const myPosts = useSelector((state) => state.posts.myPosts);
+  const [showPosts, setShowPosts] = useState(myPosts);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const isFocused = useIsFocused();
 
@@ -33,10 +40,21 @@ const MyPostsScreen = (props) => {
     setIsRefreshing(false);
   };
 
+  useEffect(() => {
+    setShowPosts(
+      myPosts.filter((post) => selectedCategories.includes(post.categoryId))
+    );
+  }, [selectedCategories]);
+
   const header = (
     <View>
       <View style={{ marginTop: 25 }}>
-        <CategoryList />
+        <CategoryList
+          inputMode
+          many
+          value={selectedCategories}
+          onChange={setSelectedCategories}
+        />
       </View>
 
       <View style={styles.titleContainer}>
@@ -48,7 +66,7 @@ const MyPostsScreen = (props) => {
   return (
     <View style={styles.screen}>
       <PostList
-        data={myPosts}
+        data={showPosts}
         navigation={props.navigation}
         header={header}
         onRefresh={onRefresh}

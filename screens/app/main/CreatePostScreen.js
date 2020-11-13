@@ -56,8 +56,15 @@ const CreatePostScreen = (props) => {
     } else {
       location = selectedLocation;
     }
+
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${selectedLocation.lat},${selectedLocation.lng}&key=AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs`
+    );
+    const resData = await response.json();
+
     setSelectedLocation({
       ...location,
+      address: resData.results[0].formatted_address,
       mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
         location.lat
       },${
@@ -203,6 +210,10 @@ const CreatePostScreen = (props) => {
           )}
         </TouchableOpacity>
       )}
+
+      <View style={styles.addressContainer}>
+        <MyText style={styles.text}>{selectedLocation.address}</MyText>
+      </View>
     </ScrollView>
   );
 };
@@ -228,6 +239,11 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
     backgroundColor: colors.lightGrey,
+  },
+  addressContainer: {
+    paddingTop: 25,
+    paddingHorizontal: 10,
+    paddingBottom: 50,
   },
   center: {
     justifyContent: "center",
