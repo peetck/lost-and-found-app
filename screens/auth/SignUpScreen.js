@@ -8,14 +8,19 @@ import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
+import { showError } from "../../shared/utils";
 
 const SignUpScreen = (props) => {
   const [nickname, setNickname] = useState("");
 
   const signUpHandler = () => {
-    props.navigation.navigate("NextSignUp", {
-      nickname: nickname,
-    });
+    if (nickname.trim() === "") {
+      showError("Error", "Please enter your nickname.");
+    } else {
+      props.navigation.navigate("NextSignUp", {
+        nickname: nickname.trim(),
+      });
+    }
   };
 
   const switchToLoginHandler = () => {

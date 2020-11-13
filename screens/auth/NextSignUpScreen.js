@@ -16,8 +16,14 @@ import {
 import MyTextInput from "../../components/UI/MyTextInput";
 import MyButton from "../../components/UI/MyButton";
 import AuthHeader from "../../components/auth/AuthHeader";
-import { takeImage, takeImageActionSheetOptions } from "../../shared/utils";
+import {
+  takeImage,
+  takeImageActionSheetOptions,
+  showSuccess,
+  showError,
+} from "../../shared/utils";
 import { signUp } from "../../store/actions/user";
+import colors from "../../shared/colors";
 
 const NextSignUpScreen = (props) => {
   const { showActionSheetWithOptions } = useActionSheet();
@@ -40,13 +46,21 @@ const NextSignUpScreen = (props) => {
   const signUpHandler = async () => {
     setIsLoading(true);
     try {
+      if (password !== confirmPassword) {
+        throw new Error("Password doesn't match.");
+      }
       await dispatch(
-        signUp(email, password, props.route.params.nickname, selectedImage)
+        signUp(
+          email.trim(),
+          password,
+          props.route.params.nickname,
+          selectedImage
+        )
       );
+      showSuccess("Registered successfully", "Welcome to Lost & Found App.");
     } catch (error) {
-      // TODO: handler error
+      showError("Error", error.message);
       setIsLoading(false);
-      console.log(error);
     }
   };
 

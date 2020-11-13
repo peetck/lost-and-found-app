@@ -8,7 +8,7 @@ import MyText from "../../UI/MyText";
 const CategoryList = (props) => {
   const categories = useSelector((state) => state.categories.categories);
 
-  const { inputMode, many, onChange } = props;
+  const { inputMode, many, onChange, selectedMode, categoryId } = props;
   let { value } = props;
 
   const buildCategory = (id, title, color) => {
@@ -39,8 +39,18 @@ const CategoryList = (props) => {
           <MyText style={styles.text}>{title}</MyText>
         </TouchableOpacity>
       );
+    } else if (selectedMode) {
+      return (
+        <View style={styles.categoryContainer} key={title}>
+          <View style={{ ...styles.rectangle, backgroundColor: color }}>
+            {id === categoryId && (
+              <Ionicons name="md-checkmark-circle" size={23} color="white" />
+            )}
+          </View>
+          <MyText style={styles.text}>{title}</MyText>
+        </View>
+      );
     }
-
     return (
       <View style={styles.categoryContainer} key={title}>
         <View style={{ ...styles.circle, backgroundColor: color }} />

@@ -33,9 +33,9 @@ export const fetchLocation = () => {
 
     await Location.watchPositionAsync(
       {
-        accuracy: 3,
-        timeInterval: 10000,
-        distanceInterval: 100,
+        accuracy: 6,
+        timeInterval: 5000,
+        distanceInterval: 20,
       },
       (location) => {
         dispatch({

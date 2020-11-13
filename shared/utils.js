@@ -6,6 +6,8 @@ import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import { Toast } from "popup-ui";
 
+import colors from "./colors";
+
 export const takeImageActionSheetOptions = {
   options: ["Take Picture", "Choose from gallery", "Cancel"],
   cancelButtonIndex: 2,
@@ -65,7 +67,7 @@ export const getCurrentLocation = async () => {
     Alert.alert(
       "Insufficient permissions!",
       "You need to grant location permissions to use this app.",
-      [{ text: "Okay" }]
+      [{ text: "Retry", onPress: getCurrentLocation }]
     );
     return;
   } else {
@@ -85,7 +87,7 @@ export const getCurrentLocation = async () => {
   }
 };
 
-export const showToast = (title, text, color, duration, icon) => {
+const showToast = (title, text, color, duration, icon) => {
   Toast.show({
     title: title,
     text: text,
@@ -93,4 +95,34 @@ export const showToast = (title, text, color, duration, icon) => {
     timing: duration,
     icon: icon,
   });
+};
+
+export const showSuccess = (
+  title,
+  text,
+  duration = 2000,
+  icon = "md-checkmark-circle"
+) => {
+  showToast(
+    title,
+    text,
+    colors.success,
+    duration,
+    <Ionicons name={icon} color="white" size={24} />
+  );
+};
+
+export const showError = (
+  title,
+  text,
+  duration = 2000,
+  icon = "md-close-circle"
+) => {
+  showToast(
+    title,
+    text,
+    colors.error,
+    duration,
+    <Ionicons name={icon} color="white" size={24} />
+  );
 };

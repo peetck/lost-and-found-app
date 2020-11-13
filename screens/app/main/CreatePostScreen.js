@@ -23,7 +23,8 @@ import colors from "../../../shared/colors";
 import {
   takeImage,
   takeImageActionSheetOptions,
-  showToast,
+  showSuccess,
+  showError,
 } from "../../../shared/utils";
 import { createPost } from "../../../store/actions/posts";
 import Loader from "../../../components/UI/Loader";
@@ -94,7 +95,7 @@ const CreatePostScreen = (props) => {
 
   const createPostHandler = useCallback(async () => {
     setIsLoading(true);
-    if (selectedImage) {
+    if (selectedImage && title !== "" && description !== "") {
       try {
         await dispatch(
           createPost(
@@ -106,17 +107,13 @@ const CreatePostScreen = (props) => {
             new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) // next 2 day
           )
         );
-        showToast(
-          "Post Created",
-          "brah brah brah",
-          colors.success,
-          2000,
-          <Ionicons name="md-checkmark-circle" color="white" size={24} />
-        );
+        showSuccess("Post Created", title);
         props.navigation.goBack();
       } catch (error) {
-        console.log(error);
+        showError("Error", error.message);
       }
+    } else {
+      showError("Error", "Please complete all information.");
     }
     setIsLoading(false);
   }, [
@@ -239,6 +236,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
+    borderRadius: 10,
   },
   imageText: {
     fontSize: 16,

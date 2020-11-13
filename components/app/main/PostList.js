@@ -1,9 +1,19 @@
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 
 import PostItem from "./PostItem";
+import MyText from "../../UI/MyText";
+import { Ionicons } from "@expo/vector-icons";
+import colors from "../../../shared/colors";
 
 const PostList = (props) => {
+  const emptyComponent = () => (
+    <View style={styles.emptyContainer}>
+      <Ionicons name="md-close-circle" color="black" size={80} />
+      <MyText style={styles.text}>No nearby posts</MyText>
+    </View>
+  );
+
   const renderItem = (itemData) => (
     <PostItem
       title={itemData.item.title}
@@ -13,6 +23,7 @@ const PostList = (props) => {
       distance={itemData.item.distance}
       onPress={() => {
         props.navigation.navigate("PostDetail", {
+          categoryId: itemData.item.categoryId,
           title: itemData.item.title,
           description: itemData.item.description,
           imageUrl: itemData.item.imageUrl,
@@ -21,24 +32,24 @@ const PostList = (props) => {
             lat: itemData.item.lat,
             lng: itemData.item.lng,
           },
+          address: itemData.item.address,
         });
       }}
     />
   );
 
-  const keyExtractor = (item) => item.id;
-
   return (
     <FlatList
       data={props.data}
       renderItem={renderItem}
-      keyExtractor={keyExtractor}
+      keyExtractor={(item) => item.id}
       numColumns={2}
       ListHeaderComponent={props.header}
       onRefresh={props.onRefresh}
       refreshing={props.refreshing}
       style={styles.list}
       showsVerticalScrollIndicator={false}
+      ListEmptyComponent={emptyComponent}
     />
   );
 };
@@ -46,6 +57,17 @@ const PostList = (props) => {
 const styles = StyleSheet.create({
   list: {
     backgroundColor: "white",
+  },
+  emptyContainer: {
+    alignItems: "center",
+    paddingVertical: 45,
+    marginHorizontal: 10,
+    backgroundColor: colors.lightGrey,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: 10,
+  },
+  text: {
+    fontSize: 15,
   },
 });
 

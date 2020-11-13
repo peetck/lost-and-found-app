@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import Constants from "expo-constants";
 import { useDispatch } from "react-redux";
@@ -17,7 +11,7 @@ import MyTextInput from "../../components/UI/MyTextInput";
 import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
 import { login, loginWithFacebook } from "../../store/actions/user";
-import { showToast } from "../../shared/utils";
+import { showSuccess, showError } from "../../shared/utils";
 import Loader from "../../components/UI/Loader";
 
 const LoginScreen = (props) => {
@@ -30,34 +24,16 @@ const LoginScreen = (props) => {
     setIsLoading(true);
     if (method === "email") {
       try {
-        await dispatch(login(email, password));
-        showToast(
-          "Login Success",
-          "Welcome to Lost & Found App.",
-          colors.success,
-          2000,
-          <Ionicons name="md-checkmark-circle" color="white" size={24} />
-        );
+        await dispatch(login(email.trim(), password));
+        showSuccess("Login Success", "Welcome to Lost & Found App.");
       } catch (error) {
-        showToast(
-          "Error",
-          error.message,
-          colors.error,
-          2000,
-          <Ionicons name="md-close-circle" color="white" size={24} />
-        );
+        showError("Error", error.message);
         setIsLoading(false);
       }
     } else if (method === "facebook") {
       try {
         await dispatch(loginWithFacebook());
-        showToast(
-          "Login Success",
-          "Welcome to Lost & Found App.",
-          colors.success,
-          2000,
-          <Ionicons name="md-checkmark-circle" color="white" size={24} />
-        );
+        showSuccess("Login Success", "Welcome to Lost & Found App.");
       } catch (error) {
         setIsLoading(false);
       }
