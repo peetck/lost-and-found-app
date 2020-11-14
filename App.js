@@ -32,7 +32,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-Facebook.initializeAsync();
+Facebook.initializeAsync("1030138017425746", "lost and found");
 
 const rootReducer = combineReducers({
   user: userReducer,
