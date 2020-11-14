@@ -36,7 +36,9 @@ const LoginScreen = (props) => {
         showSuccess("Login Success", "Welcome to Lost & Found App.");
       } catch (error) {
         setIsLoading(false);
-        showError("Error", error.message);
+        if (error.message !== "") {
+          showError("Error", error.message);
+        }
       }
     }
   };
@@ -85,7 +87,7 @@ const LoginScreen = (props) => {
                   flex: 1,
                   justifyContent: "center",
                   alignItems: "center",
-                  backgroundColor: "#edebeb",
+                  backgroundColor: "rgba(0, 0, 0, 0.1)",
                   borderRadius: 10,
                 }}
                 activeOpacity={0.6}

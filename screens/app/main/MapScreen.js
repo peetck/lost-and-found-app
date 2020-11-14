@@ -17,7 +17,7 @@ const MapScreen = (props) => {
     latitude: selectedLocation.lat,
     longitude: selectedLocation.lng,
     latitudeDelta: 0.01,
-    longitudeDelta: 0.02
+    longitudeDelta: 0.02,
   };
 
   const getCurrentLocationHandler = async () => {
@@ -89,9 +89,9 @@ const MapScreen = (props) => {
               latitude: selectedLocation.lat,
               longitude: selectedLocation.lng,
             }}
-            radius={10000}
-            fillColor="rgba(255, 255, 255, 0.1)"
-            strokeColor="red"
+            radius={5000}
+            fillColor="rgba(0, 0, 0, 0.1)"
+            strokeColor="black"
             strokeWidth={2}
           />
         )}

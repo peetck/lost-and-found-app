@@ -34,10 +34,14 @@ const PostDetailScreen = (props) => {
 
   return (
     <ScrollView style={styles.screen}>
+      <View style={styles.titleContainer}>
+        <MyText style={styles.title}>Category</MyText>
+      </View>
+
       <CategoryList selectedMode categoryId={categoryId} />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Image </MyText>
+        <MyText style={styles.title}>Image</MyText>
       </View>
 
       <View style={styles.container}>
@@ -76,7 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     paddingHorizontal: 15,
-    paddingTop: 25,
   },
   titleContainer: {
     paddingVertical: 25,
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
   addressContainer: {
     paddingTop: 25,
     paddingHorizontal: 10,
-    paddingBottom: 50,
+    paddingBottom: 40,
   },
   image: {
     width: "100%",

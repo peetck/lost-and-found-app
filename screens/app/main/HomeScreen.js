@@ -26,7 +26,7 @@ const HomeScreen = (props) => {
 
   const loadPosts = useCallback(async () => {
     try {
-      await dispatch(fetchAllPosts(currentLocation, 10));
+      await dispatch(fetchAllPosts(currentLocation, 5));
     } catch (error) {
       console.log(error);
     }
@@ -76,7 +76,7 @@ const HomeScreen = (props) => {
       <CategoryList />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Nearby posts (~10 km)</MyText>
+        <MyText style={styles.title}>Nearby posts (~5 km)</MyText>
       </View>
     </View>
   );

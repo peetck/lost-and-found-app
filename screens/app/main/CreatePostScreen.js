@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   addressContainer: {
     paddingTop: 25,
     paddingHorizontal: 10,
-    paddingBottom: 50,
+    paddingBottom: 40,
   },
   center: {
     justifyContent: "center",

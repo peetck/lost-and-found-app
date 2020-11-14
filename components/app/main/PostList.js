@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGrey,
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 10,
+    marginBottom: 20,
   },
   text: {
     fontSize: 15,

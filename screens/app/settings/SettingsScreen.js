@@ -69,11 +69,11 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
-    fontSize: 18,
+    fontSize: 19,
     paddingBottom: 10,
   },
   label: {
-    fontSize: 16,
+    fontSize: 15,
     paddingLeft: 15,
   },
 });

@@ -79,7 +79,7 @@ const SearchScreen = (props) => {
         selectedLocation.lat,
         selectedLocation.lng
       ),
-      radius: 10,
+      radius: 5,
     });
 
     const response = await query.get();
@@ -160,7 +160,7 @@ const SearchScreen = (props) => {
       )}
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Result (~10km)</MyText>
+        <MyText style={styles.title}>Result (~5 km)</MyText>
       </View>
     </View>
   );
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
+    borderRadius: 10,
   },
   title: {
     fontFamily: "kanit",
