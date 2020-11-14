@@ -36,6 +36,7 @@ const LoginScreen = (props) => {
         showSuccess("Login Success", "Welcome to Lost & Found App.");
       } catch (error) {
         setIsLoading(false);
+        showError("Error", error.message);
       }
     }
   };
