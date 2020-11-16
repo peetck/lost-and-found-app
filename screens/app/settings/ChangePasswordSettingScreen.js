@@ -16,6 +16,7 @@ import {
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
 import { useSelector, useDispatch } from "react-redux";
+import firebase from "firebase";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
 

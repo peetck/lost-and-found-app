@@ -12,6 +12,7 @@ import {
   useActionSheet,
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
+import { Ionicons } from "@expo/vector-icons";
 
 import MyTextInput from "../../components/UI/MyTextInput";
 import MyButton from "../../components/UI/MyButton";
@@ -79,16 +80,24 @@ const NextSignUpScreen = (props) => {
 
           <View style={styles.imageInputContainer}>
             <TouchableOpacity activeOpacity={0.6} onPress={takeImageHandler}>
-              <Image
-                style={styles.image}
-                source={
-                  selectedImage
-                    ? {
-                        uri: selectedImage,
-                      }
-                    : require("../../assets/images/user_default.png")
-                }
-              />
+              {selectedImage ? (
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: selectedImage,
+                  }}
+                />
+              ) : (
+                <View
+                  style={{
+                    ...styles.image,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons size={60} color="black" name="md-camera" />
+                </View>
+              )}
             </TouchableOpacity>
           </View>
 

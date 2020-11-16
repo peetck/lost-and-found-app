@@ -59,7 +59,7 @@ const ProfileSettingScreen = (props) => {
           <TouchableOpacity activeOpacity={0.6} onPress={takeImageHandler}>
             <Image source={{ uri: user.imageUrl }} style={styles.imageStyle} />
             <View style={styles.iconContainer}>
-              <Ionicons name="md-camera" size={25} color="black" />
+              <Ionicons name="md-camera" size={30} color="black" />
             </View>
           </TouchableOpacity>
         </View>
@@ -69,31 +69,12 @@ const ProfileSettingScreen = (props) => {
       <View style={styles.containerContents}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <SettingItem
-            HeaderText="Nickname"
-            title={user.nickname}
-            color="default"
+            title="Nickname"
+            text={user.nickname}
             type="text"
             onPress={() => {
               props.navigation.navigate("ChangeNameSetting");
             }}
-          ></SettingItem>
-          <SettingItem
-            HeaderText="Telephone"
-            title="081 000 0000"
-            color="default"
-            type="text"
-          ></SettingItem>
-          <SettingItem
-            HeaderText="Email"
-            title={user.email}
-            color="default"
-            type="text"
-          ></SettingItem>
-          <SettingItem
-            HeaderText="Birthday"
-            title="01-05-2000"
-            color="default"
-            type="text"
           ></SettingItem>
         </ScrollView>
       </View>
@@ -107,7 +88,7 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     flex: 1,
-    backgroundColor: "#e6f8f9",
+    backgroundColor: "white",
   },
   containerLayoutImage: {
     flex: 1,

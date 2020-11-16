@@ -261,6 +261,9 @@ const styles = StyleSheet.create({
     fontFamily: "kanit",
     fontSize: 19,
   },
+  text: {
+    fontSize: 15,
+  },
 });
 
 export const screenOptions = {

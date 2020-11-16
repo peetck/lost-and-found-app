@@ -12,40 +12,32 @@ import Constants from "expo-constants";
 import { useSelector } from "react-redux";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
+import firebase from "firebase";
 
 const AccountSettingScreen = (props) => {
-
   const user = useSelector((state) => state.user);
 
   return (
     <View style={styles.contentContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <SettingItem title="Email" text={user.email} type="text" />
         <SettingItem
-          HeaderText="Telephone"
-          title="081 000 0000"
-          color="default"
-          type="text"
-        />
-        <SettingItem
-          HeaderText="Email"
-          title= {user.email}
-          color="default"
-          type="text"
-        />
-        <SettingItem
-          HeaderText="Change Password"
-          title="Registered"
-          color="default"
+          title="Change Password"
+          text="Registered"
           type="text"
           onPress={() => {
             props.navigation.navigate("ChangePasswordSetting");
+
           }}
         />
         <SettingItem
-          HeaderText="Delete Account"
-          title=""
+          title="Delete Account"
+          text=""
           color="red"
           type="single"
+          onPress={() => {
+            // firebase.auth().currentUser.delete();
+          }}
         />
       </ScrollView>
     </View>
