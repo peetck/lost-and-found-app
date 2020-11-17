@@ -8,6 +8,14 @@ import { fetchMyPosts } from "../../../store/actions/posts";
 import MyText from "../../../components/UI/MyText";
 import CategoryList from "../../../components/app/main/CategoryList";
 
+const en = {
+  subtitle: "Your Available Post"
+};
+
+const th = {
+  subtitle: "โพสต์ที่เปิดอยู่"
+};
+
 const MyPostsScreen = (props) => {
   const dispatch = useDispatch();
   const currentLocation = useSelector((state) => state.user.location);

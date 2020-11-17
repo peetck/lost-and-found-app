@@ -18,6 +18,14 @@ import ChangePasswordSettingScreen, {
 
 const Stack = createStackNavigator();
 
+const en = {
+  settings: "Settings"
+};
+
+const th = {
+  settings: "ตั้งค่า"
+};
+
 const SettingsNavigator = (props) => {
   return (
     <Stack.Navigator>

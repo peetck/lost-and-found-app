@@ -17,6 +17,14 @@ import SettingsNavigator, {
 import MyText from "../../components/UI/MyText";
 import { logout } from "../../store/actions/user";
 
+const en = {
+  logout: "Logout"
+};
+
+const th = {
+  logout: "ออกจากระบบ"
+};
+
 const Drawer = createDrawerNavigator();
 
 const DrawerContent = (props) => {

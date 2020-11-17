@@ -29,6 +29,25 @@ import {
 import { createPost } from "../../../store/actions/posts";
 import Loader from "../../../components/UI/Loader";
 
+
+const en = {
+  header1: "Information",
+  haeder2: "Image",
+  haeder3: "Location",
+  imgHolder: "Take a picture",
+  title: "Title",
+  Description: "Description"
+};
+
+const th = {
+  header1: "ข้อมูลต่างๆ",
+  haeder2: "รูปภาพ",
+  haeder3: "สถานที่",
+  imgHolder: "เลือกรูปภาพ",
+  title: "หัวข้อ",
+  Description: "คำอธิบายเพิ่มเติม"
+};
+
 const CreatePostScreen = (props) => {
   const { params } = props.route;
 

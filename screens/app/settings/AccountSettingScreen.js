@@ -21,6 +21,15 @@ import SettingItem from "../../../components/app/settings/SettingItem";
 import { changeNickname, changeImage } from "../../../store/actions/user";
 import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
 
+
+const en = {
+  header1: "Nickname"
+};
+
+const th = {
+  header1: "Change password"
+};
+
 const AccountSettingScreen = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);

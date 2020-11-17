@@ -19,6 +19,14 @@ import MapScreen, {
   screenOptions as mapScreenOptions,
 } from "../../../screens/app/main/MapScreen";
 
+const en = {
+  home: "HOME"
+};
+
+const th = {
+  home: "หน้าหลัก"
+};
+
 const Stack = createStackNavigator();
 
 const MainNavigator = (props) => {

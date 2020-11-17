@@ -26,6 +26,22 @@ import {
 import { signUp } from "../../store/actions/user";
 import colors from "../../shared/colors";
 
+const en = {
+  
+  placeHolderEmail: "Email",
+  placeHolderPass: "Password",
+  placeHolderConfirmPass: "Confirm Password",
+  signUp: "Sign up"
+ };
+ 
+ const th = {
+   
+   placeHolderEmail: "อีเมล",
+   placeHolderPass: "รหัสผ่าน",
+   placeHolderConfirmPass: "ยืนยันรหัสผ่าน",
+   signUp: "สมัครสมาชิก"
+  
+ };
 const NextSignUpScreen = (props) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const dispatch = useDispatch();

@@ -18,11 +18,13 @@ import colors from "../../../shared/colors";
 import { fetchAllPosts } from "../../../store/actions/posts";
 
 const en = {
-  searchByLocation: "Search by Location"
-}
+  searchByLocation: "Search by Location",
+  nearBy : "Nearby posts (~5 km)"
+};
 
 const th = {
-  searchByLocation: "ค้นหาจาก ตําแหน่ง",
+  searchByLocation: "ค้นหาจากตําแหน่ง",
+  nearBy : "โพสต์ใกล้คุณ (~5 km)"
 };
 
 const HomeScreen = (props) => {

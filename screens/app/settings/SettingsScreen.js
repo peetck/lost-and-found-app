@@ -7,6 +7,20 @@ import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
 import colors from "../../../shared/colors";
 
+const en = {
+  header1: "Account settings",
+  header2: "General settings",
+  item1: "Account",
+  item2: "Language"
+};
+
+const th = {
+  header1: "ตั้งค่าบัญชี",
+  header2: "ตั้งค่าทั่วไป",
+  item1: "บัญชี",
+  item2: "เปลี่ยนถาษา"
+};
+
 const Setting = (props) => {
   return (
     <TouchableOpacity

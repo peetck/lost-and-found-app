@@ -14,6 +14,22 @@ import { login, loginWithFacebook } from "../../store/actions/user";
 import { showSuccess, showError } from "../../shared/utils";
 import Loader from "../../components/UI/Loader";
 
+const en = {
+ subtitle: "Login",
+ placeHolderEmail: "Email",
+ placeHolderPass: "Password",
+ hint: "Doesn't have an account ?",
+ signUp: "Sign up",
+};
+
+const th = {
+  subtitle: "เข้าสู่ระบบ",
+  placeHolderEmail: "อีเมล",
+  placeHolderPass: "รหัสผ่าน",
+  hint: "ยังไม่มีบัญชี ?",
+  signUp: "สมัครสมาชิก",
+};
+
 const LoginScreen = (props) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -52,7 +68,7 @@ const LoginScreen = (props) => {
       <ScrollView
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
-      >
+        >
         <View style={styles.contentContainer}>
           <Loader visible={isLoading} />
 

@@ -20,6 +20,15 @@ import { changeNickname } from "../../../store/actions/user";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
 
+
+const en = {
+  button: "SAVE"
+};
+
+const th = {
+  button: "บันทึก"
+};
+
 const ChangeNameSettingScreen = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
