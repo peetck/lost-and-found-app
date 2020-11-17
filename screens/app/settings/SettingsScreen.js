@@ -26,11 +26,6 @@ const SettingsScreen = (props) => {
       <View style={{ ...styles.container, paddingTop: 0 }}>
         <MyText style={styles.title}>Account settings</MyText>
         <Setting
-          label="Personal Information"
-          iconName="md-contact"
-          onPress={() => props.navigation.navigate("ProfileSetting")}
-        />
-        <Setting
           label="Account"
           iconName="md-card"
           onPress={() => props.navigation.navigate("AccountSetting")}
@@ -39,13 +34,7 @@ const SettingsScreen = (props) => {
 
       <View style={styles.container}>
         <MyText style={styles.title}>General settings</MyText>
-        <Setting label="Themes" iconName="md-color-wand" />
         <Setting label="Language" iconName="md-globe" />
-      </View>
-
-      <View style={styles.container}>
-        <MyText style={styles.title}>Others</MyText>
-        <Setting label="About us" iconName="md-information-circle" />
       </View>
     </ScrollView>
   );

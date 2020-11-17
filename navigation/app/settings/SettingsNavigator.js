@@ -9,9 +9,6 @@ import SettingsScreen, {
 import AccountSettingScreen, {
   screenOptions as accountSettingScreenOptions,
 } from "../../../screens/app/settings/AccountSettingScreen";
-import ProfileSettingScreen, {
-  screenOptions as profileSettingScreenOptions,
-} from "../../../screens/app/settings/ProfileSettingScreen";
 import ChangeNameSettingScreen, {
   screenOptions as ChangeNameSettingScreenOptions,
 } from "../../../screens/app/settings/ChangeNameSettingScreen";
@@ -33,11 +30,6 @@ const SettingsNavigator = (props) => {
         name="AccountSetting"
         component={AccountSettingScreen}
         options={accountSettingScreenOptions}
-      />
-      <Stack.Screen
-        name="ProfileSetting"
-        component={ProfileSettingScreen}
-        options={profileSettingScreenOptions}
       />
       <Stack.Screen
         name="ChangeNameSetting"

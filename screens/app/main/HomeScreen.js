@@ -5,6 +5,7 @@ import {
   Platform,
   TouchableOpacity,
   Image,
+  I18nManager,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
@@ -15,6 +16,14 @@ import MyText from "../../../components/UI/MyText";
 import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
 import { fetchAllPosts } from "../../../store/actions/posts";
+
+const en = {
+  searchByLocation: "Search by Location"
+}
+
+const th = {
+  searchByLocation: "ค้นหาจาก ตําแหน่ง",
+};
 
 const HomeScreen = (props) => {
   const dispatch = useDispatch();

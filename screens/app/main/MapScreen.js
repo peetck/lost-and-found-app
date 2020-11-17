@@ -16,8 +16,8 @@ const MapScreen = (props) => {
   const mapRegion = {
     latitude: selectedLocation.lat,
     longitude: selectedLocation.lng,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.02,
+    latitudeDelta: props.route.params.from === "Search" ? 0.1 : 0.01,
+    longitudeDelta: props.route.params.from === "Search" ? 0.1 : 0.02,
   };
 
   const getCurrentLocationHandler = async () => {
