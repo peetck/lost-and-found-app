@@ -44,7 +44,7 @@ const MyPostsScreen = (props) => {
     setShowPosts(
       myPosts.filter((post) => selectedCategories.includes(post.categoryId))
     );
-  }, [selectedCategories]);
+  }, [selectedCategories, myPosts]);
 
   const header = (
     <View>
