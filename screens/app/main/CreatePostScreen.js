@@ -14,6 +14,7 @@ import {
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
 import { useDispatch, useSelector } from "react-redux";
+import i18n from "i18n-js";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
@@ -28,25 +29,6 @@ import {
 } from "../../../shared/utils";
 import { createPost } from "../../../store/actions/posts";
 import Loader from "../../../components/UI/Loader";
-
-
-const en = {
-  header1: "Information",
-  haeder2: "Image",
-  haeder3: "Location",
-  imgHolder: "Take a picture",
-  title: "Title",
-  Description: "Description"
-};
-
-const th = {
-  header1: "ข้อมูลต่างๆ",
-  haeder2: "รูปภาพ",
-  haeder3: "สถานที่",
-  imgHolder: "เลือกรูปภาพ",
-  title: "หัวข้อ",
-  Description: "คำอธิบายเพิ่มเติม"
-};
 
 const CreatePostScreen = (props) => {
   const { params } = props.route;
@@ -170,17 +152,19 @@ const CreatePostScreen = (props) => {
       <Loader visible={isLoading} />
 
       <View style={{ ...styles.titleContainer, paddingTop: 25 }}>
-        <MyText style={styles.title}>Information</MyText>
+        <MyText style={styles.title}>
+          {i18n.t("createPostScreen.header1")}
+        </MyText>
       </View>
 
       <View style={styles.textInputContainer}>
         <MyTextInput
-          placeholder="Title"
+          placeholder={i18n.t("createPostScreen.title")}
           value={title}
           onChangeText={setTitle}
         />
         <MyTextInput
-          placeholder="Description"
+          placeholder={i18n.t("createPostScreen.description")}
           value={description}
           onChangeText={setDescription}
         />
@@ -189,7 +173,9 @@ const CreatePostScreen = (props) => {
       <CategoryList inputMode onChange={setCategoryId} value={categoryId} />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Image</MyText>
+        <MyText style={styles.title}>
+          {i18n.t("createPostScreen.header2")}
+        </MyText>
       </View>
 
       <TouchableOpacity
@@ -202,13 +188,17 @@ const CreatePostScreen = (props) => {
         ) : (
           <View style={styles.center}>
             <Ionicons name="md-camera" size={80} color="black" />
-            <MyText style={styles.imageText}>Take a picture</MyText>
+            <MyText style={styles.imageText}>
+              {i18n.t("createPostScreen.imgHolder")}
+            </MyText>
           </View>
         )}
       </TouchableOpacity>
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Location</MyText>
+        <MyText style={styles.title}>
+          {i18n.t("createPostScreen.header3")}
+        </MyText>
       </View>
 
       {isLoadingLocation ? (

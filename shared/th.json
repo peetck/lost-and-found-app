@@ -1,0 +1,14 @@
+{
+  "homeScreen": {
+    "searchByLocation": "ค้นหาจากตําแหน่ง",
+    "nearBy": "โพสต์ใกล้คุณ (~5 km)"
+  },
+  "createPostScreen": {
+    "header1": "ข้อมูลต่างๆ",
+    "header2": "รูปภาพ",
+    "header3": "สถานที่",
+    "imgHolder": "เลือกรูปภาพ",
+    "title": "หัวข้อ",
+    "description": "คำอธิบายเพิ่มเติม"
+  }
+}

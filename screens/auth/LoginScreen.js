@@ -15,11 +15,11 @@ import { showSuccess, showError } from "../../shared/utils";
 import Loader from "../../components/UI/Loader";
 
 const en = {
- subtitle: "Login",
- placeHolderEmail: "Email",
- placeHolderPass: "Password",
- hint: "Doesn't have an account ?",
- signUp: "Sign up",
+  subtitle: "Login",
+  placeHolderEmail: "Email",
+  placeHolderPass: "Password",
+  hint: "Doesn't have an account ?",
+  signUp: "Sign up",
 };
 
 const th = {
@@ -68,7 +68,7 @@ const LoginScreen = (props) => {
       <ScrollView
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
-        >
+      >
         <View style={styles.contentContainer}>
           <Loader visible={isLoading} />
 
@@ -94,10 +94,10 @@ const LoginScreen = (props) => {
           </View>
 
           <View style={{ flexDirection: "row" }}>
-            <View style={{ flex: 1, paddingRight: 30 }}>
+            <View style={{ flex: 1 }}>
               <MyButton title="Login" onPress={() => loginHandler("email")} />
             </View>
-            <View style={{ flex: 0.4 }}>
+            <View style={{ flex: 0.4, paddingLeft: 30 }}>
               <TouchableOpacity
                 style={{
                   flex: 1,

@@ -9,6 +9,7 @@ import AuthNavigator from "../navigation/auth/AuthNavigator";
 import DrawerNavigator from "../navigation/app/DrawerNavigator";
 import { loginSuccess, fetchLocation } from "../store/actions/user";
 import { fetchCategories } from "../store/actions/categories";
+import { loadLanguageSetting } from "../store/actions/storage";
 import Loader from "../components/UI/Loader";
 
 const StartupScreen = (props) => {
@@ -19,6 +20,7 @@ const StartupScreen = (props) => {
 
   useEffect(() => {
     const init = async () => {
+      await dispatch(loadLanguageSetting());
       await dispatch(fetchCategories());
       await dispatch(fetchLocation());
       firebase.auth().onAuthStateChanged(async (user) => {

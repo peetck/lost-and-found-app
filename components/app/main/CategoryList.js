@@ -7,6 +7,7 @@ import MyText from "../../UI/MyText";
 
 const CategoryList = (props) => {
   const categories = useSelector((state) => state.categories.categories);
+  const language = useSelector((state) => state.storage.language);
 
   const { inputMode, many, onChange, selectedMode, categoryId } = props;
   let { value } = props;
@@ -61,11 +62,11 @@ const CategoryList = (props) => {
 
   const topContent = categories
     .slice(0, 3)
-    .map((item) => buildCategory(item.id, item.title, item.color));
+    .map((item) => buildCategory(item.id, item.title[language], item.color));
 
   const bottomContent = categories
     .slice(3)
-    .map((item) => buildCategory(item.id, item.title, item.color));
+    .map((item) => buildCategory(item.id, item.title[language], item.color));
 
   return (
     <View>

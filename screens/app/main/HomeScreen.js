@@ -5,27 +5,17 @@ import {
   Platform,
   TouchableOpacity,
   Image,
-  I18nManager,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
+import i18n from "i18n-js";
 
 import CategoryList from "../../../components/app/main/CategoryList";
 import MyText from "../../../components/UI/MyText";
 import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
 import { fetchAllPosts } from "../../../store/actions/posts";
-
-const en = {
-  searchByLocation: "Search by Location",
-  nearBy : "Nearby posts (~5 km)"
-};
-
-const th = {
-  searchByLocation: "ค้นหาจากตําแหน่ง",
-  nearBy : "โพสต์ใกล้คุณ (~5 km)"
-};
 
 const HomeScreen = (props) => {
   const dispatch = useDispatch();
@@ -81,13 +71,15 @@ const HomeScreen = (props) => {
           color="black"
           style={styles.searchIcon}
         />
-        <MyText style={styles.searchText}>Search by location</MyText>
+        <MyText style={styles.searchText}>
+          {i18n.t("homeScreen.searchByLocation")}
+        </MyText>
       </TouchableOpacity>
 
       <CategoryList />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Nearby posts (~5 km)</MyText>
+        <MyText style={styles.title}>{i18n.t("homeScreen.nearBy")}</MyText>
       </View>
     </View>
   );

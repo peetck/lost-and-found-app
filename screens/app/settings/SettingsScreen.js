@@ -2,7 +2,9 @@ import React from "react";
 import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
 
+import { saveLanguageSetting } from "../../../store/actions/storage";
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
 import colors from "../../../shared/colors";
@@ -11,14 +13,14 @@ const en = {
   header1: "Account settings",
   header2: "General settings",
   item1: "Account",
-  item2: "Language"
+  item2: "Language",
 };
 
 const th = {
   header1: "ตั้งค่าบัญชี",
   header2: "ตั้งค่าทั่วไป",
   item1: "บัญชี",
-  item2: "เปลี่ยนถาษา"
+  item2: "เปลี่ยนถาษา",
 };
 
 const Setting = (props) => {
@@ -35,6 +37,7 @@ const Setting = (props) => {
 };
 
 const SettingsScreen = (props) => {
+  const dispatch = useDispatch();
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <View style={{ ...styles.container, paddingTop: 0 }}>
@@ -48,8 +51,27 @@ const SettingsScreen = (props) => {
 
       <View style={styles.container}>
         <MyText style={styles.title}>General settings</MyText>
-        <Setting label="Language" iconName="md-globe" />
+        <Setting label="Language" iconName="md-globe" onPress={() => {}} />
       </View>
+
+      <View style={styles.container}>
+        <MyText style={styles.title}>Dev Temporary settings</MyText>
+        <Setting
+          label="Language -> en"
+          iconName="md-globe"
+          onPress={() => {
+            dispatch(saveLanguageSetting("en"));
+          }}
+        />
+        <Setting
+          label="Language -> th"
+          iconName="md-globe"
+          onPress={() => {
+            dispatch(saveLanguageSetting("th"));
+          }}
+        />
+      </View>
+      {/* Temporary */}
     </ScrollView>
   );
 };

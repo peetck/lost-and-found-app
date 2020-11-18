@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import { Platform } from "react-native";
 import * as Location from "expo-location";
 import * as Facebook from "expo-facebook";
 
@@ -136,7 +137,10 @@ export const signUp = (email, password, nickname, image) => {
 
 export const loginWithFacebook = () => {
   return async (dispatch) => {
-    const { type, token } = await Facebook.logInWithReadPermissionsAsync();
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync({
+      permissions: ["public_profile", "email"],
+      behavior: Platform.OS === "ios" ? "web" : "native",
+    });
 
     if (type === "success") {
       await firebase

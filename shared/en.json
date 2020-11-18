@@ -1,0 +1,14 @@
+{
+  "homeScreen": {
+    "searchByLocation": "Search by Location",
+    "nearBy": "Nearby posts (~5 km)"
+  },
+  "createPostScreen": {
+    "header1": "Information",
+    "header2": "Image",
+    "header3": "Location",
+    "imgHolder": "Take a picture",
+    "title": "Title",
+    "description": "Description"
+  }
+}

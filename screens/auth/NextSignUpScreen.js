@@ -25,23 +25,21 @@ import {
 } from "../../shared/utils";
 import { signUp } from "../../store/actions/user";
 import colors from "../../shared/colors";
+import Loader from "../../components/UI/Loader";
 
 const en = {
-  
   placeHolderEmail: "Email",
   placeHolderPass: "Password",
   placeHolderConfirmPass: "Confirm Password",
-  signUp: "Sign up"
- };
- 
- const th = {
-   
-   placeHolderEmail: "อีเมล",
-   placeHolderPass: "รหัสผ่าน",
-   placeHolderConfirmPass: "ยืนยันรหัสผ่าน",
-   signUp: "สมัครสมาชิก"
-  
- };
+  signUp: "Sign up",
+};
+
+const th = {
+  placeHolderEmail: "อีเมล",
+  placeHolderPass: "รหัสผ่าน",
+  placeHolderConfirmPass: "ยืนยันรหัสผ่าน",
+  signUp: "สมัครสมาชิก",
+};
 const NextSignUpScreen = (props) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const dispatch = useDispatch();
@@ -88,6 +86,8 @@ const NextSignUpScreen = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.contentContainer}>
+          <Loader visible={isLoading} />
+
           <AuthHeader
             style={styles.headerContainer}
             title="Lost & Found"
@@ -138,11 +138,7 @@ const NextSignUpScreen = (props) => {
           </View>
 
           <View style={styles.buttonContainer}>
-            <MyButton
-              title="Sign up"
-              onPress={signUpHandler}
-              loading={isLoading}
-            />
+            <MyButton title="Sign up" onPress={signUpHandler} />
           </View>
         </View>
       </ScrollView>
