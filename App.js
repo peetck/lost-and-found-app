@@ -9,6 +9,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 import * as Facebook from "expo-facebook";
 import i18n from "i18n-js";
+import "react-native-gesture-handler";
 
 import userReducer from "./store/reducers/user";
 import postsReducer from "./store/reducers/posts";
