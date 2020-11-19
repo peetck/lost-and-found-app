@@ -26,13 +26,6 @@ import {
 import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
 import Loader from "../../../components/UI/Loader";
 
-const en = {
-  header1: "Nickname",
-};
-
-const th = {
-  header1: "Change password",
-};
 
 const AccountSettingScreen = (props) => {
   const dispatch = useDispatch();

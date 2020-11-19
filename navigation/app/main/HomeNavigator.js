@@ -8,15 +8,6 @@ import HomeScreen, {
 } from "../../../screens/app/main/HomeScreen";
 
 
-const en = {
-  home: "HOME"
-};
-
-const th = {
-  home: "หน้าหลัก"
-};
-
-
 const Stack = createStackNavigator();
 
 const HomeNavigator = (props) => {

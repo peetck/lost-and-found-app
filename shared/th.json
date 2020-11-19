@@ -10,5 +10,62 @@
     "imgHolder": "เลือกรูปภาพ",
     "title": "หัวข้อ",
     "description": "คำอธิบายเพิ่มเติม"
+  },
+  "myPostScreen":{
+    "subtitle": "โพสต์ที่เปิดอยู่"
+  },
+  "postDetailScreen":{
+    "header1": "หมวดหมู่สิ่งของ",
+    "header2": "รูปสิ่งของ",
+    "header3": "คำอธิบายเพิ่มเติม",
+    "header24": "สถานที่"
+  },
+  "accountSettingScreen": {
+    "header1": "Change nickname",
+    "header2": "Change password"
+  },
+  "changeNameSettingScreen": {
+    "button": "บันทึก"
+  },
+  "settingScreen": {
+    "header1": "ตั้งค่าบัญชี",
+    "header2": "ตั้งค่าทั่วไป",
+    "item1": "บัญชี",
+    "item2": "เปลี่ยนถาษา"
+  },
+  "loginScreen": {
+    "subtitle": "เข้าสู่ระบบ",
+    "placeHolderEmail": "อีเมล",
+    "placeHolderPass": "รหัสผ่าน",
+    "hint": "ยังไม่มีบัญชี ?",
+    "signUp": "สมัครสมาชิก"
+  },
+  "nextSignUpScreen": {
+    "placeHolderEmail": "อีเมล",
+    "placeHolderPass": "รหัสผ่าน",
+    "placeHolderConfirmPass": "ยืนยันรหัสผ่าน",
+    "signUp": "สมัครสมาชิก"
+  },
+  "signUpScreen": {
+    "subtitle": "สมัครสมาชิก",
+    "placeHolderNickname": "ชื่อเล่น",
+    "nextButton": "ถัดไป",
+    "hint": "มีบัญชีอยู่แล้ว ?",
+    "Login": "เข้าสู่ระบบ"
+  },
+  "homeNavigator": {
+    "home": "หน้าหลัก"
+  },
+  "mainNavigator": {
+    "home": "หน้าหลัก"
+  },
+  "settingNavigator": {
+    "settings": "ตั้งค่า"
+  },
+  "drawerNavigator": {
+    "logout": "ออกจากระบบ"
+  },
+  "myPostNavigator": {
+    "myPost": "โพสต์ของคุณ"
   }
 }

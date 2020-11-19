@@ -10,22 +10,6 @@ import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
 import { showError } from "../../shared/utils";
 
-const en = {
-  subtitle: "Sign up",
-  placeHolderNickname: "Nickname",
-  nextButton: "Next",
-  hint: "Already have an account ?",
-  Login: "Login",
- };
- 
- const th = {
-   subtitle: "สมัครสมาชิก",
-   placeHolderNickname: "ชื่อเล่น",
-   nextButton: "ถัดไป",
-   hint: "มีบัญชีอยู่แล้ว ?",
-   Login: "เข้าสู่ระบบ"
- };
- 
 
 const SignUpScreen = (props) => {
   const [nickname, setNickname] = useState("");

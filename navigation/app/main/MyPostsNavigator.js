@@ -7,13 +7,6 @@ import MyPostsScreen, {
   screenOptions as myPostsScreenOptions,
 } from "../../../screens/app/main/MyPostsScreen";
 
-const en = {
-  myPost: "MY POST"
-};
-
-const th = {
-  myPost: "โพสต์ของคุณ"
-};
 
 const Stack = createStackNavigator();
 

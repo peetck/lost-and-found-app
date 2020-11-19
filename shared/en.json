@@ -10,5 +10,62 @@
     "imgHolder": "Take a picture",
     "title": "Title",
     "description": "Description"
+  },
+  "myPostScreen": {
+    "subtitle": "Your Available Post"
+  },
+  "postDetailScreen": {
+    "header1": "Category",
+    "header2": "Image",
+    "header3": "Description",
+    "header24": "Location"
+  },
+  "accountSettingScreen": {
+    "header1": "เปลี่ยนชื่อเล่น",
+    "header2": "เปลี่ยนรหัสผ่าน"
+  },
+  "changeNameSettingScreen": {
+    "button": "SAVE"
+  },
+  "settingScreen": {
+    "header1": "Account settings",
+    "header2": "General settings",
+    "item1": "Account",
+    "item2": "Language"
+  },
+  "loginScreen": {
+    "subtitle": "Login",
+    "placeHolderEmail": "Email",
+    "placeHolderPass": "Password",
+    "hint": "Doesn't have an account ?",
+    "signUp": "Sign up"
+  },
+  "nextSignUpScreen": {
+    "placeHolderEmail": "Email",
+    "placeHolderPass": "Password",
+    "placeHolderConfirmPass": "Confirm Password",
+    "signUp": "Sign up"
+  },
+  "signUpScreen": {
+    "subtitle": "Sign up",
+    "placeHolderNickname": "Nickname",
+    "nextButton": "Next",
+    "hint": "Already have an account ?",
+    "Login": "Login"
+  },
+  "homeNavigator": {
+    "home": "HOME"
+  },
+  "mainNavigator": {
+    "home": "HOME"
+  },
+  "settingNavigator": {
+    "settings": "Settings"
+  },
+  "drawerNavigator": {
+    "logout": "Logout"
+  },
+  "myPostNavigator": {
+    "myPost": "MY POST"
   }
 }
