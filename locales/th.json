@@ -11,10 +11,10 @@
     "title": "หัวข้อ",
     "description": "คำอธิบายเพิ่มเติม"
   },
-  "myPostScreen":{
+  "myPostScreen": {
     "subtitle": "โพสต์ที่เปิดอยู่"
   },
-  "postDetailScreen":{
+  "postDetailScreen": {
     "header1": "หมวดหมู่สิ่งของ",
     "header2": "รูปสิ่งของ",
     "header3": "คำอธิบายเพิ่มเติม",
@@ -54,18 +54,18 @@
     "Login": "เข้าสู่ระบบ"
   },
   "homeNavigator": {
-    "home": "หน้าหลัก"
+    "headerTitle": "หน้าหลัก"
   },
-  "mainNavigator": {
-    "home": "หน้าหลัก"
+  "myPostsNavigator": {
+    "headerTitle": "โพสต์ของฉัน"
+  },
+  "tabNavigator": {
+    "headerTitle": "หน้าหลัก"
   },
   "settingNavigator": {
     "settings": "ตั้งค่า"
   },
   "drawerNavigator": {
     "logout": "ออกจากระบบ"
-  },
-  "myPostNavigator": {
-    "myPost": "โพสต์ของคุณ"
   }
 }

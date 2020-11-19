@@ -2,12 +2,12 @@ import React from "react";
 import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
+import * as Updates from "expo-updates";
 
-import { saveLanguageSetting } from "../../../store/actions/storage";
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
 import colors from "../../../shared/colors";
+import { saveLanguageSetting } from "../../../shared/utils";
 
 const en = {
   header1: "Account settings",
@@ -37,7 +37,6 @@ const Setting = (props) => {
 };
 
 const SettingsScreen = (props) => {
-  const dispatch = useDispatch();
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <View style={{ ...styles.container, paddingTop: 0 }}>
@@ -60,14 +59,16 @@ const SettingsScreen = (props) => {
           label="Language -> en"
           iconName="md-globe"
           onPress={() => {
-            dispatch(saveLanguageSetting("en"));
+            saveLanguageSetting("en");
+            Updates.reloadAsync();
           }}
         />
         <Setting
           label="Language -> th"
           iconName="md-globe"
           onPress={() => {
-            dispatch(saveLanguageSetting("th"));
+            saveLanguageSetting("th");
+            Updates.reloadAsync();
           }}
         />
       </View>

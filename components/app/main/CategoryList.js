@@ -4,10 +4,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 
 import MyText from "../../UI/MyText";
+import { getCurrentLanguage } from "../../../shared/utils";
 
 const CategoryList = (props) => {
   const categories = useSelector((state) => state.categories.categories);
-  const language = useSelector((state) => state.storage.language);
+  const language = getCurrentLanguage();
 
   const { inputMode, many, onChange, selectedMode, categoryId } = props;
   let { value } = props;

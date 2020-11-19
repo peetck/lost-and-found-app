@@ -5,6 +5,8 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import { Toast } from "popup-ui";
+import i18n from "i18n-js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import colors from "./colors";
 
@@ -125,4 +127,22 @@ export const showError = (
     duration,
     <Ionicons name={icon} color="white" size={24} />
   );
+};
+
+export const getCurrentLanguage = () => {
+  return i18n.currentLocale();
+};
+
+export const loadLanguageSetting = async () => {
+  const language = await AsyncStorage.getItem("language");
+  if (language !== null) {
+    i18n.locale = language;
+  } else {
+    await saveLanguageSetting("en");
+  }
+};
+
+export const saveLanguageSetting = async (language) => {
+  await AsyncStorage.setItem("language", language);
+  i18n.locale = language;
 };

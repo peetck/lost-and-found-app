@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { YellowBox } from "react-native";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
@@ -10,11 +10,11 @@ import "firebase/firestore";
 import * as Facebook from "expo-facebook";
 import i18n from "i18n-js";
 
-import StartupScreen from "./screens/StartupScreen";
 import userReducer from "./store/reducers/user";
 import postsReducer from "./store/reducers/posts";
 import categoriesReducer from "./store/reducers/categories";
-import storageReducer from "./store/reducers/storage";
+import { loadLanguageSetting } from "./shared/utils";
+import Loader from "./components/UI/Loader";
 
 // remove setTimeout() warning
 YellowBox.ignoreWarnings(["Setting a timer"]);
@@ -37,15 +37,14 @@ if (!firebase.apps.length) {
 Facebook.initializeAsync("1030138017425746", "lost and found");
 
 i18n.translations = {
-  en: require("./shared/en.json"),
-  th: require("./shared/th.json"),
+  en: require("./locales/en.json"),
+  th: require("./locales/th.json"),
 };
 
 const rootReducer = combineReducers({
   user: userReducer,
   posts: postsReducer,
   categories: categoriesReducer,
-  storage: storageReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
@@ -61,6 +60,12 @@ const fetchFonts = () => {
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
+  const StartupScreen = React.lazy(() => import("./screens/StartupScreen"));
+
+  useEffect(() => {
+    loadLanguageSetting();
+  }, []);
+
   if (!fontLoaded) {
     return (
       <AppLoading
@@ -74,7 +79,9 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <StartupScreen />
+      <Suspense fallback={<Loader visible={true} alpha={1} />}>
+        <StartupScreen />
+      </Suspense>
     </Provider>
   );
 }

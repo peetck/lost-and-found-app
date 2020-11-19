@@ -1,6 +1,7 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import i18n from "i18n-js";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import colors from "../../../shared/colors";
@@ -26,6 +27,7 @@ const tabBarOptions = {
   },
   labelStyle: {
     fontSize: 11,
+    fontFamily: "kanit-light",
   },
   indicatorStyle: {
     backgroundColor: "transparent",
@@ -51,7 +53,7 @@ const TabNavigator = (props) => {
 
 export const navigatorOptions = (navData) => {
   return {
-    headerTitle: "Home",
+    headerTitle: i18n.t("tabNavigator.headerTitle"),
     headerTitleStyle: {
       fontFamily: "kanit-light",
     },

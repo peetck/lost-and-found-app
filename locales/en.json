@@ -54,18 +54,18 @@
     "Login": "Login"
   },
   "homeNavigator": {
-    "home": "HOME"
+    "headerTitle": "Home"
   },
-  "mainNavigator": {
-    "home": "HOME"
+  "myPostsNavigator": {
+    "headerTitle": "My Posts"
+  },
+  "tabNavigator": {
+    "headerTitle": "Home"
   },
   "settingNavigator": {
     "settings": "Settings"
   },
   "drawerNavigator": {
     "logout": "Logout"
-  },
-  "myPostNavigator": {
-    "myPost": "MY POST"
   }
 }
