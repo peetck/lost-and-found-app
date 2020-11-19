@@ -85,6 +85,7 @@ const AccountSettingScreen = (props) => {
       <View style={styles.containerContents}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <SettingItem
+            color = '#1b6ca8'
             title="Nickname"
             text={user.nickname}
             type="text"
@@ -95,7 +96,7 @@ const AccountSettingScreen = (props) => {
           <SettingItem
             title="Delete Account"
             text={
-              "if you sign up again with the same email or FB all of your post'll not belong to you."
+              "If you sign up again with the same email or FB all of your post'll not belong to you."
             }
             type="text"
             onPress={async () => {
@@ -106,6 +107,7 @@ const AccountSettingScreen = (props) => {
                 setIsLoading(false);
               }
             }}
+            color = 'red'
           />
         </ScrollView>
       </View>
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#f9f9f9",
   },
   containerLayoutImage: {
     flex: 1,
@@ -138,8 +140,8 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     position: "absolute",
-    right: -2,
-    bottom: -2,
+    right: -1,
+    bottom: -5,
   },
   imageStyle: {
     width: 100,

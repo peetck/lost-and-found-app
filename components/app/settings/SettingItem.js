@@ -9,7 +9,7 @@ const SettingItem = (props) => {
   /* Function render type of Content */
   const typeContainer = () => {
     // type is text
-    if (props.type != "single") {
+    if (props.type != "singleText") {
       return <MyText style={styles.contentText}>{props.text}</MyText>;
     }
   };

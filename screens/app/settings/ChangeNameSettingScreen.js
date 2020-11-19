@@ -61,7 +61,7 @@ const ChangeNameSettingScreen = (props) => {
       <View style={{ marginTop: 12 }}>
         <Button
           title="Save"
-          color="#3fc5f0"
+          color="#1b6ca8"
           onPress={async () => {
             await dispatch(changeNickname(text));
             props.navigation.navigate("ProfileSetting");
