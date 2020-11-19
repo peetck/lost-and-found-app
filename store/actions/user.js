@@ -9,7 +9,7 @@ export const SET_USER = "SET_USER";
 export const SET_LOCATION = "SET_LOCATION";
 export const SET_NICKNAME = "SET_NICKNAME";
 export const SET_IMAGE_URL = "SET_IMAGE_URL";
-export const LOGOUT = "LOGOUT";
+export const RESET = "RESET";
 
 export const loginSuccess = () => {
   return async (dispatch) => {
@@ -177,7 +177,16 @@ export const logout = () => {
   return async (dispatch) => {
     await firebase.auth().signOut();
     dispatch({
-      type: LOGOUT,
+      type: RESET,
+    });
+  };
+};
+
+export const deleteAccount = () => {
+  return async (dispatch) => {
+    await firebase.auth().currentUser.delete();
+    dispatch({
+      type: RESET,
     });
   };
 };

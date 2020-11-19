@@ -1,5 +1,5 @@
 import {
-  LOGOUT,
+  RESET,
   SET_IMAGE_URL,
   SET_LOCATION,
   SET_NICKNAME,
@@ -44,7 +44,7 @@ const setImageUrl = (state, action) => {
   };
 };
 
-const logout = (state, action) => {
+const reset = (state, action) => {
   return {
     ...state,
     email: "",
@@ -63,8 +63,8 @@ const reducer = (state = initialState, action) => {
       return setNickname(state, action);
     case SET_IMAGE_URL:
       return setImageUrl(state, action);
-    case LOGOUT:
-      return logout(state, action);
+    case RESET:
+      return reset(state, action);
     default:
       return state;
   }

@@ -18,16 +18,20 @@ import {
 } from "@expo/react-native-action-sheet";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
-import { changeNickname, changeImage } from "../../../store/actions/user";
+import {
+  changeNickname,
+  changeImage,
+  deleteAccount,
+} from "../../../store/actions/user";
 import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
-
+import Loader from "../../../components/UI/Loader";
 
 const en = {
-  header1: "Nickname"
+  header1: "Nickname",
 };
 
 const th = {
-  header1: "Change password"
+  header1: "Change password",
 };
 
 const AccountSettingScreen = (props) => {
@@ -42,6 +46,8 @@ const AccountSettingScreen = (props) => {
   const [selectedImage, setSelectedImage] = useState();
 
   const [editTile, setEditTitle] = useState();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   {
     /* Function */
@@ -61,6 +67,7 @@ const AccountSettingScreen = (props) => {
   }
   return (
     <View style={styles.container}>
+      <Loader visible={isLoading} />
       {/* image part */}
       <View style={styles.containerImage}>
         <View style={styles.containerLayoutImage}>
@@ -86,11 +93,18 @@ const AccountSettingScreen = (props) => {
             }}
           />
           <SettingItem
-            title="Change password"
-            text={""}
+            title="Delete Account"
+            text={
+              "if you sign up again with the same email or FB all of your post'll not belong to you."
+            }
             type="text"
-            onPress={() => {
-              props.navigation.navigate("ChangeNameSetting");
+            onPress={async () => {
+              setIsLoading(true);
+              try {
+                dispatch(deleteAccount());
+              } catch (error) {
+                setIsLoading(false);
+              }
             }}
           />
         </ScrollView>

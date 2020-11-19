@@ -12,18 +12,15 @@ import AccountSettingScreen, {
 import ChangeNameSettingScreen, {
   screenOptions as ChangeNameSettingScreenOptions,
 } from "../../../screens/app/settings/ChangeNameSettingScreen";
-import ChangePasswordSettingScreen, {
-  screenOptions as ChangePasswordSettingScreenOptions,
-} from "../../../screens/app/settings/ChangePasswordSettingScreen";
 
 const Stack = createStackNavigator();
 
 const en = {
-  settings: "Settings"
+  settings: "Settings",
 };
 
 const th = {
-  settings: "ตั้งค่า"
+  settings: "ตั้งค่า",
 };
 
 const SettingsNavigator = (props) => {
@@ -43,11 +40,6 @@ const SettingsNavigator = (props) => {
         name="ChangeNameSetting"
         component={ChangeNameSettingScreen}
         options={ChangeNameSettingScreenOptions}
-      />
-      <Stack.Screen
-        name="ChangePasswordSetting"
-        component={ChangePasswordSettingScreen}
-        options={ChangePasswordSettingScreenOptions}
       />
     </Stack.Navigator>
   );
