@@ -10,6 +10,7 @@ import firebase from "firebase";
 import * as geofirestore from "geofirestore";
 import { useSelector } from "react-redux";
 import { CardStyleInterpolators } from "@react-navigation/stack";
+import i18n from "i18n-js";
 
 import CategoryList from "../../../components/app/main/CategoryList";
 import PostList from "../../../components/app/main/PostList";
@@ -137,7 +138,7 @@ const SearchScreen = (props) => {
       />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Location</MyText>
+        <MyText style={styles.title}>{i18n.t("searchScreen.header1")}</MyText>
       </View>
 
       {isLoadingLocation ? (
@@ -160,7 +161,7 @@ const SearchScreen = (props) => {
       )}
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Result (~5 km)</MyText>
+        <MyText style={styles.title}>{i18n.t("searchScreen.header2")}</MyText>
       </View>
     </View>
   );
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  headerTitle: "Search by location",
+  headerTitle: i18n.t("searchScreen.headerTitle"),
   headerTitleStyle: {
     fontFamily: "kanit-light",
   },

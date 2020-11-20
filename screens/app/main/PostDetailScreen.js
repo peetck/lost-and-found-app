@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
+import i18n from "i18n-js";
 
 import MyText from "../../../components/UI/MyText";
 import colors from "../../../shared/colors";
@@ -35,13 +36,17 @@ const PostDetailScreen = (props) => {
   return (
     <ScrollView style={styles.screen}>
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Category</MyText>
+        <MyText style={styles.title}>
+          {i18n.t("postDetailScreen.header1")}
+        </MyText>
       </View>
 
       <CategoryList selectedMode categoryId={categoryId} />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Image</MyText>
+        <MyText style={styles.title}>
+          {i18n.t("postDetailScreen.header2")}
+        </MyText>
       </View>
 
       <View style={styles.container}>
@@ -49,7 +54,9 @@ const PostDetailScreen = (props) => {
       </View>
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Description</MyText>
+        <MyText style={styles.title}>
+          {i18n.t("postDetailScreen.header3")}
+        </MyText>
       </View>
 
       <View style={{ paddingHorizontal: 10 }}>
@@ -57,7 +64,9 @@ const PostDetailScreen = (props) => {
       </View>
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Location</MyText>
+        <MyText style={styles.title}>
+          {i18n.t("postDetailScreen.header4")}
+        </MyText>
       </View>
 
       <TouchableOpacity

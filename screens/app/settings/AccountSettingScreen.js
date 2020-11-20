@@ -150,4 +150,4 @@ export const screenOptions = {
   },
 };
 
-export default AccountSettingScreen;
+export default connectActionSheet(AccountSettingScreen);

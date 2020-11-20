@@ -1,9 +1,10 @@
 {
   "homeScreen": {
     "searchByLocation": "ค้นหาจากตําแหน่ง",
-    "nearBy": "โพสต์ใกล้คุณ (~5 km)"
+    "nearBy": "โพสต์ใกล้คุณ (~5 กม)"
   },
   "createPostScreen": {
+    "headerTitle": "สร้างโพสต์",
     "header1": "ข้อมูลต่างๆ",
     "header2": "รูปภาพ",
     "header3": "สถานที่",
@@ -11,14 +12,22 @@
     "title": "หัวข้อ",
     "description": "คำอธิบายเพิ่มเติม"
   },
-  "myPostScreen": {
+  "mapScreen": {
+    "headerTitle": "สถานที่"
+  },
+  "myPostsScreen": {
     "subtitle": "โพสต์ที่เปิดอยู่"
   },
   "postDetailScreen": {
     "header1": "หมวดหมู่สิ่งของ",
-    "header2": "รูปสิ่งของ",
+    "header2": "รูปภาพ",
     "header3": "คำอธิบายเพิ่มเติม",
-    "header24": "สถานที่"
+    "header4": "สถานที่"
+  },
+  "searchScreen": {
+    "headerTitle": "ค้นหาจากตําแหน่ง",
+    "header1": "ตําแหน่ง",
+    "header2": "ผลลัพธ์ (~5 กม)"
   },
   "accountSettingScreen": {
     "header1": "Change nickname",
@@ -27,11 +36,12 @@
   "changeNameSettingScreen": {
     "button": "บันทึก"
   },
-  "settingScreen": {
+  "settingsScreen": {
+    "headerTitle": "ตั้งค่า",
     "header1": "ตั้งค่าบัญชี",
     "header2": "ตั้งค่าทั่วไป",
     "item1": "บัญชี",
-    "item2": "เปลี่ยนถาษา"
+    "item2": "เปลี่ยนภาษา"
   },
   "loginScreen": {
     "subtitle": "เข้าสู่ระบบ",
@@ -51,7 +61,7 @@
     "placeHolderNickname": "ชื่อเล่น",
     "nextButton": "ถัดไป",
     "hint": "มีบัญชีอยู่แล้ว ?",
-    "Login": "เข้าสู่ระบบ"
+    "login": "เข้าสู่ระบบ"
   },
   "homeNavigator": {
     "headerTitle": "หน้าหลัก"
@@ -62,8 +72,11 @@
   "tabNavigator": {
     "headerTitle": "หน้าหลัก"
   },
-  "settingNavigator": {
-    "settings": "ตั้งค่า"
+  "mainNavigator": {
+    "headerTitle": "หน้าหลัก"
+  },
+  "settingsNavigator": {
+    "headerTitle": "ตั้งค่า"
   },
   "drawerNavigator": {
     "logout": "ออกจากระบบ"

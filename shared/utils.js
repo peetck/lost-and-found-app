@@ -7,8 +7,24 @@ import * as Location from "expo-location";
 import { Toast } from "popup-ui";
 import i18n from "i18n-js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Updates from "expo-updates";
 
 import colors from "./colors";
+
+export const changeLanguageActionSheetOptions = {
+  options: ["English", "Thai", "Cancel"],
+  cancelButtonIndex: 2,
+  icons: [
+    <Ionicons name="md-flag" size={23} color="black" />,
+    <Ionicons name="md-flag" size={23} color="black" />,
+    <Ionicons name="md-backspace" size={23} color="black" />,
+  ],
+  title: "Please select a language.",
+  titleTextStyle: {
+    fontFamily: "kanit-light",
+    fontSize: 20,
+  },
+};
 
 export const takeImageActionSheetOptions = {
   options: ["Take Picture", "Choose from gallery", "Cancel"],
@@ -127,6 +143,17 @@ export const showError = (
     duration,
     <Ionicons name={icon} color="white" size={24} />
   );
+};
+
+export const changeLanguage = async (index) => {
+  await saveLanguageSetting(index === 0 ? "en" : "th");
+  Alert.alert("Information", "You have to restart the app to see the change.", [
+    {
+      text: "Restart",
+      onPress: () => Updates.reloadAsync(),
+    },
+    { text: "Later" },
+  ]);
 };
 
 export const getCurrentLanguage = () => {

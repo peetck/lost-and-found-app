@@ -2,19 +2,12 @@ import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
+import i18n from "i18n-js";
 
 import PostList from "../../../components/app/main/PostList";
 import { fetchMyPosts } from "../../../store/actions/posts";
 import MyText from "../../../components/UI/MyText";
 import CategoryList from "../../../components/app/main/CategoryList";
-
-const en = {
-  subtitle: "Your Available Post"
-};
-
-const th = {
-  subtitle: "โพสต์ที่เปิดอยู่"
-};
 
 const MyPostsScreen = (props) => {
   const dispatch = useDispatch();
@@ -66,7 +59,7 @@ const MyPostsScreen = (props) => {
       </View>
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Your Available Post</MyText>
+        <MyText style={styles.title}>{i18n.t("myPostsScreen.subtitle")}</MyText>
       </View>
     </View>
   );

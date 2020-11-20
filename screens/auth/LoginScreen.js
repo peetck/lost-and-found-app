@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { CardStyleInterpolators } from "@react-navigation/stack";
-import Constants from "expo-constants";
 import { useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
+import {
+  useActionSheet,
+  connectActionSheet,
+} from "@expo/react-native-action-sheet";
+import i18n from "i18n-js";
 
 import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
@@ -11,16 +16,42 @@ import MyTextInput from "../../components/UI/MyTextInput";
 import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
 import { login, loginWithFacebook } from "../../store/actions/user";
-import { showSuccess, showError } from "../../shared/utils";
+import {
+  showSuccess,
+  showError,
+  changeLanguageActionSheetOptions,
+  changeLanguage,
+} from "../../shared/utils";
 import Loader from "../../components/UI/Loader";
-
-
+import HeaderButton from "../../components/UI/HeaderButton";
 
 const LoginScreen = (props) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  const changeLanguageHandler = () => {
+    showActionSheetWithOptions(changeLanguageActionSheetOptions, (index) => {
+      if (index !== 2) {
+        changeLanguage(index);
+      }
+    });
+  };
+
+  props.navigation.setOptions({
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          iconName="md-globe"
+          color="black"
+          onPress={changeLanguageHandler}
+        />
+      </HeaderButtons>
+    ),
+  });
 
   const loginHandler = async (method) => {
     setIsLoading(true);
@@ -61,18 +92,18 @@ const LoginScreen = (props) => {
           <AuthHeader
             style={styles.centerContainer}
             title="Lost & Found"
-            subtitle="Login"
+            subtitle={i18n.t("loginScreen.subtitle")}
             image={require("../../assets/images/logo.png")}
           />
 
           <View style={styles.textInputContainer}>
             <MyTextInput
-              placeholder="Email"
+              placeholder={i18n.t("loginScreen.placeHolderEmail")}
               onChangeText={setEmail}
               value={email}
             />
             <MyTextInput
-              placeholder="Password"
+              placeholder={i18n.t("loginScreen.placeHolderPass")}
               secureTextEntry={true}
               onChangeText={setPassword}
               value={password}
@@ -81,7 +112,10 @@ const LoginScreen = (props) => {
 
           <View style={{ flexDirection: "row" }}>
             <View style={{ flex: 1 }}>
-              <MyButton title="Login" onPress={() => loginHandler("email")} />
+              <MyButton
+                title={i18n.t("loginScreen.subtitle")}
+                onPress={() => loginHandler("email")}
+              />
             </View>
             <View style={{ flex: 0.4, paddingLeft: 30 }}>
               <TouchableOpacity
@@ -101,12 +135,14 @@ const LoginScreen = (props) => {
           </View>
 
           <View style={styles.centerContainer}>
-            <MyText>Doesn't have an account ?</MyText>
+            <MyText>{i18n.t("loginScreen.hint")}</MyText>
             <TouchableOpacity
               onPress={switchToSignUpHandler}
               activeOpacity={0.6}
             >
-              <MyText style={styles.switchToSignUpText}>Sign up</MyText>
+              <MyText style={styles.switchToSignUpText}>
+                {i18n.t("loginScreen.signUp")}
+              </MyText>
             </TouchableOpacity>
           </View>
         </View>
@@ -118,7 +154,6 @@ const LoginScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 35,
     backgroundColor: "white",
   },
@@ -146,8 +181,12 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  headerShown: false,
+  headerTitle: "",
+  headerStyle: {
+    backgroundColor: "#fff",
+    elevation: 0,
+  },
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
 };
 
-export default LoginScreen;
+export default connectActionSheet(LoginScreen);

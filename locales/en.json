@@ -4,6 +4,7 @@
     "nearBy": "Nearby posts (~5 km)"
   },
   "createPostScreen": {
+    "headerTitle": "Create Post",
     "header1": "Information",
     "header2": "Image",
     "header3": "Location",
@@ -11,14 +12,22 @@
     "title": "Title",
     "description": "Description"
   },
-  "myPostScreen": {
+  "mapScreen": {
+    "headerTitle": "Location"
+  },
+  "myPostsScreen": {
     "subtitle": "Your Available Post"
   },
   "postDetailScreen": {
     "header1": "Category",
     "header2": "Image",
     "header3": "Description",
-    "header24": "Location"
+    "header4": "Location"
+  },
+  "searchScreen": {
+    "headerTitle": "Search by Location",
+    "header1": "Location",
+    "header2": "Result (~5 km)"
   },
   "accountSettingScreen": {
     "header1": "เปลี่ยนชื่อเล่น",
@@ -27,7 +36,8 @@
   "changeNameSettingScreen": {
     "button": "SAVE"
   },
-  "settingScreen": {
+  "settingsScreen": {
+    "headerTitle": "Settings",
     "header1": "Account settings",
     "header2": "General settings",
     "item1": "Account",
@@ -51,7 +61,7 @@
     "placeHolderNickname": "Nickname",
     "nextButton": "Next",
     "hint": "Already have an account ?",
-    "Login": "Login"
+    "login": "Login"
   },
   "homeNavigator": {
     "headerTitle": "Home"
@@ -62,8 +72,11 @@
   "tabNavigator": {
     "headerTitle": "Home"
   },
-  "settingNavigator": {
-    "settings": "Settings"
+  "mainNavigator": {
+    "headerTitle": "Home"
+  },
+  "settingsNavigator": {
+    "headerTitle": "Settings"
   },
   "drawerNavigator": {
     "logout": "Logout"

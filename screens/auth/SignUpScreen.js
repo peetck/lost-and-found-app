@@ -1,18 +1,49 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import Constants from "expo-constants";
 import { CardStyleInterpolators } from "@react-navigation/stack";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import {
+  useActionSheet,
+  connectActionSheet,
+} from "@expo/react-native-action-sheet";
+import i18n from "i18n-js";
 
 import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
-import { showError } from "../../shared/utils";
-
+import {
+  showError,
+  changeLanguageActionSheetOptions,
+  changeLanguage,
+} from "../../shared/utils";
+import HeaderButton from "../../components/UI/HeaderButton";
 
 const SignUpScreen = (props) => {
   const [nickname, setNickname] = useState("");
+
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  const changeLanguageHandler = () => {
+    showActionSheetWithOptions(changeLanguageActionSheetOptions, (index) => {
+      if (index !== 2) {
+        changeLanguage(index);
+      }
+    });
+  };
+
+  props.navigation.setOptions({
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          iconName="md-globe"
+          color="black"
+          onPress={changeLanguageHandler}
+        />
+      </HeaderButtons>
+    ),
+  });
 
   const signUpHandler = () => {
     if (nickname.trim() === "") {
@@ -38,27 +69,32 @@ const SignUpScreen = (props) => {
           <AuthHeader
             style={styles.centerContainer}
             title="Lost & Found"
-            subtitle="Sign up"
+            subtitle={i18n.t("signUpScreen.subtitle")}
             image={require("../../assets/images/logo.png")}
           />
 
           <View style={styles.textInputContainer}>
             <MyTextInput
-              placeholder="Nickname"
+              placeholder={i18n.t("signUpScreen.placeHolderNickname")}
               onChangeText={setNickname}
               value={nickname}
             />
           </View>
 
-          <MyButton title="Next" onPress={signUpHandler} />
+          <MyButton
+            title={i18n.t("signUpScreen.nextButton")}
+            onPress={signUpHandler}
+          />
 
           <View style={styles.centerContainer}>
-            <MyText>Already have an account ?</MyText>
+            <MyText>{i18n.t("signUpScreen.hint")}</MyText>
             <TouchableOpacity
               onPress={switchToLoginHandler}
               activeOpacity={0.6}
             >
-              <MyText style={styles.switchToLoginText}>Login</MyText>
+              <MyText style={styles.switchToLoginText}>
+                {i18n.t("signUpScreen.login")}
+              </MyText>
             </TouchableOpacity>
           </View>
         </View>
@@ -70,7 +106,6 @@ const SignUpScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 35,
     backgroundColor: "white",
   },
@@ -98,8 +133,12 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  headerShown: false,
+  headerTitle: "",
+  headerStyle: {
+    backgroundColor: "#fff",
+    elevation: 0,
+  },
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
 };
 
-export default SignUpScreen;
+export default connectActionSheet(SignUpScreen);

@@ -13,6 +13,7 @@ import {
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
 import { Ionicons } from "@expo/vector-icons";
+import i18n from "i18n-js";
 
 import MyTextInput from "../../components/UI/MyTextInput";
 import MyButton from "../../components/UI/MyButton";
@@ -24,22 +25,8 @@ import {
   showError,
 } from "../../shared/utils";
 import { signUp } from "../../store/actions/user";
-import colors from "../../shared/colors";
 import Loader from "../../components/UI/Loader";
 
-const en = {
-  placeHolderEmail: "Email",
-  placeHolderPass: "Password",
-  placeHolderConfirmPass: "Confirm Password",
-  signUp: "Sign up",
-};
-
-const th = {
-  placeHolderEmail: "อีเมล",
-  placeHolderPass: "รหัสผ่าน",
-  placeHolderConfirmPass: "ยืนยันรหัสผ่าน",
-  signUp: "สมัครสมาชิก",
-};
 const NextSignUpScreen = (props) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const dispatch = useDispatch();
@@ -119,18 +106,18 @@ const NextSignUpScreen = (props) => {
 
           <View style={styles.textInputContainer}>
             <MyTextInput
-              placeholder="Email"
+              placeholder={i18n.t("nextSignUpScreen.placeHolderEmail")}
               onChangeText={setEmail}
               value={email}
             />
             <MyTextInput
-              placeholder="Password"
+              placeholder={i18n.t("nextSignUpScreen.placeHolderPass")}
               secureTextEntry={true}
               onChangeText={setPassword}
               value={password}
             />
             <MyTextInput
-              placeholder="Confirm Password"
+              placeholder={i18n.t("nextSignUpScreen.placeHolderConfirmPass")}
               secureTextEntry={true}
               onChangeText={setConfirmPassword}
               value={confirmPassword}
@@ -138,7 +125,10 @@ const NextSignUpScreen = (props) => {
           </View>
 
           <View style={styles.buttonContainer}>
-            <MyButton title="Sign up" onPress={signUpHandler} />
+            <MyButton
+              title={i18n.t("nextSignUpScreen.signUp")}
+              onPress={signUpHandler}
+            />
           </View>
         </View>
       </ScrollView>

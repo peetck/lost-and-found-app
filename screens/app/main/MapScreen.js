@@ -4,6 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
+import i18n from "i18n-js";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  headerTitle: "Location",
+  headerTitle: i18n.t("mapScreen.headerTitle"),
   headerTitleStyle: {
     fontFamily: "kanit-light",
   },

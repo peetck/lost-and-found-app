@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  headerTitle: "Create Post",
+  headerTitle: i18n.t("createPostScreen.headerTitle"),
   headerTitleStyle: {
     fontFamily: "kanit-light",
   },
