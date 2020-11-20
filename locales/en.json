@@ -90,6 +90,7 @@
     "emptyText": "No posts found"
   },
   "changeNicknameScreen": {
-    "headerTitle": "Change Nickname"
+    "headerTitle": "Change Nickname",
+    "buttonText": "Save"
   }
 }

@@ -83,13 +83,14 @@
   },
   "utils": {
     "changeLanguageTitle": "กรุณาเลือกภาษา",
-    "takeImageTitle" : "กรุณาเลือก",
+    "takeImageTitle": "กรุณาเลือก",
     "cancel": "ยกเลิก"
   },
   "postList": {
     "emptyText": "ไม่พบโพสต์"
   },
   "changeNicknameScreen": {
-    "headerTitle": "เปลี่ยนชื่อเล่น"
+    "headerTitle": "เปลี่ยนชื่อเล่น",
+    "buttonText": "ยืนยัน"
   }
 }
