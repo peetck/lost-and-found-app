@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   StyleSheet,
-  Platform,
   ScrollView,
   TouchableOpacity,
   Image,
-  Button,
 } from "react-native";
 import Constants from "expo-constants";
 import { CardStyleInterpolators } from "@react-navigation/stack";
@@ -20,11 +17,7 @@ import {
 import i18n from "i18n-js";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
-import {
-  changeNickname,
-  changeImage,
-  deleteAccount,
-} from "../../../store/actions/user";
+import { changeImage } from "../../../store/actions/user";
 import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
 import Loader from "../../../components/UI/Loader";
 
@@ -84,24 +77,8 @@ const AccountSettingScreen = (props) => {
             text={user.nickname}
             type="text"
             onPress={() => {
-              props.navigation.navigate("ChangeNameSetting");
+              props.navigation.navigate("ChangeNickname");
             }}
-          />
-          <SettingItem
-            title={i18n.t("accountSettingScreen.deleteAcc")}
-            text={
-              "If you sign up again with the same email or FB all of your post'll not belong to you."
-            }
-            type="text"
-            onPress={async () => {
-              setIsLoading(true);
-              try {
-                dispatch(deleteAccount());
-              } catch (error) {
-                setIsLoading(false);
-              }
-            }}
-            color="red"
           />
         </ScrollView>
       </View>

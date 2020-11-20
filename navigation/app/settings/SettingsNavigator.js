@@ -10,12 +10,11 @@ import SettingsScreen, {
 import AccountSettingScreen, {
   screenOptions as accountSettingScreenOptions,
 } from "../../../screens/app/settings/AccountSettingScreen";
-import ChangeNameSettingScreen, {
-  screenOptions as ChangeNameSettingScreenOptions,
-} from "../../../screens/app/settings/ChangeNameSettingScreen";
+import ChangeNicknameScreen, {
+  screenOptions as changeNicknameScreenOptions,
+} from "../../../screens/app/settings/ChangeNicknameScreen";
 
 const Stack = createStackNavigator();
-
 
 const SettingsNavigator = (props) => {
   return (
@@ -31,9 +30,9 @@ const SettingsNavigator = (props) => {
         options={accountSettingScreenOptions}
       />
       <Stack.Screen
-        name="ChangeNameSetting"
-        component={ChangeNameSettingScreen}
-        options={ChangeNameSettingScreenOptions}
+        name="ChangeNickname"
+        component={ChangeNicknameScreen}
+        options={changeNicknameScreenOptions}
       />
     </Stack.Navigator>
   );

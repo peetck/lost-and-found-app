@@ -207,12 +207,3 @@ export const logout = () => {
     });
   };
 };
-
-export const deleteAccount = () => {
-  return async (dispatch) => {
-    await firebase.auth().currentUser.delete();
-    dispatch({
-      type: RESET,
-    });
-  };
-};

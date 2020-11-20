@@ -1,27 +1,13 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  ScrollView,
-  AppHeader,
-  TextInput,
-  Button,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import Constants from "expo-constants";
-import {
-  useActionSheet,
-  connectActionSheet,
-} from "@expo/react-native-action-sheet";
+import { CardStyleInterpolators } from "@react-navigation/stack";
+
 import { useSelector, useDispatch } from "react-redux";
 import { changeNickname } from "../../../store/actions/user";
+import i18n from "i18n-js";
 
-import SettingItem from "../../../components/app/settings/SettingItem";
-
-
-const ChangeNameSettingScreen = (props) => {
+const ChangeNicknameScreen = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -90,10 +76,11 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  title: "Change Name",
+  title: i18n.t("changeNicknameScreen.headerTitle"),
   headerTitleStyle: {
     fontFamily: "kanit-light",
   },
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 };
 
-export default ChangeNameSettingScreen;
+export default ChangeNicknameScreen;

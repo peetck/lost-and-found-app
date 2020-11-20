@@ -31,8 +31,7 @@
   },
   "accountSettingScreen": {
     "headerTitle": "บัญชี",
-    "nickname": "ชื่อเล่น",
-    "deleteAcc": "ลบบัญชี"
+    "nickname": "ชื่อเล่น"
   },
   "changeNameSettingScreen": {
     "button": "บันทึก"
@@ -89,5 +88,8 @@
   },
   "postList": {
     "emptyText": "ไม่พบโพสต์"
+  },
+  "changeNicknameScreen": {
+    "headerTitle": "เปลี่ยนชื่อเล่น"
   }
 }
