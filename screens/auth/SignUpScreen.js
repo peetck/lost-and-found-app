@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { Ionicons } from "@expo/vector-icons";
 import {
   useActionSheet,
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
+import Constants from "expo-constants";
 import i18n from "i18n-js";
 
 import MyButton from "../../components/UI/MyButton";
@@ -18,7 +19,6 @@ import {
   changeLanguageActionSheetOptions,
   changeLanguage,
 } from "../../shared/utils";
-import HeaderButton from "../../components/UI/HeaderButton";
 
 const SignUpScreen = (props) => {
   const [nickname, setNickname] = useState("");
@@ -32,18 +32,6 @@ const SignUpScreen = (props) => {
       }
     });
   };
-
-  props.navigation.setOptions({
-    headerRight: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          iconName="md-globe"
-          color="black"
-          onPress={changeLanguageHandler}
-        />
-      </HeaderButtons>
-    ),
-  });
 
   const signUpHandler = () => {
     if (nickname.trim() === "") {
@@ -61,6 +49,13 @@ const SignUpScreen = (props) => {
 
   return (
     <View style={styles.screen}>
+      <TouchableOpacity
+        style={styles.languageChangeContainer}
+        onPress={changeLanguageHandler}
+      >
+        <Ionicons size={23} name="md-globe" />
+      </TouchableOpacity>
+
       <ScrollView
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
@@ -88,6 +83,7 @@ const SignUpScreen = (props) => {
 
           <View style={styles.centerContainer}>
             <MyText>{i18n.t("signUpScreen.hint")}</MyText>
+
             <TouchableOpacity
               onPress={switchToLoginHandler}
               activeOpacity={0.6}
@@ -106,8 +102,14 @@ const SignUpScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 35,
     backgroundColor: "white",
+  },
+  languageChangeContainer: {
+    position: "absolute",
+    right: 20,
+    top: Constants.statusBarHeight + 15,
   },
   scrollView: {
     flexGrow: 1,
@@ -133,11 +135,7 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  headerTitle: "",
-  headerStyle: {
-    backgroundColor: "#fff",
-    elevation: 0,
-  },
+  headerShown: false,
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
 };
 
