@@ -14,7 +14,7 @@ import "react-native-gesture-handler";
 import userReducer from "./store/reducers/user";
 import postsReducer from "./store/reducers/posts";
 import categoriesReducer from "./store/reducers/categories";
-import { loadLanguageSetting } from "./shared/utils";
+import { loadLanguageSetting } from "./shared/storage";
 import Loader from "./components/UI/Loader";
 
 // remove setTimeout() warning

@@ -80,5 +80,8 @@
   },
   "drawerNavigator": {
     "logout": "ออกจากระบบ"
+  },
+  "utils": {
+    "changeLanguageTitle": "กรุณาเลือกภาษา"
   }
 }

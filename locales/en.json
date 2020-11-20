@@ -80,5 +80,8 @@
   },
   "drawerNavigator": {
     "logout": "Logout"
+  },
+  "utils": {
+    "changeLanguageTitle": "Please select a language"
   }
 }
