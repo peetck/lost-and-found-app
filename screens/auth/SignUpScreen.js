@@ -35,7 +35,7 @@ const SignUpScreen = (props) => {
 
   const signUpHandler = () => {
     if (nickname.trim() === "") {
-      showError("Error", "Please enter your nickname.");
+      showError("Please enter your nickname.");
     } else {
       props.navigation.navigate("NextSignUp", {
         nickname: nickname.trim(),

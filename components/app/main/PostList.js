@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
+import i18n from "i18n-js";
 
 import PostItem from "./PostItem";
 import MyText from "../../UI/MyText";
@@ -10,7 +11,7 @@ const PostList = (props) => {
   const emptyComponent = () => (
     <View style={styles.emptyContainer}>
       <Ionicons name="md-close-circle" color="black" size={80} />
-      <MyText style={styles.text}>No nearby posts</MyText>
+      <MyText style={styles.text}>{i18n.t("postList.emptyText")}</MyText>
     </View>
   );
 

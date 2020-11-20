@@ -47,7 +47,7 @@ const LoginScreen = (props) => {
         await dispatch(login(email.trim(), password));
         showSuccess("Login Success", "Welcome to Lost & Found App.");
       } catch (error) {
-        showError("Error", error.message);
+        showError(error.message);
         setIsLoading(false);
       }
     } else if (method === "facebook") {
@@ -57,7 +57,7 @@ const LoginScreen = (props) => {
       } catch (error) {
         setIsLoading(false);
         if (error.message !== "") {
-          showError("Error", error.message);
+          showError(error.message);
         }
       }
     }

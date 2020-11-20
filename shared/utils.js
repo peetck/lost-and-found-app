@@ -3,7 +3,6 @@ import { Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
-import * as Location from "expo-location";
 import { Toast } from "popup-ui";
 import i18n from "i18n-js";
 import * as Updates from "expo-updates";
@@ -12,7 +11,7 @@ import colors from "./colors";
 import { saveLanguageSetting } from "./storage";
 
 export const changeLanguageActionSheetOptions = {
-  options: ["English", "Thai", "Cancel"],
+  options: ["English", "Thai", i18n.t("utils.cancel")],
   cancelButtonIndex: 2,
   icons: [
     <Ionicons name="md-flag" size={23} color="black" />,
@@ -27,14 +26,14 @@ export const changeLanguageActionSheetOptions = {
 };
 
 export const takeImageActionSheetOptions = {
-  options: ["Take Picture", "Choose from gallery", "Cancel"],
+  options: ["Take Picture", "Choose from gallery", i18n.t("utils.cancel")],
   cancelButtonIndex: 2,
   icons: [
     <Ionicons name="md-camera" size={23} color="black" />,
     <Ionicons name="md-image" size={23} color="black" />,
     <Ionicons name="md-backspace" size={23} color="black" />,
   ],
-  title: "Please select an option.",
+  title: i18n.t("utils.takeImageTitle"),
   titleTextStyle: {
     fontFamily: "kanit-light",
     fontSize: 20,
@@ -79,32 +78,6 @@ export const takeImage = async (index) => {
   return image.uri;
 };
 
-export const getCurrentLocation = async () => {
-  const { status } = await Permissions.askAsync(Permissions.LOCATION);
-  if (status !== "granted") {
-    Alert.alert(
-      "Insufficient permissions!",
-      "You need to grant location permissions to use this app.",
-      [{ text: "Retry", onPress: getCurrentLocation }]
-    );
-    return;
-  } else {
-    try {
-      const location = await Location.getCurrentPositionAsync({
-        timeout: 5000,
-      });
-      return {
-        lat: location.coords.latitude,
-        lng: location.coords.longitude,
-      };
-    } catch (err) {
-      Alert.alert("Could not fetch location!", "Please try again later.", [
-        { text: "Okay" },
-      ]);
-    }
-  }
-};
-
 const showToast = (title, text, color, duration, icon) => {
   Toast.show({
     title: title,
@@ -130,14 +103,9 @@ export const showSuccess = (
   );
 };
 
-export const showError = (
-  title,
-  text,
-  duration = 2000,
-  icon = "md-close-circle"
-) => {
+export const showError = (text, duration = 2000, icon = "md-close-circle") => {
   showToast(
-    title,
+    "Error",
     text,
     colors.error,
     duration,

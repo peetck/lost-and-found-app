@@ -18,31 +18,28 @@ const StartupScreen = (props) => {
   let isAutoLogin = true;
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
-      setIsLoading(true);
-      if (user) {
-        if (isAutoLogin) {
-          // if firebase autologin success -> fetch user data
-          await dispatch(loginSuccess());
-        }
-        setIsAuth(true);
-      } else {
-        setIsAuth(false);
-      }
-      setIsLoading(false);
-      isAutoLogin = false;
-    });
-
-    // clean up function
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
     const init = async () => {
       await dispatch(fetchCategories());
       await dispatch(fetchLocation());
+      return firebase.auth().onAuthStateChanged(async (user) => {
+        setIsLoading(true);
+        if (user) {
+          if (isAutoLogin) {
+            // if firebase autologin success -> fetch user data
+            await dispatch(loginSuccess());
+          }
+          setIsAuth(true);
+        } else {
+          setIsAuth(false);
+        }
+        setIsLoading(false);
+        isAutoLogin = false;
+      });
     };
-    init();
+    const unsubscribe = init();
+
+    // clean up function
+    return () => unsubscribe();
   }, []);
 
   if (isLoading) {

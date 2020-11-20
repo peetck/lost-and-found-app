@@ -18,12 +18,12 @@ const PostItem = (props) => {
 
   const totalMinutes = dateDiff / 1000 / 60;
 
-  const day = totalMinutes / 60 / 24;
-  const hours = (totalMinutes / 60) % 24;
-  const minutes = totalMinutes % 60;
+  const day = Math.floor(totalMinutes / 60 / 24);
+  const hours = Math.floor((totalMinutes / 60) % 24);
+  const minutes = Math.floor(totalMinutes % 60);
 
-  const countdownText = `${Math.floor(day)}d ${Math.floor(hours)}h ${
-    hours <= 0 ? Math.floor(minutes) + "m" : ""
+  const countdownText = `${day !== 0 ? day + "d" : ""} ${hours}h ${
+    hours <= 0 ? minutes + "m" : ""
   }`;
 
   /* TODO */

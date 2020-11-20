@@ -30,8 +30,9 @@
     "header2": "ผลลัพธ์ (~5 กม)"
   },
   "accountSettingScreen": {
-    "header1": "Change nickname",
-    "header2": "Change password"
+    "headerTitle": "บัญชี",
+    "nickname": "ชื่อเล่น",
+    "deleteAcc": "ลบบัญชี"
   },
   "changeNameSettingScreen": {
     "button": "บันทึก"
@@ -82,6 +83,11 @@
     "logout": "ออกจากระบบ"
   },
   "utils": {
-    "changeLanguageTitle": "กรุณาเลือกภาษา"
+    "changeLanguageTitle": "กรุณาเลือกภาษา",
+    "takeImageTitle" : "กรุณาเลือก",
+    "cancel": "ยกเลิก"
+  },
+  "postList": {
+    "emptyText": "ไม่พบโพสต์"
   }
 }

@@ -118,10 +118,10 @@ const CreatePostScreen = (props) => {
         showSuccess("Post Created", title);
         props.navigation.goBack();
       } catch (error) {
-        showError("Error", error.message);
+        showError(error.message);
       }
     } else {
-      showError("Error", "Please complete all information.");
+      showError("Please complete all information.");
     }
     setIsLoading(false);
   }, [

@@ -61,7 +61,7 @@ const NextSignUpScreen = (props) => {
       );
       showSuccess("Registered successfully", "Welcome to Lost & Found App.");
     } catch (error) {
-      showError("Error", error.message);
+      showError(error.message);
       setIsLoading(false);
     }
   };

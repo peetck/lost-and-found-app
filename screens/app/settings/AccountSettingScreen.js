@@ -10,12 +10,14 @@ import {
   Button,
 } from "react-native";
 import Constants from "expo-constants";
+import { CardStyleInterpolators } from "@react-navigation/stack";
 import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import {
   useActionSheet,
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
+import i18n from "i18n-js";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
 import {
@@ -25,7 +27,6 @@ import {
 } from "../../../store/actions/user";
 import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
 import Loader from "../../../components/UI/Loader";
-
 
 const AccountSettingScreen = (props) => {
   const dispatch = useDispatch();
@@ -78,8 +79,8 @@ const AccountSettingScreen = (props) => {
       <View style={styles.containerContents}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <SettingItem
-            color = '#1b6ca8'
-            title="Nickname"
+            color="#1b6ca8"
+            title={i18n.t("accountSettingScreen.nickname")}
             text={user.nickname}
             type="text"
             onPress={() => {
@@ -87,7 +88,7 @@ const AccountSettingScreen = (props) => {
             }}
           />
           <SettingItem
-            title="Delete Account"
+            title={i18n.t("accountSettingScreen.deleteAcc")}
             text={
               "If you sign up again with the same email or FB all of your post'll not belong to you."
             }
@@ -100,7 +101,7 @@ const AccountSettingScreen = (props) => {
                 setIsLoading(false);
               }
             }}
-            color = 'red'
+            color="red"
           />
         </ScrollView>
       </View>
@@ -144,10 +145,11 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  title: "Account",
+  title: i18n.t("accountSettingScreen.headerTitle"),
   headerTitleStyle: {
     fontFamily: "kanit-light",
   },
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 };
 
 export default connectActionSheet(AccountSettingScreen);

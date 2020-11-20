@@ -2,8 +2,8 @@ import firebase from "firebase";
 import { Platform } from "react-native";
 import * as Location from "expo-location";
 import * as Facebook from "expo-facebook";
-
-import { getCurrentLocation } from "../../shared/utils";
+import * as Permissions from "expo-permissions";
+import * as Updates from "expo-updates";
 
 export const SET_USER = "SET_USER";
 export const SET_LOCATION = "SET_LOCATION";
@@ -26,6 +26,32 @@ export const loginSuccess = () => {
       },
     });
   };
+};
+
+const getCurrentLocation = async () => {
+  const { status } = await Permissions.askAsync(Permissions.LOCATION);
+  if (status !== "granted") {
+    Alert.alert(
+      "Insufficient permissions!",
+      "You need to grant location permissions to use this app.",
+      [{ text: "Retry", onPress: () => Updates.reloadAsync() }]
+    );
+    return;
+  } else {
+    try {
+      const location = await Location.getCurrentPositionAsync({
+        timeout: 5000,
+      });
+      return {
+        lat: location.coords.latitude,
+        lng: location.coords.longitude,
+      };
+    } catch (err) {
+      Alert.alert("Could not fetch location!", "Please try again later.", [
+        { text: "Retry", onPress: () => Updates.reloadAsync() },
+      ]);
+    }
+  }
 };
 
 export const fetchLocation = () => {

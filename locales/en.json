@@ -30,8 +30,9 @@
     "header2": "Result (~5 km)"
   },
   "accountSettingScreen": {
-    "header1": "เปลี่ยนชื่อเล่น",
-    "header2": "เปลี่ยนรหัสผ่าน"
+    "headerTitle": "Account",
+    "nickname": "Nickname",
+    "deleteAcc": "Delete Account"
   },
   "changeNameSettingScreen": {
     "button": "SAVE"
@@ -82,6 +83,11 @@
     "logout": "Logout"
   },
   "utils": {
-    "changeLanguageTitle": "Please select a language"
+    "changeLanguageTitle": "Please select a language",
+    "takeImageTitle" : "Please select an option.",
+    "cancel": "Cancel"
+  },
+  "postList": {
+    "emptyText": "No posts found"
   }
 }
