@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
@@ -8,6 +7,7 @@ import {
   useActionSheet,
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
+import Constants from "expo-constants";
 import i18n from "i18n-js";
 
 import MyButton from "../../components/UI/MyButton";
@@ -23,7 +23,6 @@ import {
   changeLanguage,
 } from "../../shared/utils";
 import Loader from "../../components/UI/Loader";
-import HeaderButton from "../../components/UI/HeaderButton";
 
 const LoginScreen = (props) => {
   const dispatch = useDispatch();
@@ -40,18 +39,6 @@ const LoginScreen = (props) => {
       }
     });
   };
-
-  props.navigation.setOptions({
-    headerRight: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          iconName="md-globe"
-          color="black"
-          onPress={changeLanguageHandler}
-        />
-      </HeaderButtons>
-    ),
-  });
 
   const loginHandler = async (method) => {
     setIsLoading(true);
@@ -82,6 +69,13 @@ const LoginScreen = (props) => {
 
   return (
     <View style={styles.screen}>
+      <TouchableOpacity
+        style={styles.languageChangeContainer}
+        onPress={changeLanguageHandler}
+      >
+        <Ionicons size={23} name="md-globe" />
+      </TouchableOpacity>
+
       <ScrollView
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
@@ -110,28 +104,21 @@ const LoginScreen = (props) => {
             />
           </View>
 
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ flex: 1 }}>
+          <View style={styles.buttonContainer}>
+            <View style={styles.normalLoginButton}>
               <MyButton
                 title={i18n.t("loginScreen.subtitle")}
                 onPress={() => loginHandler("email")}
               />
             </View>
-            <View style={{ flex: 0.4, paddingLeft: 30 }}>
-              <TouchableOpacity
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "rgba(0, 0, 0, 0.1)",
-                  borderRadius: 10,
-                }}
-                activeOpacity={0.6}
-                onPress={() => loginHandler("facebook")}
-              >
-                <Ionicons name="logo-facebook" size={45} color="#4267B2" />
-              </TouchableOpacity>
-            </View>
+
+            <TouchableOpacity
+              style={styles.facebookLoginButton}
+              activeOpacity={0.6}
+              onPress={() => loginHandler("facebook")}
+            >
+              <Ionicons name="logo-facebook" size={45} color="#4267B2" />
+            </TouchableOpacity>
           </View>
 
           <View style={styles.centerContainer}>
@@ -155,7 +142,27 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingHorizontal: 35,
+    paddingTop: Constants.statusBarHeight,
     backgroundColor: "white",
+  },
+  languageChangeContainer: {
+    position: "absolute",
+    right: 20,
+    top: Constants.statusBarHeight + 15,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+  },
+  normalLoginButton: {
+    flex: 1,
+  },
+  facebookLoginButton: {
+    flex: 0.4,
+    marginLeft: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    borderRadius: 10,
   },
   scrollView: {
     flexGrow: 1,
@@ -181,11 +188,7 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  headerTitle: "",
-  headerStyle: {
-    backgroundColor: "#fff",
-    elevation: 0,
-  },
+  headerShown: false,
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
 };
 
