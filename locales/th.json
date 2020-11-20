@@ -10,7 +10,9 @@
     "header3": "สถานที่",
     "imgHolder": "เลือกรูปภาพ",
     "title": "หัวข้อ",
-    "description": "คำอธิบายเพิ่มเติม"
+    "description": "คำอธิบายเพิ่มเติม",
+    "postCreated": "สร้างโพสต์แล้ว",
+    "error": "กรุณากรอกข้อมูลให้ครบถ้วน"
   },
   "mapScreen": {
     "headerTitle": "สถานที่"
@@ -48,20 +50,24 @@
     "placeHolderEmail": "อีเมล",
     "placeHolderPass": "รหัสผ่าน",
     "hint": "ยังไม่มีบัญชี ?",
-    "signUp": "สมัครสมาชิก"
+    "signUp": "สมัครสมาชิก",
+    "loginSuccess": "เข้าสู่ระบบสําเร็จ",
+    "successMsg": "ยินดีต้อนรับเข้าสู่ Lost & Found"
   },
   "nextSignUpScreen": {
     "placeHolderEmail": "อีเมล",
     "placeHolderPass": "รหัสผ่าน",
     "placeHolderConfirmPass": "ยืนยันรหัสผ่าน",
-    "signUp": "สมัครสมาชิก"
+    "signUp": "สมัครสมาชิก",
+    "passwordError": "รหัสผ่านไม่ตรงกัน"
   },
   "signUpScreen": {
     "subtitle": "สมัครสมาชิก",
     "placeHolderNickname": "ชื่อเล่น",
     "nextButton": "ถัดไป",
     "hint": "มีบัญชีอยู่แล้ว ?",
-    "login": "เข้าสู่ระบบ"
+    "login": "เข้าสู่ระบบ",
+    "pleaseEnterYourNickname": "กรุณากรอกชื่อเล่นของคุณ"
   },
   "homeNavigator": {
     "headerTitle": "หน้าหลัก"
@@ -82,9 +88,12 @@
     "logout": "ออกจากระบบ"
   },
   "utils": {
-    "changeLanguageTitle": "กรุณาเลือกภาษา",
+    "changeLanguageTitle": "เปลี่ยนภาษา",
     "takeImageTitle": "กรุณาเลือก",
-    "cancel": "ยกเลิก"
+    "cancel": "ยกเลิก",
+    "takePicture": "ถ่ายรูป",
+    "chooseFromGallery": "เลือกจากคลังรูปภาพ",
+    "error": "ข้อผิดพลาด"
   },
   "postList": {
     "emptyText": "ไม่พบโพสต์"

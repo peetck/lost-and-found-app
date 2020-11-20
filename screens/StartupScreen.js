@@ -36,10 +36,11 @@ const StartupScreen = (props) => {
         isAutoLogin = false;
       });
     };
-    const unsubscribe = init();
+    // const unsubscribe = init();
+    init();
 
     // clean up function
-    return () => unsubscribe();
+    // return () => unsubscribe();
   }, []);
 
   if (isLoading) {

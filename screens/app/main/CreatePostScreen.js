@@ -115,13 +115,13 @@ const CreatePostScreen = (props) => {
             new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) // next 2 day
           )
         );
-        showSuccess("Post Created", title);
+        showSuccess(i18n.t("createPostScreen.postCreated"), title);
         props.navigation.goBack();
       } catch (error) {
         showError(error.message);
       }
     } else {
-      showError("Please complete all information.");
+      showError(i18n.t("createPostScreen.error"));
     }
     setIsLoading(false);
   }, [

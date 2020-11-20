@@ -14,8 +14,8 @@ export const changeLanguageActionSheetOptions = {
   options: ["English", "Thai", i18n.t("utils.cancel")],
   cancelButtonIndex: 2,
   icons: [
-    <Ionicons name="md-flag" size={23} color="black" />,
-    <Ionicons name="md-flag" size={23} color="black" />,
+    <Ionicons name="md-arrow-forward" size={23} color="black" />,
+    <Ionicons name="md-arrow-forward" size={23} color="black" />,
     <Ionicons name="md-backspace" size={23} color="black" />,
   ],
   title: i18n.t("utils.changeLanguageTitle"),
@@ -26,7 +26,11 @@ export const changeLanguageActionSheetOptions = {
 };
 
 export const takeImageActionSheetOptions = {
-  options: ["Take Picture", "Choose from gallery", i18n.t("utils.cancel")],
+  options: [
+    i18n.t("utils.takePicture"),
+    i18n.t("utils.chooseFromGallery"),
+    i18n.t("utils.cancel"),
+  ],
   cancelButtonIndex: 2,
   icons: [
     <Ionicons name="md-camera" size={23} color="black" />,
@@ -105,7 +109,7 @@ export const showSuccess = (
 
 export const showError = (text, duration = 2000, icon = "md-close-circle") => {
   showToast(
-    "Error",
+    i18n.t("utils.error"),
     text,
     colors.error,
     duration,

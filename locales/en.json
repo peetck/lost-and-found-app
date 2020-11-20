@@ -10,7 +10,9 @@
     "header3": "Location",
     "imgHolder": "Take a picture",
     "title": "Title",
-    "description": "Description"
+    "description": "Description",
+    "postCreated": "Post Created",
+    "error": "Please complete all information."
   },
   "mapScreen": {
     "headerTitle": "Location"
@@ -48,20 +50,24 @@
     "placeHolderEmail": "Email",
     "placeHolderPass": "Password",
     "hint": "Doesn't have an account ?",
-    "signUp": "Sign up"
+    "signUp": "Sign up",
+    "loginSuccess": "Login Success",
+    "successMsg": "Welcome to Lost & Found App."
   },
   "nextSignUpScreen": {
     "placeHolderEmail": "Email",
     "placeHolderPass": "Password",
     "placeHolderConfirmPass": "Confirm Password",
-    "signUp": "Sign up"
+    "signUp": "Sign up",
+    "passwordError": "Password doesn't match."
   },
   "signUpScreen": {
     "subtitle": "Sign up",
     "placeHolderNickname": "Nickname",
     "nextButton": "Next",
     "hint": "Already have an account ?",
-    "login": "Login"
+    "login": "Login",
+    "pleaseEnterYourNickname": "Please enter your nickname."
   },
   "homeNavigator": {
     "headerTitle": "Home"
@@ -82,9 +88,12 @@
     "logout": "Logout"
   },
   "utils": {
-    "changeLanguageTitle": "Please select a language",
+    "changeLanguageTitle": "Please select a language.",
     "takeImageTitle": "Please select an option.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "takePicture": "Take Picture",
+    "chooseFromGallery": "Choose from gallery",
+    "error": "Error"
   },
   "postList": {
     "emptyText": "No posts found"

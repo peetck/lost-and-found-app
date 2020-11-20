@@ -45,7 +45,10 @@ const LoginScreen = (props) => {
     if (method === "email") {
       try {
         await dispatch(login(email.trim(), password));
-        showSuccess("Login Success", "Welcome to Lost & Found App.");
+        showSuccess(
+          i18n.t("loginScreen.loginSuccess"),
+          i18n.t("loginScreen.successMsg")
+        );
       } catch (error) {
         showError(error.message);
         setIsLoading(false);
@@ -53,7 +56,10 @@ const LoginScreen = (props) => {
     } else if (method === "facebook") {
       try {
         await dispatch(loginWithFacebook());
-        showSuccess("Login Success", "Welcome to Lost & Found App.");
+        showSuccess(
+          i18n.t("loginScreen.loginSuccess"),
+          i18n.t("loginScreen.loginSuccess")
+        );
       } catch (error) {
         setIsLoading(false);
         if (error.message !== "") {

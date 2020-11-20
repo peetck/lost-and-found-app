@@ -49,7 +49,7 @@ const NextSignUpScreen = (props) => {
     setIsLoading(true);
     try {
       if (password !== confirmPassword) {
-        throw new Error("Password doesn't match.");
+        throw new Error(i18n.t("nextSignUpScreen.passwordError"));
       }
       await dispatch(
         signUp(
