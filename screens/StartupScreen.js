@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
@@ -8,9 +7,9 @@ import { Root } from "popup-ui";
 
 import AuthNavigator from "../navigation/auth/AuthNavigator";
 import DrawerNavigator from "../navigation/app/DrawerNavigator";
-import colors from "../shared/colors";
 import { loginSuccess, fetchLocation } from "../store/actions/user";
 import { fetchCategories } from "../store/actions/categories";
+import Loader from "../components/UI/Loader";
 
 const StartupScreen = (props) => {
   const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const StartupScreen = (props) => {
     const init = async () => {
       await dispatch(fetchCategories());
       await dispatch(fetchLocation());
-      firebase.auth().onAuthStateChanged(async (user) => {
+      return firebase.auth().onAuthStateChanged(async (user) => {
         setIsLoading(true);
         if (user) {
           if (isAutoLogin) {
@@ -37,17 +36,15 @@ const StartupScreen = (props) => {
         isAutoLogin = false;
       });
     };
+    // const unsubscribe = init();
     init();
+
     // clean up function
     // return () => unsubscribe();
   }, []);
 
   if (isLoading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color={colors.primary} />
-      </View>
-    );
+    return <Loader visible={isLoading} alpha={1} />;
   }
 
   return (
@@ -60,16 +57,5 @@ const StartupScreen = (props) => {
     </Root>
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default StartupScreen;

@@ -1,0 +1,112 @@
+{
+  "homeScreen": {
+    "searchByLocation": "ค้นหาจากตําแหน่ง",
+    "nearBy": "โพสต์ใกล้คุณ (~5 กม)"
+  },
+  "createPostScreen": {
+    "headerTitle": "สร้างโพสต์",
+    "header1": "ข้อมูลต่างๆ",
+    "header2": "รูปภาพ",
+    "header3": "สถานที่",
+    "imgHolder": "เลือกรูปภาพ",
+    "title": "หัวข้อ",
+    "description": "คำอธิบายเพิ่มเติม",
+    "postCreated": "สร้างโพสต์แล้ว",
+    "error": "กรุณากรอกข้อมูลให้ครบถ้วน"
+  },
+  "mapScreen": {
+    "headerTitle": "แผนที่"
+  },
+  "myPostsScreen": {
+    "subtitle": "โพสต์ที่เปิดอยู่"
+  },
+  "postDetailScreen": {
+    "header1": "หมวดหมู่สิ่งของ",
+    "header2": "รูปภาพ",
+    "header3": "คำอธิบายเพิ่มเติม",
+    "header4": "สถานที่"
+  },
+  "searchScreen": {
+    "headerTitle": "ค้นหาจากตําแหน่ง",
+    "header1": "ตำแหน่ง",
+    "header2": "ผลลัพธ์ (~5 กม)"
+  },
+  "accountSettingScreen": {
+    "headerTitle": "บัญชี",
+    "nickname": "ชื่อเล่น"
+  },
+  "changeNameSettingScreen": {
+    "button": "บันทึก"
+  },
+  "settingsScreen": {
+    "headerTitle": "ตั้งค่า",
+    "header1": "ตั้งค่าบัญชี",
+    "header2": "ตั้งค่าทั่วไป",
+    "item1": "บัญชี",
+    "item2": "เปลี่ยนภาษา"
+  },
+  "loginScreen": {
+    "subtitle": "เข้าสู่ระบบ",
+    "placeHolderEmail": "อีเมล",
+    "placeHolderPass": "รหัสผ่าน",
+    "hint": "ยังไม่มีบัญชี ?",
+    "signUp": "สมัครสมาชิก",
+    "loginSuccess": "เข้าสู่ระบบสําเร็จ",
+    "successMsg": "ยินดีต้อนรับเข้าสู่ Lost & Found"
+  },
+  "nextSignUpScreen": {
+    "placeHolderEmail": "อีเมล",
+    "placeHolderPass": "รหัสผ่าน",
+    "placeHolderConfirmPass": "ยืนยันรหัสผ่าน",
+    "signUp": "สมัครสมาชิก",
+    "passwordError": "รหัสผ่านไม่ตรงกัน"
+  },
+  "signUpScreen": {
+    "subtitle": "สมัครสมาชิก",
+    "placeHolderNickname": "ชื่อเล่น",
+    "nextButton": "ถัดไป",
+    "hint": "มีบัญชีอยู่แล้ว ?",
+    "login": "เข้าสู่ระบบ",
+    "pleaseEnterYourNickname": "กรุณากรอกชื่อเล่นของคุณ"
+  },
+  "homeNavigator": {
+    "headerTitle": "หน้าหลัก"
+  },
+  "myPostsNavigator": {
+    "headerTitle": "โพสต์ของฉัน"
+  },
+  "tabNavigator": {
+    "headerTitle": "หน้าหลัก"
+  },
+  "mainNavigator": {
+    "headerTitle": "หน้าหลัก"
+  },
+  "settingsNavigator": {
+    "headerTitle": "ตั้งค่า"
+  },
+  "drawerNavigator": {
+    "logout": "ออกจากระบบ"
+  },
+  "utils": {
+    "changeLanguageTitle": "เปลี่ยนภาษา",
+    "takeImageTitle": "กรุณาเลือก",
+    "cancel": "ยกเลิก",
+    "takePicture": "ถ่ายรูป",
+    "chooseFromGallery": "เลือกจากคลังรูปภาพ",
+    "error": "ข้อผิดพลาด"
+  },
+  "postList": {
+    "emptyText": "ไม่พบโพสต์"
+  },
+  "changeNicknameScreen": {
+    "headerTitle": "เปลี่ยนชื่อเล่น",
+    "buttonText": "ยืนยัน"
+  },
+  "postItem": {
+    "km": "กม.",
+    "m": "เมตร",
+    "day": "วัน",
+    "hour": "ชม",
+    "minute": "นาที"
+  }
+}

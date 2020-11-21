@@ -7,6 +7,7 @@ import {
 } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
+import i18n from "i18n-js";
 
 import MainNavigator, {
   navigatorOptions as mainNavigatorOptions,
@@ -18,6 +19,12 @@ import MyText from "../../components/UI/MyText";
 import { logout } from "../../store/actions/user";
 
 const Drawer = createDrawerNavigator();
+
+const drawerContentOptions = {
+  labelStyle: {
+    fontFamily: "kanit-light",
+  },
+};
 
 const DrawerContent = (props) => {
   return (
@@ -31,7 +38,8 @@ const DrawerContent = (props) => {
       </View>
       <DrawerItemList {...props} />
       <DrawerItem
-        label="Logout"
+        label={i18n.t("drawerNavigator.logout")}
+        labelStyle={styles.label}
         onPress={props.onLogout}
         icon={({ size, color }) => (
           <Ionicons name="md-log-out" size={size} color={color} />
@@ -53,6 +61,7 @@ const DrawerNavigator = (props) => {
       drawerContent={(props) => (
         <DrawerContent {...props} onLogout={logoutHandler} />
       )}
+      drawerContentOptions={drawerContentOptions}
     >
       <Drawer.Screen
         name="MainNavigator"
@@ -87,6 +96,9 @@ const styles = StyleSheet.create({
     fontFamily: "kanit-light",
     paddingVertical: 20,
     paddingLeft: 10,
+  },
+  label: {
+    fontFamily: "kanit-light",
   },
 });
 

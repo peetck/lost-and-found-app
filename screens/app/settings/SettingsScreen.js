@@ -2,10 +2,19 @@ import React from "react";
 import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
+import i18n from "i18n-js";
+import {
+  useActionSheet,
+  connectActionSheet,
+} from "@expo/react-native-action-sheet";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
 import colors from "../../../shared/colors";
+import {
+  changeLanguageActionSheetOptions,
+  changeLanguage,
+} from "../../../shared/utils";
 
 const Setting = (props) => {
   return (
@@ -21,32 +30,37 @@ const Setting = (props) => {
 };
 
 const SettingsScreen = (props) => {
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  const changeLanguageHandler = () => {
+    showActionSheetWithOptions(changeLanguageActionSheetOptions, (index) => {
+      if (index !== 2) {
+        changeLanguage(index);
+      }
+    });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <View style={{ ...styles.container, paddingTop: 0 }}>
-        <MyText style={styles.title}>Account settings</MyText>
+        <MyText style={styles.title}>{i18n.t("settingsScreen.header1")}</MyText>
         <Setting
-          label="Personal Information"
-          iconName="md-contact"
-          onPress={() => props.navigation.navigate("ProfileSetting")}
-        />
-        <Setting
-          label="Account"
+          label={i18n.t("settingsScreen.item1")}
           iconName="md-card"
           onPress={() => props.navigation.navigate("AccountSetting")}
         />
       </View>
 
       <View style={styles.container}>
-        <MyText style={styles.title}>General settings</MyText>
-        <Setting label="Themes" iconName="md-color-wand" />
-        <Setting label="Language" iconName="md-globe" />
+        <MyText style={styles.title}>{i18n.t("settingsScreen.header2")}</MyText>
+        <Setting
+          label={i18n.t("settingsScreen.item2")}
+          iconName="md-globe"
+          onPress={changeLanguageHandler}
+        />
       </View>
 
-      <View style={styles.container}>
-        <MyText style={styles.title}>Others</MyText>
-        <Setting label="About us" iconName="md-information-circle" />
-      </View>
+      {/* Temporary */}
     </ScrollView>
   );
 };
@@ -69,18 +83,18 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
-    fontSize: 18,
+    fontSize: 19,
     paddingBottom: 10,
   },
   label: {
-    fontSize: 16,
+    fontSize: 15,
     paddingLeft: 15,
   },
 });
 
-export const screenOptions = (navigationData) => {
+export const screenOptions = (navData) => {
   return {
-    headerTitle: "Settings",
+    headerTitle: i18n.t("settingsScreen.headerTitle"),
     headerTitleStyle: {
       fontFamily: "kanit-light",
     },
@@ -90,7 +104,7 @@ export const screenOptions = (navigationData) => {
           iconName="ios-menu"
           color="black"
           onPress={() => {
-            navigationData.navigation.toggleDrawer();
+            navData.navigation.toggleDrawer();
           }}
         />
       </HeaderButtons>
@@ -98,4 +112,4 @@ export const screenOptions = (navigationData) => {
   };
 };
 
-export default SettingsScreen;
+export default connectActionSheet(SettingsScreen);

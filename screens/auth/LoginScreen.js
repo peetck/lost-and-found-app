@@ -4,12 +4,18 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Image,
+  Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
-import Constants from "expo-constants";
 import { useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
+import {
+  useActionSheet,
+  connectActionSheet,
+} from "@expo/react-native-action-sheet";
+import Constants from "expo-constants";
+import i18n from "i18n-js";
 
 import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
@@ -17,7 +23,12 @@ import MyTextInput from "../../components/UI/MyTextInput";
 import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
 import { login, loginWithFacebook } from "../../store/actions/user";
-import { showToast } from "../../shared/utils";
+import {
+  showSuccess,
+  showError,
+  changeLanguageActionSheetOptions,
+  changeLanguage,
+} from "../../shared/utils";
 import Loader from "../../components/UI/Loader";
 
 const LoginScreen = (props) => {
@@ -26,40 +37,41 @@ const LoginScreen = (props) => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  const changeLanguageHandler = () => {
+    showActionSheetWithOptions(changeLanguageActionSheetOptions, (index) => {
+      if (index !== 2) {
+        changeLanguage(index);
+      }
+    });
+  };
+
   const loginHandler = async (method) => {
     setIsLoading(true);
     if (method === "email") {
       try {
-        await dispatch(login(email, password));
-        showToast(
-          "Login Success",
-          "Welcome to Lost & Found App.",
-          colors.success,
-          2000,
-          <Ionicons name="md-checkmark-circle" color="white" size={24} />
+        await dispatch(login(email.trim(), password));
+        showSuccess(
+          i18n.t("loginScreen.loginSuccess"),
+          i18n.t("loginScreen.successMsg")
         );
       } catch (error) {
-        showToast(
-          "Error",
-          error.message,
-          colors.error,
-          2000,
-          <Ionicons name="md-close-circle" color="white" size={24} />
-        );
+        showError(error.message);
         setIsLoading(false);
       }
     } else if (method === "facebook") {
       try {
         await dispatch(loginWithFacebook());
-        showToast(
-          "Login Success",
-          "Welcome to Lost & Found App.",
-          colors.success,
-          2000,
-          <Ionicons name="md-checkmark-circle" color="white" size={24} />
+        showSuccess(
+          i18n.t("loginScreen.loginSuccess"),
+          i18n.t("loginScreen.loginSuccess")
         );
       } catch (error) {
         setIsLoading(false);
+        if (error.message !== "") {
+          showError(error.message);
+        }
       }
     }
   };
@@ -70,65 +82,77 @@ const LoginScreen = (props) => {
 
   return (
     <View style={styles.screen}>
+      <TouchableOpacity
+        style={styles.languageChangeContainer}
+        onPress={changeLanguageHandler}
+      >
+        <Ionicons size={23} name="md-globe" />
+      </TouchableOpacity>
+
       <ScrollView
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.contentContainer}>
+        <KeyboardAvoidingView
+          style={styles.contentContainer}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
           <Loader visible={isLoading} />
 
           <AuthHeader
             style={styles.centerContainer}
             title="Lost & Found"
-            subtitle="Login"
+            subtitle={i18n.t("loginScreen.subtitle")}
             image={require("../../assets/images/logo.png")}
           />
 
           <View style={styles.textInputContainer}>
             <MyTextInput
-              placeholder="Email"
+              placeholder={i18n.t("loginScreen.placeHolderEmail")}
               onChangeText={setEmail}
               value={email}
+              autoCapitalize="none"
+              keyboardType="email-address"
             />
             <MyTextInput
-              placeholder="Password"
+              placeholder={i18n.t("loginScreen.placeHolderPass")}
               secureTextEntry={true}
               onChangeText={setPassword}
               value={password}
             />
           </View>
 
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ flex: 1, paddingRight: 30 }}>
-              <MyButton title="Login" onPress={() => loginHandler("email")} />
+          <View style={styles.buttonContainer}>
+            <View style={styles.normalLoginButton}>
+              <MyButton
+                title={i18n.t("loginScreen.subtitle")}
+                onPress={() => loginHandler("email")}
+              />
             </View>
-            <View style={{ flex: 0.4 }}>
+
+            {Platform.OS !== "ios" && (
               <TouchableOpacity
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#edebeb",
-                  borderRadius: 10,
-                }}
+                style={styles.facebookLoginButton}
                 activeOpacity={0.6}
                 onPress={() => loginHandler("facebook")}
               >
                 <Ionicons name="logo-facebook" size={45} color="#4267B2" />
               </TouchableOpacity>
-            </View>
+            )}
           </View>
 
           <View style={styles.centerContainer}>
-            <MyText>Doesn't have an account ?</MyText>
+            <MyText>{i18n.t("loginScreen.hint")}</MyText>
             <TouchableOpacity
               onPress={switchToSignUpHandler}
               activeOpacity={0.6}
             >
-              <MyText style={styles.switchToSignUpText}>Sign up</MyText>
+              <MyText style={styles.switchToSignUpText}>
+                {i18n.t("loginScreen.signUp")}
+              </MyText>
             </TouchableOpacity>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </ScrollView>
     </View>
   );
@@ -137,9 +161,28 @@ const LoginScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 35,
+    paddingTop: Constants.statusBarHeight,
     backgroundColor: "white",
+  },
+  languageChangeContainer: {
+    position: "absolute",
+    right: 20,
+    top: Constants.statusBarHeight + 15,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+  },
+  normalLoginButton: {
+    flex: 1,
+  },
+  facebookLoginButton: {
+    flex: 0.4,
+    marginLeft: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    borderRadius: 10,
   },
   scrollView: {
     flexGrow: 1,
@@ -169,4 +212,4 @@ export const screenOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
 };
 
-export default LoginScreen;
+export default connectActionSheet(LoginScreen);

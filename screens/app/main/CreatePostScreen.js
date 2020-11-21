@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  Keyboard,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -14,6 +15,7 @@ import {
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
 import { useDispatch, useSelector } from "react-redux";
+import i18n from "i18n-js";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import MyText from "../../../components/UI/MyText";
@@ -23,7 +25,8 @@ import colors from "../../../shared/colors";
 import {
   takeImage,
   takeImageActionSheetOptions,
-  showToast,
+  showSuccess,
+  showError,
 } from "../../../shared/utils";
 import { createPost } from "../../../store/actions/posts";
 import Loader from "../../../components/UI/Loader";
@@ -55,8 +58,15 @@ const CreatePostScreen = (props) => {
     } else {
       location = selectedLocation;
     }
+
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${selectedLocation.lat},${selectedLocation.lng}&key=AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs`
+    );
+    const resData = await response.json();
+
     setSelectedLocation({
       ...location,
+      address: resData.results[0].formatted_address,
       mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
         location.lat
       },${
@@ -93,8 +103,9 @@ const CreatePostScreen = (props) => {
   };
 
   const createPostHandler = useCallback(async () => {
+    Keyboard.dismiss();
     setIsLoading(true);
-    if (selectedImage) {
+    if (selectedImage && title !== "" && description !== "") {
       try {
         await dispatch(
           createPost(
@@ -106,17 +117,13 @@ const CreatePostScreen = (props) => {
             new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) // next 2 day
           )
         );
-        showToast(
-          "Post Created",
-          "brah brah brah",
-          colors.success,
-          2000,
-          <Ionicons name="md-checkmark-circle" color="white" size={24} />
-        );
+        showSuccess(i18n.t("createPostScreen.postCreated"), title);
         props.navigation.goBack();
       } catch (error) {
-        console.log(error);
+        showError(error.message);
       }
+    } else {
+      showError(i18n.t("createPostScreen.error"));
     }
     setIsLoading(false);
   }, [
@@ -147,17 +154,19 @@ const CreatePostScreen = (props) => {
       <Loader visible={isLoading} />
 
       <View style={{ ...styles.titleContainer, paddingTop: 25 }}>
-        <MyText style={styles.title}>Information</MyText>
+        <MyText style={styles.title}>
+          {i18n.t("createPostScreen.header1")}
+        </MyText>
       </View>
 
       <View style={styles.textInputContainer}>
         <MyTextInput
-          placeholder="Title"
+          placeholder={i18n.t("createPostScreen.title")}
           value={title}
           onChangeText={setTitle}
         />
         <MyTextInput
-          placeholder="Description"
+          placeholder={i18n.t("createPostScreen.description")}
           value={description}
           onChangeText={setDescription}
         />
@@ -166,7 +175,9 @@ const CreatePostScreen = (props) => {
       <CategoryList inputMode onChange={setCategoryId} value={categoryId} />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Image</MyText>
+        <MyText style={styles.title}>
+          {i18n.t("createPostScreen.header2")}
+        </MyText>
       </View>
 
       <TouchableOpacity
@@ -179,13 +190,17 @@ const CreatePostScreen = (props) => {
         ) : (
           <View style={styles.center}>
             <Ionicons name="md-camera" size={80} color="black" />
-            <MyText style={styles.imageText}>Take a picture</MyText>
+            <MyText style={styles.imageText}>
+              {i18n.t("createPostScreen.imgHolder")}
+            </MyText>
           </View>
         )}
       </TouchableOpacity>
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Location</MyText>
+        <MyText style={styles.title}>
+          {i18n.t("createPostScreen.header3")}
+        </MyText>
       </View>
 
       {isLoadingLocation ? (
@@ -206,6 +221,10 @@ const CreatePostScreen = (props) => {
           )}
         </TouchableOpacity>
       )}
+
+      <View style={styles.addressContainer}>
+        <MyText style={styles.text}>{selectedLocation.address}</MyText>
+      </View>
     </ScrollView>
   );
 };
@@ -232,6 +251,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: colors.lightGrey,
   },
+  addressContainer: {
+    paddingTop: 25,
+    paddingHorizontal: 10,
+    paddingBottom: 40,
+  },
   center: {
     justifyContent: "center",
     alignItems: "center",
@@ -239,6 +263,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
+    borderRadius: 10,
   },
   imageText: {
     fontSize: 16,
@@ -247,10 +272,13 @@ const styles = StyleSheet.create({
     fontFamily: "kanit",
     fontSize: 19,
   },
+  text: {
+    fontSize: 15,
+  },
 });
 
 export const screenOptions = {
-  headerTitle: "Create Post",
+  headerTitle: i18n.t("createPostScreen.headerTitle"),
   headerTitleStyle: {
     fontFamily: "kanit-light",
   },

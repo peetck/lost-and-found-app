@@ -9,6 +9,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
+import i18n from "i18n-js";
 
 import CategoryList from "../../../components/app/main/CategoryList";
 import MyText from "../../../components/UI/MyText";
@@ -26,7 +27,7 @@ const HomeScreen = (props) => {
 
   const loadPosts = useCallback(async () => {
     try {
-      await dispatch(fetchAllPosts(currentLocation, 10));
+      await dispatch(fetchAllPosts(currentLocation, 5));
     } catch (error) {
       console.log(error);
     }
@@ -47,9 +48,13 @@ const HomeScreen = (props) => {
       <View style={styles.userContainer}>
         <Image
           style={styles.userImage}
-          source={{
-            uri: user.imageUrl,
-          }}
+          source={
+            user.imageUrl
+              ? {
+                  uri: user.imageUrl,
+                }
+              : null
+          }
         />
         <View style={styles.userInfoContainer}>
           <MyText style={styles.nickname}>{user.nickname}</MyText>
@@ -70,13 +75,15 @@ const HomeScreen = (props) => {
           color="black"
           style={styles.searchIcon}
         />
-        <MyText style={styles.searchText}>Search by location</MyText>
+        <MyText style={styles.searchText}>
+          {i18n.t("homeScreen.searchByLocation")}
+        </MyText>
       </TouchableOpacity>
 
       <CategoryList />
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Nearby posts (~10 km)</MyText>
+        <MyText style={styles.title}>{i18n.t("homeScreen.nearBy")}</MyText>
       </View>
     </View>
   );

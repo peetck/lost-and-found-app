@@ -2,6 +2,7 @@ import React from "react";
 import { Platform } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
+import i18n from "i18n-js";
 
 import MyPostsScreen, {
   screenOptions as myPostsScreenOptions,
@@ -22,7 +23,7 @@ const MyPostsNavigator = (props) => {
 };
 
 export const navigatorOptions = {
-  title: "My Posts",
+  title: i18n.t("myPostsNavigator.headerTitle"),
   tabBarIcon: ({ color }) => (
     <Ionicons
       name={Platform.OS === "android" ? "md-bookmark" : "ios-bookmark"}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
+import i18n from "i18n-js";
 
 import PostList from "../../../components/app/main/PostList";
 import { fetchMyPosts } from "../../../store/actions/posts";
@@ -10,8 +11,15 @@ import CategoryList from "../../../components/app/main/CategoryList";
 
 const MyPostsScreen = (props) => {
   const dispatch = useDispatch();
-  const myPosts = useSelector((state) => state.posts.myPosts);
   const currentLocation = useSelector((state) => state.user.location);
+  const initialCategories = useSelector((state) =>
+    state.categories.categories.map((category) => category.id)
+  );
+  const [selectedCategories, setSelectedCategories] = useState(
+    initialCategories
+  );
+  const myPosts = useSelector((state) => state.posts.myPosts);
+  const [showPosts, setShowPosts] = useState(myPosts);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const isFocused = useIsFocused();
 
@@ -33,14 +41,25 @@ const MyPostsScreen = (props) => {
     setIsRefreshing(false);
   };
 
+  useEffect(() => {
+    setShowPosts(
+      myPosts.filter((post) => selectedCategories.includes(post.categoryId))
+    );
+  }, [selectedCategories, myPosts]);
+
   const header = (
     <View>
       <View style={{ marginTop: 25 }}>
-        <CategoryList />
+        <CategoryList
+          inputMode
+          many
+          value={selectedCategories}
+          onChange={setSelectedCategories}
+        />
       </View>
 
       <View style={styles.titleContainer}>
-        <MyText style={styles.title}>Your Available Post</MyText>
+        <MyText style={styles.title}>{i18n.t("myPostsScreen.subtitle")}</MyText>
       </View>
     </View>
   );
@@ -48,7 +67,7 @@ const MyPostsScreen = (props) => {
   return (
     <View style={styles.screen}>
       <PostList
-        data={myPosts}
+        data={showPosts}
         navigation={props.navigation}
         header={header}
         onRefresh={onRefresh}

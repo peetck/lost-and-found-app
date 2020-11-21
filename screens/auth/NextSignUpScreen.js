@@ -5,6 +5,8 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { useDispatch } from "react-redux";
@@ -12,12 +14,20 @@ import {
   useActionSheet,
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
+import { Ionicons } from "@expo/vector-icons";
+import i18n from "i18n-js";
 
 import MyTextInput from "../../components/UI/MyTextInput";
 import MyButton from "../../components/UI/MyButton";
 import AuthHeader from "../../components/auth/AuthHeader";
-import { takeImage, takeImageActionSheetOptions } from "../../shared/utils";
+import {
+  takeImage,
+  takeImageActionSheetOptions,
+  showSuccess,
+  showError,
+} from "../../shared/utils";
 import { signUp } from "../../store/actions/user";
+import Loader from "../../components/UI/Loader";
 
 const NextSignUpScreen = (props) => {
   const { showActionSheetWithOptions } = useActionSheet();
@@ -40,13 +50,21 @@ const NextSignUpScreen = (props) => {
   const signUpHandler = async () => {
     setIsLoading(true);
     try {
+      if (password !== confirmPassword) {
+        throw new Error(i18n.t("nextSignUpScreen.passwordError"));
+      }
       await dispatch(
-        signUp(email, password, props.route.params.nickname, selectedImage)
+        signUp(
+          email.trim(),
+          password,
+          props.route.params.nickname,
+          selectedImage
+        )
       );
+      showSuccess("Registered successfully", "Welcome to Lost & Found App.");
     } catch (error) {
-      // TODO: handler error
+      showError(error.message);
       setIsLoading(false);
-      console.log(error);
     }
   };
 
@@ -56,7 +74,12 @@ const NextSignUpScreen = (props) => {
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.contentContainer}>
+        <KeyboardAvoidingView
+          style={styles.contentContainer}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
+          <Loader visible={isLoading} />
+
           <AuthHeader
             style={styles.headerContainer}
             title="Lost & Found"
@@ -65,33 +88,43 @@ const NextSignUpScreen = (props) => {
 
           <View style={styles.imageInputContainer}>
             <TouchableOpacity activeOpacity={0.6} onPress={takeImageHandler}>
-              <Image
-                style={styles.image}
-                source={
-                  selectedImage
-                    ? {
-                        uri: selectedImage,
-                      }
-                    : require("../../assets/images/user_default.png")
-                }
-              />
+              {selectedImage ? (
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: selectedImage,
+                  }}
+                />
+              ) : (
+                <View
+                  style={{
+                    ...styles.image,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons size={60} color="black" name="md-camera" />
+                </View>
+              )}
             </TouchableOpacity>
           </View>
 
           <View style={styles.textInputContainer}>
             <MyTextInput
-              placeholder="Email"
+              placeholder={i18n.t("nextSignUpScreen.placeHolderEmail")}
               onChangeText={setEmail}
               value={email}
+              autoCapitalize="none"
+              keyboardType="email-address"
             />
             <MyTextInput
-              placeholder="Password"
+              placeholder={i18n.t("nextSignUpScreen.placeHolderPass")}
               secureTextEntry={true}
               onChangeText={setPassword}
               value={password}
             />
             <MyTextInput
-              placeholder="Confirm Password"
+              placeholder={i18n.t("nextSignUpScreen.placeHolderConfirmPass")}
               secureTextEntry={true}
               onChangeText={setConfirmPassword}
               value={confirmPassword}
@@ -100,12 +133,11 @@ const NextSignUpScreen = (props) => {
 
           <View style={styles.buttonContainer}>
             <MyButton
-              title="Sign up"
+              title={i18n.t("nextSignUpScreen.signUp")}
               onPress={signUpHandler}
-              loading={isLoading}
             />
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </ScrollView>
     </View>
   );

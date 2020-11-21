@@ -1,21 +1,53 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import Constants from "expo-constants";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform
+} from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
+import { Ionicons } from "@expo/vector-icons";
+import {
+  useActionSheet,
+  connectActionSheet,
+} from "@expo/react-native-action-sheet";
+import Constants from "expo-constants";
+import i18n from "i18n-js";
 
 import MyButton from "../../components/UI/MyButton";
 import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
+import {
+  showError,
+  changeLanguageActionSheetOptions,
+  changeLanguage,
+} from "../../shared/utils";
 
 const SignUpScreen = (props) => {
   const [nickname, setNickname] = useState("");
 
-  const signUpHandler = () => {
-    props.navigation.navigate("NextSignUp", {
-      nickname: nickname,
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  const changeLanguageHandler = () => {
+    showActionSheetWithOptions(changeLanguageActionSheetOptions, (index) => {
+      if (index !== 2) {
+        changeLanguage(index);
+      }
     });
+  };
+
+  const signUpHandler = () => {
+    if (nickname.trim() === "") {
+      showError(i18n.t("signUpScreen.pleaseEnterYourNickname"));
+    } else {
+      props.navigation.navigate("NextSignUp", {
+        nickname: nickname.trim(),
+      });
+    }
   };
 
   const switchToLoginHandler = () => {
@@ -24,38 +56,54 @@ const SignUpScreen = (props) => {
 
   return (
     <View style={styles.screen}>
+      <TouchableOpacity
+        style={styles.languageChangeContainer}
+        onPress={changeLanguageHandler}
+      >
+        <Ionicons size={23} name="md-globe" />
+      </TouchableOpacity>
+
       <ScrollView
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.contentContainer}>
+        <KeyboardAvoidingView
+          style={styles.contentContainer}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
           <AuthHeader
             style={styles.centerContainer}
             title="Lost & Found"
-            subtitle="Sign up"
+            subtitle={i18n.t("signUpScreen.subtitle")}
             image={require("../../assets/images/logo.png")}
           />
 
           <View style={styles.textInputContainer}>
             <MyTextInput
-              placeholder="Nickname"
+              placeholder={i18n.t("signUpScreen.placeHolderNickname")}
               onChangeText={setNickname}
               value={nickname}
             />
           </View>
 
-          <MyButton title="Next" onPress={signUpHandler} />
+          <MyButton
+            title={i18n.t("signUpScreen.nextButton")}
+            onPress={signUpHandler}
+          />
 
           <View style={styles.centerContainer}>
-            <MyText>Already have an account ?</MyText>
+            <MyText>{i18n.t("signUpScreen.hint")}</MyText>
+
             <TouchableOpacity
               onPress={switchToLoginHandler}
               activeOpacity={0.6}
             >
-              <MyText style={styles.switchToLoginText}>Login</MyText>
+              <MyText style={styles.switchToLoginText}>
+                {i18n.t("signUpScreen.login")}
+              </MyText>
             </TouchableOpacity>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </ScrollView>
     </View>
   );
@@ -67,6 +115,11 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 35,
     backgroundColor: "white",
+  },
+  languageChangeContainer: {
+    position: "absolute",
+    right: 20,
+    top: Constants.statusBarHeight + 15,
   },
   scrollView: {
     flexGrow: 1,
@@ -96,4 +149,4 @@ export const screenOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
 };
 
-export default SignUpScreen;
+export default connectActionSheet(SignUpScreen);

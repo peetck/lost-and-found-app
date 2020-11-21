@@ -4,6 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
+import i18n from "i18n-js";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 
@@ -16,8 +17,8 @@ const MapScreen = (props) => {
   const mapRegion = {
     latitude: selectedLocation.lat,
     longitude: selectedLocation.lng,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitudeDelta: props.route.params.from === "Search" ? 0.1 : 0.01,
+    longitudeDelta: props.route.params.from === "Search" ? 0.1 : 0.02,
   };
 
   const getCurrentLocationHandler = async () => {
@@ -31,13 +32,10 @@ const MapScreen = (props) => {
     setSelectedLocation(location);
   };
 
-  let markerCoordinates;
-  if (selectedLocation) {
-    markerCoordinates = {
-      latitude: selectedLocation.lat,
-      longitude: selectedLocation.lng,
-    };
-  }
+  const markerCoordinates = {
+    latitude: selectedLocation.lat,
+    longitude: selectedLocation.lng,
+  };
 
   const selectLocationHandler = (event) => {
     if (readonly) {
@@ -84,8 +82,19 @@ const MapScreen = (props) => {
         onPress={selectLocationHandler}
         ref={map}
       >
-        {markerCoordinates && (
-          <Marker title="Picked Location" coordinate={markerCoordinates} />
+        <Marker title="Picked Location" coordinate={markerCoordinates} />
+
+        {props.route.params.from === "Search" && (
+          <MapView.Circle
+            center={{
+              latitude: selectedLocation.lat,
+              longitude: selectedLocation.lng,
+            }}
+            radius={5000}
+            fillColor="rgba(0, 0, 0, 0.1)"
+            strokeColor="black"
+            strokeWidth={2}
+          />
         )}
       </MapView>
       {!readonly && (
@@ -127,7 +136,7 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
-  headerTitle: "Location",
+  headerTitle: i18n.t("mapScreen.headerTitle"),
   headerTitleStyle: {
     fontFamily: "kanit-light",
   },

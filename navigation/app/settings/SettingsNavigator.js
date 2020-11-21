@@ -2,6 +2,7 @@ import React from "react";
 import { Platform } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
+import i18n from "i18n-js";
 
 import SettingsScreen, {
   screenOptions as settingsScreenOptions,
@@ -9,15 +10,9 @@ import SettingsScreen, {
 import AccountSettingScreen, {
   screenOptions as accountSettingScreenOptions,
 } from "../../../screens/app/settings/AccountSettingScreen";
-import ProfileSettingScreen, {
-  screenOptions as profileSettingScreenOptions,
-} from "../../../screens/app/settings/ProfileSettingScreen";
-import ChangeNameSettingScreen, {
-  screenOptions as ChangeNameSettingScreenOptions,
-} from "../../../screens/app/settings/ChangeNameSettingScreen";
-import ChangePasswordSettingScreen, {
-  screenOptions as ChangePasswordSettingScreenOptions,
-} from "../../../screens/app/settings/ChangePasswordSettingScreen";
+import ChangeNicknameScreen, {
+  screenOptions as changeNicknameScreenOptions,
+} from "../../../screens/app/settings/ChangeNicknameScreen";
 
 const Stack = createStackNavigator();
 
@@ -35,26 +30,16 @@ const SettingsNavigator = (props) => {
         options={accountSettingScreenOptions}
       />
       <Stack.Screen
-        name="ProfileSetting"
-        component={ProfileSettingScreen}
-        options={profileSettingScreenOptions}
-      />
-      <Stack.Screen
-        name="ChangeNameSetting"
-        component={ChangeNameSettingScreen}
-        options={ChangeNameSettingScreenOptions}
-      />
-      <Stack.Screen
-        name="ChangePasswordSetting"
-        component={ChangePasswordSettingScreen}
-        options={ChangePasswordSettingScreenOptions}
+        name="ChangeNickname"
+        component={ChangeNicknameScreen}
+        options={changeNicknameScreenOptions}
       />
     </Stack.Navigator>
   );
 };
 
 export const navigatorOptions = {
-  title: "Settings",
+  title: i18n.t("settingsNavigator.headerTitle"),
   drawerIcon: ({ size, color }) => (
     <Ionicons
       name={Platform.OS === "android" ? "md-settings" : "ios-settings"}
