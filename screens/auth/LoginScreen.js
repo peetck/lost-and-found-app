@@ -124,7 +124,7 @@ const LoginScreen = (props) => {
               />
             </View>
 
-            {Platform.OS !== "IOS" && (
+            {Platform.OS !== "ios" && (
               <TouchableOpacity
                 style={styles.facebookLoginButton}
                 activeOpacity={0.6}
