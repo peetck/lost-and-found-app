@@ -23,6 +23,9 @@ export const changeLanguageActionSheetOptions = {
     fontFamily: "kanit-light",
     fontSize: 20,
   },
+  textStyle: {
+    fontFamily: "kanit-light",
+  },
 };
 
 export const takeImageActionSheetOptions = {
@@ -41,6 +44,9 @@ export const takeImageActionSheetOptions = {
   titleTextStyle: {
     fontFamily: "kanit-light",
     fontSize: 20,
+  },
+  textStyle: {
+    fontFamily: "kanit-light",
   },
 };
 
