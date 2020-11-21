@@ -15,7 +15,7 @@
     "error": "กรุณากรอกข้อมูลให้ครบถ้วน"
   },
   "mapScreen": {
-    "headerTitle": "สถานที่"
+    "headerTitle": "แผนที่"
   },
   "myPostsScreen": {
     "subtitle": "โพสต์ที่เปิดอยู่"
@@ -28,7 +28,7 @@
   },
   "searchScreen": {
     "headerTitle": "ค้นหาจากตําแหน่ง",
-    "header1": "ตําแหน่ง",
+    "header1": "ตำแหน่ง",
     "header2": "ผลลัพธ์ (~5 กม)"
   },
   "accountSettingScreen": {
