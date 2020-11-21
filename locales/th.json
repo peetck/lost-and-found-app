@@ -101,5 +101,12 @@
   "changeNicknameScreen": {
     "headerTitle": "เปลี่ยนชื่อเล่น",
     "buttonText": "ยืนยัน"
+  },
+  "postItem": {
+    "km": "กม.",
+    "m": "เมตร",
+    "day": "วัน",
+    "hour": "ชม",
+    "minute": "นาที"
   }
 }

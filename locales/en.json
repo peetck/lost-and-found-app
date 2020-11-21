@@ -101,5 +101,12 @@
   "changeNicknameScreen": {
     "headerTitle": "Change Nickname",
     "buttonText": "Save"
+  },
+  "postItem": {
+    "km": "km",
+    "m": "m",
+    "day": "d",
+    "hour": "h",
+    "minute": "m"
   }
 }

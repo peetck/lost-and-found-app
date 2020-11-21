@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import i18n from "i18n-js";
 
 import MyText from "../../UI/MyText";
 
@@ -14,25 +15,24 @@ const PostItem = (props) => {
     (category) => category.id === props.categoryId
   ).color;
 
-  /* TODO */
-
   const totalMinutes = dateDiff / 1000 / 60;
 
   const day = Math.floor(totalMinutes / 60 / 24);
   const hours = Math.floor((totalMinutes / 60) % 24);
   const minutes = Math.floor(totalMinutes % 60);
 
-  const countdownText = `${day !== 0 ? day + "d" : ""} ${hours}h ${
-    hours <= 0 ? minutes + "m" : ""
+  const countdownText = `${
+    day !== 0 ? day + i18n.t("postItem.day") + " " : ""
+  }${hours !== 0 ? hours + i18n.t("postItem.hour") : ""}${
+    hours === 0 ? minutes + i18n.t("postItem.minute") : ""
   }`;
 
-  /* TODO */
   const km = props.distance;
   let distanceText;
   if (km >= 1) {
-    distanceText = `${km.toFixed(0)} km`;
+    distanceText = `${km.toFixed(0)} ${i18n.t("postItem.km")}`;
   } else {
-    distanceText = `${(km * 1000).toFixed(0)} m`;
+    distanceText = `${(km * 1000).toFixed(0)} ${i18n.t("postItem.m")}`;
   }
 
   return (
