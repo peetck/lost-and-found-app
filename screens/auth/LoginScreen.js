@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Platform,
+} from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
@@ -118,13 +124,15 @@ const LoginScreen = (props) => {
               />
             </View>
 
-            <TouchableOpacity
-              style={styles.facebookLoginButton}
-              activeOpacity={0.6}
-              onPress={() => loginHandler("facebook")}
-            >
-              <Ionicons name="logo-facebook" size={45} color="#4267B2" />
-            </TouchableOpacity>
+            {Platform.OS !== "IOS" && (
+              <TouchableOpacity
+                style={styles.facebookLoginButton}
+                activeOpacity={0.6}
+                onPress={() => loginHandler("facebook")}
+              >
+                <Ionicons name="logo-facebook" size={45} color="#4267B2" />
+              </TouchableOpacity>
+            )}
           </View>
 
           <View style={styles.centerContainer}>
