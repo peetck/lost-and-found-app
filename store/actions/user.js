@@ -163,10 +163,7 @@ export const signUp = (email, password, nickname, image) => {
 
 export const loginWithFacebook = () => {
   return async (dispatch) => {
-    const { type, token } = await Facebook.logInWithReadPermissionsAsync({
-      permissions: ["public_profile", "email"],
-      behavior: Platform.OS === "ios" ? "web" : "native",
-    });
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync();
 
     if (type === "success") {
       await firebase
