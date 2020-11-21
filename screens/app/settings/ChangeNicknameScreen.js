@@ -8,6 +8,7 @@ import i18n from "i18n-js";
 import { changeNickname } from "../../../store/actions/user";
 import MyTextInput from "../../../components/UI/MyTextInput";
 import MyText from "../../../components/UI/MyText";
+import colors from "../../../shared/colors";
 
 const ChangeNicknameScreen = (props) => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const ChangeNicknameScreen = (props) => {
           marginTop: 12,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#1b6ca8",
+          backgroundColor: colors.primary,
           padding: 10,
           borderRadius: 10,
         }}

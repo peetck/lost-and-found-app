@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform
+} from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -60,7 +67,10 @@ const SignUpScreen = (props) => {
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.contentContainer}>
+        <KeyboardAvoidingView
+          style={styles.contentContainer}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
           <AuthHeader
             style={styles.centerContainer}
             title="Lost & Found"
@@ -93,7 +103,7 @@ const SignUpScreen = (props) => {
               </MyText>
             </TouchableOpacity>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </ScrollView>
     </View>
   );

@@ -48,9 +48,13 @@ const HomeScreen = (props) => {
       <View style={styles.userContainer}>
         <Image
           style={styles.userImage}
-          source={{
-            uri: user.imageUrl,
-          }}
+          source={
+            user.imageUrl
+              ? {
+                  uri: user.imageUrl,
+                }
+              : null
+          }
         />
         <View style={styles.userInfoContainer}>
           <MyText style={styles.nickname}>{user.nickname}</MyText>

@@ -20,6 +20,7 @@ import SettingItem from "../../../components/app/settings/SettingItem";
 import { changeImage } from "../../../store/actions/user";
 import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
 import Loader from "../../../components/UI/Loader";
+import colors from "../../../shared/colors";
 
 const AccountSettingScreen = (props) => {
   const dispatch = useDispatch();
@@ -72,7 +73,7 @@ const AccountSettingScreen = (props) => {
       <View style={styles.containerContents}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <SettingItem
-            color="#1b6ca8"
+            color={colors.primary}
             title={i18n.t("accountSettingScreen.nickname")}
             text={user.nickname}
             type="text"

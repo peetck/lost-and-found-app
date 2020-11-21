@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  Keyboard,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -102,6 +103,7 @@ const CreatePostScreen = (props) => {
   };
 
   const createPostHandler = useCallback(async () => {
+    Keyboard.dismiss();
     setIsLoading(true);
     if (selectedImage && title !== "" && description !== "") {
       try {

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { useDispatch } from "react-redux";
@@ -92,7 +93,10 @@ const LoginScreen = (props) => {
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.contentContainer}>
+        <KeyboardAvoidingView
+          style={styles.contentContainer}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
           <Loader visible={isLoading} />
 
           <AuthHeader
@@ -107,6 +111,8 @@ const LoginScreen = (props) => {
               placeholder={i18n.t("loginScreen.placeHolderEmail")}
               onChangeText={setEmail}
               value={email}
+              autoCapitalize="none"
+              keyboardType="email-address"
             />
             <MyTextInput
               placeholder={i18n.t("loginScreen.placeHolderPass")}
@@ -146,7 +152,7 @@ const LoginScreen = (props) => {
               </MyText>
             </TouchableOpacity>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </ScrollView>
     </View>
   );
