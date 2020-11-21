@@ -33,7 +33,8 @@
   },
   "accountSettingScreen": {
     "headerTitle": "Account",
-    "nickname": "Nickname"
+    "nickname": "Nickname",
+    "email": "Email"
   },
   "changeNameSettingScreen": {
     "button": "SAVE"

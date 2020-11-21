@@ -53,12 +53,6 @@ const CategoryList = (props) => {
         </View>
       );
     }
-    return (
-      <View style={styles.categoryContainer} key={title}>
-        <View style={{ ...styles.circle, backgroundColor: color }} />
-        <MyText style={styles.text}>{title}</MyText>
-      </View>
-    );
   };
 
   const topContent = categories

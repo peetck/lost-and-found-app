@@ -1,45 +1,27 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, Text, View, Button } from "react-native";
+import { TouchableOpacity, StyleSheet, View } from "react-native";
 
 import MyText from "../../../components/UI/MyText";
+import colors from "../../../shared/colors";
 
 const SettingItem = (props) => {
-  let defaultColor = "black"; // set default color
-
-  /* Function render type of Content */
-  const typeContainer = () => {
-    // type is text
-    if (props.type != "singleText") {
-      return <MyText style={styles.contentText}>{props.text}</MyText>;
-    }
-  };
-
-  /* Check Color */
-  if (props.color != "default") {
-    defaultColor = props.color;
-  }
-
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.contentBox}
-        onPress={props.onPress}
-        activeOpacity={0.6}
-      >
-        <View style={styles.containerText}>
-          <MyText
-            style={{
-              color: defaultColor,
-              paddingTop: 4,
-              fontSize: 16,
-              fontFamily: "kanit",
-            }}
-          >
-            {props.title}
-          </MyText>
-          {typeContainer()}
+      {props.onPress ? (
+        <TouchableOpacity
+          style={styles.contentBox}
+          onPress={props.onPress}
+          activeOpacity={0.6}
+        >
+          <MyText style={styles.title}>{props.title}</MyText>
+          <MyText style={styles.contentText}>{props.text}</MyText>
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.contentBox}>
+          <MyText style={styles.disableTitle}>{props.title}</MyText>
+          <MyText style={styles.disableContentText}>{props.text}</MyText>
         </View>
-      </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -47,27 +29,33 @@ const SettingItem = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 2,
-  },
-  containerText: {
-    flex: 1,
-    padding: 10,
-  },
-  containerButtonText: {
-    flexDirection: "row",
   },
   contentBox: {
-    flexDirection: "row",
-    alignItems: "center",
+    flex: 1,
     borderBottomWidth: 0.2,
-  },
-  contentIcon: {
-    padding: 8,
+    padding: 10,
   },
   contentText: {
     fontSize: 14,
     marginTop: 1,
     color: "black",
+  },
+  title: {
+    color: "black",
+    paddingTop: 4,
+    fontSize: 16,
+    fontFamily: "kanit",
+  },
+  disableTitle: {
+    color: colors.grey,
+    paddingTop: 4,
+    fontSize: 16,
+    fontFamily: "kanit",
+  },
+  disableContentText: {
+    fontSize: 14,
+    marginTop: 1,
+    color: colors.grey,
   },
 });
 

@@ -33,7 +33,8 @@
   },
   "accountSettingScreen": {
     "headerTitle": "บัญชี",
-    "nickname": "ชื่อเล่น"
+    "nickname": "ชื่อเล่น",
+    "email": "อีเมล"
   },
   "changeNameSettingScreen": {
     "button": "บันทึก"
