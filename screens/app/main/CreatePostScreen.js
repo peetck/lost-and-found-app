@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Keyboard,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -195,7 +196,11 @@ const CreatePostScreen = (props) => {
           <Image style={styles.image} source={{ uri: selectedImage }} />
         ) : (
           <View style={styles.center}>
-            <Ionicons name="md-camera" size={80} color="black" />
+            <Ionicons
+              name={Platform.OS === "android" ? "md-camera" : "ios-camera"}
+              size={80}
+              color="black"
+            />
             <MyText style={styles.imageText}>
               {i18n.t("createPostScreen.imgHolder")}
             </MyText>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
@@ -14,9 +14,25 @@ export const changeLanguageActionSheetOptions = {
   options: ["English", "ภาษาไทย", i18n.t("utils.cancel")],
   cancelButtonIndex: 2,
   icons: [
-    <Ionicons name="md-arrow-forward" size={23} color="black" />,
-    <Ionicons name="md-arrow-forward" size={23} color="black" />,
-    <Ionicons name="md-backspace" size={23} color="black" />,
+    <Ionicons
+      name={
+        Platform.OS === "android" ? "md-arrow-forward" : "ios-arrow-forward"
+      }
+      size={23}
+      color="black"
+    />,
+    <Ionicons
+      name={
+        Platform.OS === "android" ? "md-arrow-forward" : "ios-arrow-forward"
+      }
+      size={23}
+      color="black"
+    />,
+    <Ionicons
+      name={Platform.OS === "android" ? "md-backspace" : "ios-backspace"}
+      size={23}
+      color="black"
+    />,
   ],
   title: i18n.t("utils.changeLanguageTitle"),
   titleTextStyle: {
@@ -36,9 +52,21 @@ export const takeImageActionSheetOptions = {
   ],
   cancelButtonIndex: 2,
   icons: [
-    <Ionicons name="md-camera" size={23} color="black" />,
-    <Ionicons name="md-image" size={23} color="black" />,
-    <Ionicons name="md-backspace" size={23} color="black" />,
+    <Ionicons
+      name={Platform.OS === "android" ? "md-camera" : "ios-camera"}
+      size={23}
+      color="black"
+    />,
+    <Ionicons
+      name={Platform.OS === "android" ? "md-image" : "ios-image"}
+      size={23}
+      color="black"
+    />,
+    <Ionicons
+      name={Platform.OS === "android" ? "md-backspace" : "ios-backspace"}
+      size={23}
+      color="black"
+    />,
   ],
   title: i18n.t("utils.takeImageTitle"),
   titleTextStyle: {
@@ -102,7 +130,9 @@ export const showSuccess = (
   title,
   text,
   duration = 2000,
-  icon = "md-checkmark-circle"
+  icon = Platform.OS === "android"
+    ? "md-checkmark-circle"
+    : "ios-checkmark-circle"
 ) => {
   showToast(
     title,
@@ -113,7 +143,11 @@ export const showSuccess = (
   );
 };
 
-export const showError = (text, duration = 2000, icon = "md-close-circle") => {
+export const showError = (
+  text,
+  duration = 2000,
+  icon = Platform.OS === "android" ? "md-close-circle" : "ios-close-circle"
+) => {
   showToast(
     i18n.t("utils.error"),
     text,

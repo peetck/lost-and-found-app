@@ -88,7 +88,10 @@ const LoginScreen = (props) => {
         style={styles.languageChangeContainer}
         onPress={changeLanguageHandler}
       >
-        <Ionicons size={23} name="md-globe" />
+        <Ionicons
+          size={23}
+          name={Platform.OS === "android" ? "md-globe" : "ios-globe"}
+        />
       </TouchableOpacity>
 
       <ScrollView

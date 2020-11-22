@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Platform,
 } from "react-native";
 import Constants from "expo-constants";
 import { CardStyleInterpolators } from "@react-navigation/stack";
@@ -54,7 +55,11 @@ const AccountSettingScreen = (props) => {
             <Image source={{ uri: selectedImage }} style={styles.imageStyle} />
 
             <View style={styles.iconContainer}>
-              <Ionicons name="md-camera" size={30} color="black" />
+              <Ionicons
+                name={Platform.OS === "android" ? "md-camera" : "ios-camera"}
+                size={30}
+                color="black"
+              />
             </View>
           </TouchableOpacity>
         </View>

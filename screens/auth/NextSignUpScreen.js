@@ -106,7 +106,11 @@ const NextSignUpScreen = (props) => {
                     alignItems: "center",
                   }}
                 >
-                  <Ionicons size={60} color="black" name="md-camera" />
+                  <Ionicons
+                    size={60}
+                    color="black"
+                    name={Platform.OS === "android" ? "md-camera" : "ios-camera"}
+                  />
                 </View>
               )}
             </TouchableOpacity>
