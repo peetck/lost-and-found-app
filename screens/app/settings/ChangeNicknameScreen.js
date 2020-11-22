@@ -9,24 +9,24 @@ import { changeNickname } from "../../../store/actions/user";
 import MyTextInput from "../../../components/UI/MyTextInput";
 import MyText from "../../../components/UI/MyText";
 import colors from "../../../shared/colors";
+import Loader from "../../../components/UI/Loader";
 
 const ChangeNicknameScreen = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [text, setText] = useState(user.nickname);
-
-  // const renderLengthOfText = () => {
-  //   return <Text style={styles.content}>{text.length}/100</Text>;
-  // };
+  const [isLoading, setIsLoading] = useState(false);
 
   const changeNicknameHandler = async () => {
+    setIsLoading(true);
     await dispatch(changeNickname(text));
+    setIsLoading(false);
     props.navigation.navigate("AccountSetting");
   };
 
   return (
     <View style={styles.screen}>
-      {/* {renderLengthOfText()} */}
+      <Loader visible={isLoading} />
       <MyTextInput onChangeText={setText} value={text} />
       <TouchableOpacity
         style={{
