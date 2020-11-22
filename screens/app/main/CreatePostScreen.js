@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View,
   ScrollView,
@@ -49,6 +49,8 @@ const CreatePostScreen = (props) => {
   const [selectedLocation, setSelectedLocation] = useState(currentLocation);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+
+  const descriptionRef = useRef(null);
 
   const getLocation = async () => {
     setIsLoadingLocation(true);
@@ -164,11 +166,15 @@ const CreatePostScreen = (props) => {
           placeholder={i18n.t("createPostScreen.title")}
           value={title}
           onChangeText={setTitle}
+          blurOnSubmit={false}
+          returnKeyType="next"
+          onSubmitEditing={() => descriptionRef.current.focus()}
         />
         <MyTextInput
           placeholder={i18n.t("createPostScreen.description")}
           value={description}
           onChangeText={setDescription}
+          ref={descriptionRef}
         />
       </View>
 

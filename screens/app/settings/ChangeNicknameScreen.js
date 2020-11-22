@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Constants from "expo-constants";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,6 +10,7 @@ import MyTextInput from "../../../components/UI/MyTextInput";
 import MyText from "../../../components/UI/MyText";
 import colors from "../../../shared/colors";
 import Loader from "../../../components/UI/Loader";
+import { showError } from "../../../shared/utils";
 
 const ChangeNicknameScreen = (props) => {
   const dispatch = useDispatch();
@@ -19,7 +20,11 @@ const ChangeNicknameScreen = (props) => {
 
   const changeNicknameHandler = async () => {
     setIsLoading(true);
-    await dispatch(changeNickname(text));
+    try {
+      await dispatch(changeNickname(text));
+    } catch (error) {
+      showError(error.message);
+    }
     setIsLoading(false);
     props.navigation.navigate("AccountSetting");
   };

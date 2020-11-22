@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
+  title: i18n.t("signUpScreen.headerTitle"),
   headerShown: false,
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
 };

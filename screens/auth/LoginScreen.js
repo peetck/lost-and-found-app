@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   StyleSheet,
@@ -36,6 +36,8 @@ const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const passwordRef = useRef(null);
 
   const { showActionSheetWithOptions } = useActionSheet();
 
@@ -113,12 +115,16 @@ const LoginScreen = (props) => {
               value={email}
               autoCapitalize="none"
               keyboardType="email-address"
+              returnKeyType="next"
+              onSubmitEditing={() => passwordRef.current.focus()}
+              blurOnSubmit={false}
             />
             <MyTextInput
               placeholder={i18n.t("loginScreen.placeHolderPass")}
               secureTextEntry={true}
               onChangeText={setPassword}
               value={password}
+              ref={passwordRef}
             />
           </View>
 

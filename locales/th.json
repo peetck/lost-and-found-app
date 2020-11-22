@@ -63,6 +63,7 @@
     "passwordError": "รหัสผ่านไม่ตรงกัน"
   },
   "signUpScreen": {
+    "headerTitle": "สมัครสมาชิก",
     "subtitle": "สมัครสมาชิก",
     "placeHolderNickname": "ชื่อเล่น",
     "nextButton": "ถัดไป",
@@ -94,7 +95,13 @@
     "cancel": "ยกเลิก",
     "takePicture": "ถ่ายรูป",
     "chooseFromGallery": "เลือกจากคลังรูปภาพ",
-    "error": "ข้อผิดพลาด"
+    "error": "ข้อผิดพลาด",
+    "alertTitle": "เปลี่ยนภาษา",
+    "alertMsg": "การเปลี่ยนแปลงบางอย่างจะมีผลหลังจากการรีสตาร์ทแอปพลิเคชัน",
+    "restart": "รีสตาร์ท",
+    "later": "ภายหลัง",
+    "permissionErrorTitle": "สิทธิ์การเข้าถึงไม่เพียงพอ",
+    "permissionErrorMsg": "คุณต้องให้สิทธิ์การเข้าถึงกล้องเพื่อใช้งานแอปพลิเคชันนี้"
   },
   "postList": {
     "emptyText": "ไม่พบโพสต์"

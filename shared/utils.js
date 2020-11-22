@@ -11,7 +11,7 @@ import colors from "./colors";
 import { saveLanguageSetting } from "./storage";
 
 export const changeLanguageActionSheetOptions = {
-  options: ["English", "Thai", i18n.t("utils.cancel")],
+  options: ["English", "ภาษาไทย", i18n.t("utils.cancel")],
   cancelButtonIndex: 2,
   icons: [
     <Ionicons name="md-arrow-forward" size={23} color="black" />,
@@ -57,8 +57,8 @@ export const takeImage = async (index) => {
   );
   if (status !== "granted") {
     Alert.alert(
-      "Insufficient permissions!",
-      "You need to grant camera permissions to use this app.",
+      i18n.t("utils.permissionErrorTitle"),
+      i18n.t("utils.permissionErrorMsg"),
       [{ text: "Okay" }]
     );
     return;
@@ -125,12 +125,12 @@ export const showError = (text, duration = 2000, icon = "md-close-circle") => {
 
 export const changeLanguage = async (index) => {
   await saveLanguageSetting(index === 0 ? "en" : "th");
-  Alert.alert("Information", "You have to restart the app to see the change.", [
+  Alert.alert(i18n.t("utils.alertTitle"), i18n.t("utils.alertMsg"), [
     {
-      text: "Restart",
+      text: i18n.t("utils.restart"),
       onPress: () => Updates.reloadAsync(),
     },
-    { text: "Later" },
+    { text: i18n.t("utils.later") },
   ]);
 };
 

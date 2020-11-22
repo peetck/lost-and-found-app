@@ -8,6 +8,7 @@ import PostList from "../../../components/app/main/PostList";
 import { fetchMyPosts } from "../../../store/actions/posts";
 import MyText from "../../../components/UI/MyText";
 import CategoryList from "../../../components/app/main/CategoryList";
+import { showError } from "../../../shared/utils";
 
 const MyPostsScreen = (props) => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const MyPostsScreen = (props) => {
     try {
       await dispatch(fetchMyPosts(currentLocation));
     } catch (error) {
-      console.log(error);
+      showError(error.message);
     }
   }, [dispatch, currentLocation]);
 

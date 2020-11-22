@@ -16,6 +16,7 @@ import MyText from "../../../components/UI/MyText";
 import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
 import { fetchAllPosts } from "../../../store/actions/posts";
+import { showError } from "../../../shared/utils";
 
 const HomeScreen = (props) => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const HomeScreen = (props) => {
     try {
       await dispatch(fetchAllPosts(currentLocation, 5));
     } catch (error) {
-      console.log(error);
+      showError(error.message);
     }
   }, [dispatch, currentLocation]);
 
