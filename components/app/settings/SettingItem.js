@@ -14,7 +14,9 @@ const SettingItem = (props) => {
           activeOpacity={0.6}
         >
           <MyText style={styles.title}>{props.title}</MyText>
-          <MyText style={styles.contentText}>{props.text}</MyText>
+          <MyText style={styles.contentText} numberOfLines={1}>
+            {props.text}
+          </MyText>
         </TouchableOpacity>
       ) : (
         <View style={styles.contentBox}>

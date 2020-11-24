@@ -55,7 +55,9 @@ const PostItem = (props) => {
       />
 
       <View style={{ ...styles.cardInfo, backgroundColor: bgColor }}>
-        <MyText style={styles.title}>{props.title}</MyText>
+        <MyText style={styles.title} numberOfLines={1}>
+          {props.title}
+        </MyText>
 
         <View style={styles.cardStatus}>
           <View style={styles.leftStatusContainer}>

@@ -3,7 +3,10 @@ import { Text, StyleSheet } from "react-native";
 
 const MyText = (props) => {
   return (
-    <Text style={{ ...styles.text, ...props.style }} numberOfLines={1}>
+    <Text
+      style={{ ...styles.text, ...props.style }}
+      numberOfLines={props.numberOfLines}
+    >
       {" "}
       {props.children}
     </Text>

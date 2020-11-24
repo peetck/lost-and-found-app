@@ -71,7 +71,9 @@ const HomeScreen = (props) => {
           }
         />
         <View style={styles.userInfoContainer}>
-          <MyText style={styles.nickname}>{user.nickname}</MyText>
+          <MyText style={styles.nickname} numberOfLines={1}>
+            {user.nickname}
+          </MyText>
           <MyText style={styles.email}>{user.email}</MyText>
         </View>
       </View>
