@@ -1,6 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import i18n from "i18n-js";
 
@@ -49,16 +55,26 @@ const PostItem = (props) => {
       />
 
       <View style={{ ...styles.cardInfo, backgroundColor: bgColor }}>
-        <MyText style={styles.title}>{props.title}</MyText>
+        <MyText style={styles.title} numberOfLines={1}>
+          {props.title}
+        </MyText>
 
         <View style={styles.cardStatus}>
           <View style={styles.leftStatusContainer}>
-            <Ionicons size={15} color="white" name="md-locate" />
+            <Ionicons
+              size={15}
+              color="white"
+              name={Platform.OS === "android" ? "md-locate" : "ios-locate"}
+            />
             <MyText style={styles.statusText}>{distanceText}</MyText>
           </View>
 
           <View style={styles.rightStatusContainer}>
-            <Ionicons size={15} color="white" name="md-time" />
+            <Ionicons
+              size={15}
+              color="white"
+              name={Platform.OS === "android" ? "md-time" : "ios-time"}
+            />
             <MyText style={styles.statusText}>{countdownText}</MyText>
           </View>
         </View>

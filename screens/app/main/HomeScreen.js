@@ -16,12 +16,20 @@ import MyText from "../../../components/UI/MyText";
 import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
 import { fetchAllPosts } from "../../../store/actions/posts";
+import { showError } from "../../../shared/utils";
 
 const HomeScreen = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts.posts);
   const currentLocation = useSelector((state) => state.user.location);
+  const initialCategories = useSelector((state) =>
+    state.categories.categories.map((category) => category.id)
+  );
+  const [selectedCategories, setSelectedCategories] = useState(
+    initialCategories
+  );
+  const [showPosts, setShowPosts] = useState(posts);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const isFocused = useIsFocused();
 
@@ -29,13 +37,19 @@ const HomeScreen = (props) => {
     try {
       await dispatch(fetchAllPosts(currentLocation, 5));
     } catch (error) {
-      console.log(error);
+      showError(error.message);
     }
   }, [dispatch, currentLocation]);
 
   useEffect(() => {
     loadPosts();
   }, [loadPosts, isFocused]);
+
+  useEffect(() => {
+    setShowPosts(
+      posts.filter((post) => selectedCategories.includes(post.categoryId))
+    );
+  }, [selectedCategories, posts]);
 
   const onRefresh = async () => {
     setIsRefreshing(true);
@@ -57,7 +71,9 @@ const HomeScreen = (props) => {
           }
         />
         <View style={styles.userInfoContainer}>
-          <MyText style={styles.nickname}>{user.nickname}</MyText>
+          <MyText style={styles.nickname} numberOfLines={1}>
+            {user.nickname}
+          </MyText>
           <MyText style={styles.email}>{user.email}</MyText>
         </View>
       </View>
@@ -80,7 +96,12 @@ const HomeScreen = (props) => {
         </MyText>
       </TouchableOpacity>
 
-      <CategoryList />
+      <CategoryList
+        inputMode
+        many
+        value={selectedCategories}
+        onChange={setSelectedCategories}
+      />
 
       <View style={styles.titleContainer}>
         <MyText style={styles.title}>{i18n.t("homeScreen.nearBy")}</MyText>
@@ -91,7 +112,7 @@ const HomeScreen = (props) => {
   return (
     <View style={styles.screen}>
       <PostList
-        data={posts}
+        data={showPosts}
         navigation={props.navigation}
         header={header}
         onRefresh={onRefresh}

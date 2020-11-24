@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Image,
@@ -37,6 +37,9 @@ const NextSignUpScreen = (props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [selectedImage, setSelectedImage] = useState();
   const [isLoading, setIsLoading] = useState(false);
+
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
 
   const takeImageHandler = () => {
     showActionSheetWithOptions(takeImageActionSheetOptions, async (index) => {
@@ -103,7 +106,11 @@ const NextSignUpScreen = (props) => {
                     alignItems: "center",
                   }}
                 >
-                  <Ionicons size={60} color="black" name="md-camera" />
+                  <Ionicons
+                    size={60}
+                    color="black"
+                    name={Platform.OS === "android" ? "md-camera" : "ios-camera"}
+                  />
                 </View>
               )}
             </TouchableOpacity>
@@ -116,18 +123,26 @@ const NextSignUpScreen = (props) => {
               value={email}
               autoCapitalize="none"
               keyboardType="email-address"
+              returnKeyType="next"
+              onSubmitEditing={() => passwordRef.current.focus()}
+              blurOnSubmit={false}
             />
             <MyTextInput
               placeholder={i18n.t("nextSignUpScreen.placeHolderPass")}
               secureTextEntry={true}
               onChangeText={setPassword}
               value={password}
+              ref={passwordRef}
+              returnKeyType="next"
+              onSubmitEditing={() => confirmPasswordRef.current.focus()}
+              blurOnSubmit={false}
             />
             <MyTextInput
               placeholder={i18n.t("nextSignUpScreen.placeHolderConfirmPass")}
               secureTextEntry={true}
               onChangeText={setConfirmPassword}
               value={confirmPassword}
+              ref={confirmPasswordRef}
             />
           </View>
 

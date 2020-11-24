@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Platform,
 } from "react-native";
 import Constants from "expo-constants";
 import { CardStyleInterpolators } from "@react-navigation/stack";
@@ -20,7 +21,6 @@ import SettingItem from "../../../components/app/settings/SettingItem";
 import { changeImage } from "../../../store/actions/user";
 import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
 import Loader from "../../../components/UI/Loader";
-import colors from "../../../shared/colors";
 
 const AccountSettingScreen = (props) => {
   const dispatch = useDispatch();
@@ -28,55 +28,52 @@ const AccountSettingScreen = (props) => {
 
   const { showActionSheetWithOptions } = useActionSheet();
 
-  const [pickedImage, setPickedImage] = useState(
-    "https://static.wixstatic.com/media/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.png/v1/fill/w_173,h_172,al_c,q_85,usm_0.66_1.00_0.01/2bc47f_9c0772b096b84b80b7aee6f7eee794d8~mv2.webp"
-  );
-  const [selectedImage, setSelectedImage] = useState();
-
-  const [editTile, setEditTitle] = useState();
-
+  const [selectedImage, setSelectedImage] = useState(user.imageUrl);
   const [isLoading, setIsLoading] = useState(false);
 
-  {
-    /* Function */
-  }
   const takeImageHandler = () => {
     showActionSheetWithOptions(takeImageActionSheetOptions, async (index) => {
       if (index !== 2) {
         const imageUri = await takeImage(index);
-        setSelectedImage(imageUri);
-        await dispatch(changeImage(imageUri));
+        setIsLoading(true);
+        if (imageUri) {
+          await dispatch(changeImage(imageUri));
+          setSelectedImage(imageUri);
+        }
+        setIsLoading(false);
       }
     });
   };
 
-  {
-    /* Return JSX */
-  }
   return (
     <View style={styles.container}>
       <Loader visible={isLoading} />
-      {/* image part */}
+
       <View style={styles.containerImage}>
         <View style={styles.containerLayoutImage}>
-          {/* Image */}
           <TouchableOpacity activeOpacity={0.6} onPress={takeImageHandler}>
-            <Image source={{ uri: user.imageUrl }} style={styles.imageStyle} />
+            <Image source={{ uri: selectedImage }} style={styles.imageStyle} />
+
             <View style={styles.iconContainer}>
-              <Ionicons name="md-camera" size={30} color="black" />
+              <Ionicons
+                name={Platform.OS === "android" ? "md-camera" : "ios-camera"}
+                size={30}
+                color="black"
+              />
             </View>
           </TouchableOpacity>
         </View>
       </View>
 
-      {/* Content part */}
       <View style={styles.containerContents}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <SettingItem
-            color={colors.primary}
+            title={i18n.t("accountSettingScreen.email")}
+            text={user.email}
+          />
+          <SettingItem
             title={i18n.t("accountSettingScreen.nickname")}
             text={user.nickname}
-            type="text"
             onPress={() => {
               props.navigation.navigate("ChangeNickname");
             }}
@@ -93,7 +90,7 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     flex: 1,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "rgba(255, 255, 255, 0.0)",
   },
   containerLayoutImage: {
     flex: 1,

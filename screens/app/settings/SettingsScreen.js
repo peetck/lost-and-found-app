@@ -1,5 +1,11 @@
 import React from "react";
-import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+} from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
 import i18n from "i18n-js";
@@ -46,7 +52,7 @@ const SettingsScreen = (props) => {
         <MyText style={styles.title}>{i18n.t("settingsScreen.header1")}</MyText>
         <Setting
           label={i18n.t("settingsScreen.item1")}
-          iconName="md-card"
+          iconName={Platform.OS === "android" ? "md-card" : "ios-card"}
           onPress={() => props.navigation.navigate("AccountSetting")}
         />
       </View>
@@ -55,7 +61,7 @@ const SettingsScreen = (props) => {
         <MyText style={styles.title}>{i18n.t("settingsScreen.header2")}</MyText>
         <Setting
           label={i18n.t("settingsScreen.item2")}
-          iconName="md-globe"
+          iconName={Platform.OS === "android" ? "md-globe" : "ios-globe"}
           onPress={changeLanguageHandler}
         />
       </View>

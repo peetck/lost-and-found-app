@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Platform } from "react-native";
 import {
   createDrawerNavigator,
   DrawerItemList,
@@ -42,7 +42,11 @@ const DrawerContent = (props) => {
         labelStyle={styles.label}
         onPress={props.onLogout}
         icon={({ size, color }) => (
-          <Ionicons name="md-log-out" size={size} color={color} />
+          <Ionicons
+            name={Platform.OS === "android" ? "md-log-out" : "ios-log-out"}
+            size={size}
+            color={color}
+          />
         )}
       />
     </View>

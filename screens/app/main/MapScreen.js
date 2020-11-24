@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Platform } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
@@ -103,7 +103,11 @@ const MapScreen = (props) => {
           onPress={getCurrentLocationHandler}
           style={styles.button}
         >
-          <Ionicons name="md-locate" size={20} color="black" />
+          <Ionicons
+            name={Platform.OS === "android" ? "md-locate" : "ios-locate"}
+            size={20}
+            color="black"
+          />
         </TouchableOpacity>
       )}
     </View>

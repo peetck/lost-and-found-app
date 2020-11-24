@@ -33,7 +33,8 @@
   },
   "accountSettingScreen": {
     "headerTitle": "Account",
-    "nickname": "Nickname"
+    "nickname": "Nickname",
+    "email": "Email"
   },
   "changeNameSettingScreen": {
     "button": "SAVE"
@@ -62,6 +63,7 @@
     "passwordError": "Password doesn't match."
   },
   "signUpScreen": {
+    "headerTitle": "Sign Up",
     "subtitle": "Sign up",
     "placeHolderNickname": "Nickname",
     "nextButton": "Next",
@@ -93,7 +95,13 @@
     "cancel": "Cancel",
     "takePicture": "Take Picture",
     "chooseFromGallery": "Choose from gallery",
-    "error": "Error"
+    "error": "Error",
+    "alertTitle": "Change Language",
+    "alertMsg": "Some changes will take effect after Restart the application.",
+    "restart": "Restart",
+    "later": "Later",
+    "permissionErrorTitle": "Insufficient permissions",
+    "permissionErrorMsg": "You need to grant camera permissions to use this app."
   },
   "postList": {
     "emptyText": "No posts found"

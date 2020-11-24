@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View,
   ScrollView,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Keyboard,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -50,6 +51,8 @@ const CreatePostScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
 
+  const descriptionRef = useRef(null);
+
   const getLocation = async () => {
     setIsLoadingLocation(true);
     let location;
@@ -60,7 +63,7 @@ const CreatePostScreen = (props) => {
     }
 
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${selectedLocation.lat},${selectedLocation.lng}&key=AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs`
     );
     const resData = await response.json();
 
@@ -164,11 +167,15 @@ const CreatePostScreen = (props) => {
           placeholder={i18n.t("createPostScreen.title")}
           value={title}
           onChangeText={setTitle}
+          blurOnSubmit={false}
+          returnKeyType="next"
+          onSubmitEditing={() => descriptionRef.current.focus()}
         />
         <MyTextInput
           placeholder={i18n.t("createPostScreen.description")}
           value={description}
           onChangeText={setDescription}
+          ref={descriptionRef}
         />
       </View>
 
@@ -189,7 +196,11 @@ const CreatePostScreen = (props) => {
           <Image style={styles.image} source={{ uri: selectedImage }} />
         ) : (
           <View style={styles.center}>
-            <Ionicons name="md-camera" size={80} color="black" />
+            <Ionicons
+              name={Platform.OS === "android" ? "md-camera" : "ios-camera"}
+              size={80}
+              color="black"
+            />
             <MyText style={styles.imageText}>
               {i18n.t("createPostScreen.imgHolder")}
             </MyText>

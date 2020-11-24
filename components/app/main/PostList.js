@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View, Platform } from "react-native";
 import i18n from "i18n-js";
 
 import PostItem from "./PostItem";
@@ -10,7 +10,13 @@ import colors from "../../../shared/colors";
 const PostList = (props) => {
   const emptyComponent = () => (
     <View style={styles.emptyContainer}>
-      <Ionicons name="md-close-circle" color="black" size={80} />
+      <Ionicons
+        name={
+          Platform.OS === "android" ? "md-close-circle" : "ios-close-circle"
+        }
+        color="black"
+        size={80}
+      />
       <MyText style={styles.text}>{i18n.t("postList.emptyText")}</MyText>
     </View>
   );

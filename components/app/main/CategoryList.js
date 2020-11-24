@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 
@@ -35,7 +35,15 @@ const CategoryList = (props) => {
         >
           <View style={{ ...styles.rectangle, backgroundColor: color }}>
             {(many ? value.includes(id) : value === id) && (
-              <Ionicons name="md-checkmark-circle" size={23} color="white" />
+              <Ionicons
+                name={
+                  Platform.OS === "android"
+                    ? "md-checkmark-circle"
+                    : "ios-checkmark-circle"
+                }
+                size={23}
+                color="white"
+              />
             )}
           </View>
           <MyText style={styles.text}>{title}</MyText>
@@ -46,19 +54,21 @@ const CategoryList = (props) => {
         <View style={styles.categoryContainer} key={title}>
           <View style={{ ...styles.rectangle, backgroundColor: color }}>
             {id === categoryId && (
-              <Ionicons name="md-checkmark-circle" size={23} color="white" />
+              <Ionicons
+                name={
+                  Platform.OS === "android"
+                    ? "md-checkmark-circle"
+                    : "ios-checkmark-circle"
+                }
+                size={23}
+                color="white"
+              />
             )}
           </View>
           <MyText style={styles.text}>{title}</MyText>
         </View>
       );
     }
-    return (
-      <View style={styles.categoryContainer} key={title}>
-        <View style={{ ...styles.circle, backgroundColor: color }} />
-        <MyText style={styles.text}>{title}</MyText>
-      </View>
-    );
   };
 
   const topContent = categories

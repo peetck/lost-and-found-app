@@ -3,13 +3,13 @@ import { View, TextInput, StyleSheet } from "react-native";
 
 import colors from "../../shared/colors";
 
-const MyTextInput = (props) => {
+const MyTextInput = React.forwardRef((props, ref) => {
   return (
     <View style={styles.textInputContainer}>
-      <TextInput {...props} style={styles.textInput} />
+      <TextInput {...props} style={styles.textInput} ref={ref} />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   textInputContainer: {

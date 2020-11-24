@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
@@ -60,7 +60,10 @@ const SignUpScreen = (props) => {
         style={styles.languageChangeContainer}
         onPress={changeLanguageHandler}
       >
-        <Ionicons size={23} name="md-globe" />
+        <Ionicons
+          size={23}
+          name={Platform.OS === "android" ? "md-globe" : "ios-globe"}
+        />
       </TouchableOpacity>
 
       <ScrollView
@@ -145,6 +148,7 @@ const styles = StyleSheet.create({
 });
 
 export const screenOptions = {
+  title: i18n.t("signUpScreen.headerTitle"),
   headerShown: false,
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
 };

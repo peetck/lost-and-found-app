@@ -28,7 +28,7 @@ const SearchScreen = (props) => {
   const currentLocation = useSelector((state) => state.user.location);
   const [selectedLocation, setSelectedLocation] = useState(currentLocation);
   const [posts, setPosts] = useState([]);
-  const [showPosts, setShowPosts] = useState([]);
+  const [showPosts, setShowPosts] = useState(posts);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
   const { params } = props.route;
 
@@ -115,14 +115,13 @@ const SearchScreen = (props) => {
     });
 
     setPosts(result);
-    setShowPosts(result);
   };
 
   useEffect(() => {
     setShowPosts(
       posts.filter((post) => selectedCategories.includes(post.categoryId))
     );
-  }, [selectedCategories]);
+  }, [selectedCategories, posts]);
 
   useEffect(() => {
     fetchPosts();

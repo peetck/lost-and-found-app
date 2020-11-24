@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Constants from "expo-constants";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,24 +9,29 @@ import { changeNickname } from "../../../store/actions/user";
 import MyTextInput from "../../../components/UI/MyTextInput";
 import MyText from "../../../components/UI/MyText";
 import colors from "../../../shared/colors";
+import Loader from "../../../components/UI/Loader";
+import { showError } from "../../../shared/utils";
 
 const ChangeNicknameScreen = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [text, setText] = useState(user.nickname);
-
-  // const renderLengthOfText = () => {
-  //   return <Text style={styles.content}>{text.length}/100</Text>;
-  // };
+  const [isLoading, setIsLoading] = useState(false);
 
   const changeNicknameHandler = async () => {
-    await dispatch(changeNickname(text));
+    setIsLoading(true);
+    try {
+      await dispatch(changeNickname(text));
+    } catch (error) {
+      showError(error.message);
+    }
+    setIsLoading(false);
     props.navigation.navigate("AccountSetting");
   };
 
   return (
     <View style={styles.screen}>
-      {/* {renderLengthOfText()} */}
+      <Loader visible={isLoading} />
       <MyTextInput onChangeText={setText} value={text} />
       <TouchableOpacity
         style={{
