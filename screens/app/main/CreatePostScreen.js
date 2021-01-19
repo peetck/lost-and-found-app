@@ -31,6 +31,7 @@ import {
 } from "../../../shared/utils";
 import { createPost } from "../../../store/actions/posts";
 import Loader from "../../../components/UI/Loader";
+import { API_KEY } from "../../../env";
 
 const CreatePostScreen = (props) => {
   const { params } = props.route;
@@ -63,20 +64,14 @@ const CreatePostScreen = (props) => {
     }
 
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${API_KEY}`
     );
     const resData = await response.json();
 
     setSelectedLocation({
       ...location,
       address: resData.results[0].formatted_address,
-      mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
-        location.lat
-      },${
-        location.lng
-      }&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${
-        location.lat
-      },${location.lng}&key=${"AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs"}`,
+      mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${location.lat},${location.lng}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${location.lat},${location.lng}&key=${API_KEY}`,
     });
     setIsLoadingLocation(false);
   };

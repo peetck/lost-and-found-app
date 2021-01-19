@@ -17,6 +17,7 @@ import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
 import Post from "../../../models/post";
 import MyText from "../../../components/UI/MyText";
+import { API_KEY } from "../../../env";
 
 const SearchScreen = (props) => {
   const initialCategories = useSelector((state) =>
@@ -42,13 +43,7 @@ const SearchScreen = (props) => {
     }
     setSelectedLocation({
       ...location,
-      mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${
-        location.lat
-      },${
-        location.lng
-      }&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${
-        location.lat
-      },${location.lng}&key=${"AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs"}`,
+      mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${location.lat},${location.lng}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${location.lat},${location.lng}&key=${API_KEY}`,
     });
     setIsLoadingLocation(false);
   };

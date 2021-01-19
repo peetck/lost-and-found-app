@@ -16,12 +16,13 @@ import postsReducer from "./store/reducers/posts";
 import categoriesReducer from "./store/reducers/categories";
 import { loadLanguageSetting } from "./shared/storage";
 import Loader from "./components/UI/Loader";
+import { API_KEY } from "./env";
 
 // remove setTimeout() warning
 YellowBox.ignoreWarnings(["Setting a timer"]);
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAZ4-xmgwetmvZo105AOa7Y23hs8neXAfs",
+  apiKey: API_KEY,
   authDomain: "lost-and-found-app-57469.firebaseapp.com",
   databaseURL: "https://lost-and-found-app-57469.firebaseio.com",
   projectId: "lost-and-found-app-57469",
