@@ -2,6 +2,10 @@
 
 - Lost and found App made with React Native
 
+```
+replace API_KEY in env.js
+```
+
 ## Screenshots :camera:
 
 <div><img width="40%" src="screenshots/1.png"> <img width="40%" src="screenshots/2.png"></div>
