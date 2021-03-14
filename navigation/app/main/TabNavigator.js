@@ -11,6 +11,9 @@ import HomeNavigator, {
 import MyPostsNavigator, {
   navigatorOptions as myPostsNavigatorOptions,
 } from "./MyPostsNavigator";
+import ChatNavigator, {
+  navigatorOptions as chatNavigatorOptions,
+} from "./ChatNavigator";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -46,6 +49,11 @@ const TabNavigator = (props) => {
         name="MyPostsNavigator"
         component={MyPostsNavigator}
         options={myPostsNavigatorOptions}
+      />
+      <Tab.Screen
+        name="ChatNavigator"
+        component={ChatNavigator}
+        options={chatNavigatorOptions}
       />
     </Tab.Navigator>
   );

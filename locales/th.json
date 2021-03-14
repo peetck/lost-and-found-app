@@ -74,6 +74,9 @@
   "homeNavigator": {
     "headerTitle": "หน้าหลัก"
   },
+  "chatNavigator": {
+    "headerTitle": "แชท"
+  },
   "myPostsNavigator": {
     "headerTitle": "โพสต์ของฉัน"
   },
