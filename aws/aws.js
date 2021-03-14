@@ -11,15 +11,11 @@ export const dynamodb = new AWS.DynamoDB();
 
 dynamodb.createTable(
   {
-    TableName: "PICNIC",
+    TableName: "categories",
     KeySchema: [
-      { AttributeName: "item1", KeyType: "HASH" }, // Partition key -> HASH
-      { AttributeName: "item2", KeyType: "RANGE" }, // Sort key -> RANGE
+      { AttributeName: "id", KeyType: "HASH" }, // Partition key -> HASH , Sort key -> RANGE
     ],
-    AttributeDefinitions: [
-      { AttributeName: "item1", AttributeType: "S" },
-      { AttributeName: "item2", AttributeType: "S" },
-    ],
+    AttributeDefinitions: [{ AttributeName: "id", AttributeType: "S" }],
     ProvisionedThroughput: {
       ReadCapacityUnits: 10,
       WriteCapacityUnits: 10,
