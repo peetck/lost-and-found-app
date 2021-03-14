@@ -2,8 +2,20 @@
 
 - Lost and found App made with React Native
 
+## Firebase setup 🔥
+
+1) Replace your firebase API_KEY in env.js file
+
+2) Add "categories" collection to cloud firestore with 6 document having field like this
+
 ```
-replace API_KEY in env.js
+{
+  color: STRING,
+  title: {
+    en: STRING,
+    th: STRING
+  }
+}
 ```
 
 ## Screenshots :camera:
