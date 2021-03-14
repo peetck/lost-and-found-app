@@ -17,6 +17,7 @@ import categoriesReducer from "./store/reducers/categories";
 import { loadLanguageSetting } from "./shared/storage";
 import Loader from "./components/UI/Loader";
 import { API_KEY } from "./env";
+import { documentClient } from "./aws";
 
 // remove setTimeout() warning
 YellowBox.ignoreWarnings(["Setting a timer"]);
@@ -67,6 +68,39 @@ export default function App() {
 
   useEffect(() => {
     loadLanguageSetting();
+
+    // test aws
+    console.log("TEST");
+    documentClient.put(
+      {
+        TableName: "PICNIC",
+        Item: {
+          item1: "First",
+          item2: "Second",
+          test: "Hello world"
+        },
+      },
+      (err, data) => {
+        if (err) {
+          console.log("Error", err);
+        } else {
+          console.log("Success", data);
+        }
+      }
+    );
+
+    documentClient.get(
+      {
+        TableName: "PICNIC",
+        Key: {
+          item1: "First",
+          item2: "Second",
+        },
+      },
+      (err, data) => {
+        console.log(err, data);
+      }
+    );
   }, []);
 
   if (!fontLoaded) {
