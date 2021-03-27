@@ -5,7 +5,11 @@ import MyText from "../../UI/MyText";
 
 const ChatItem = (props) => {
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.6}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.6}
+      onPress={props.onPress}
+    >
       <Image
         source={{
           uri: props.imageUrl,

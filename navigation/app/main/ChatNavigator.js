@@ -4,9 +4,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
 import i18n from "i18n-js";
 
-import ChatScreen, {
-  screenOptions as chatScreenOptions,
-} from "../../../screens/app/main/ChatScreen";
+import ChatListScreen, {
+  screenOptions as chatListScreenOptions,
+} from "../../../screens/app/main/ChatListScreen";
 
 const Stack = createStackNavigator();
 
@@ -14,9 +14,9 @@ const chatNavigator = (props) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Chat"
-        component={ChatScreen}
-        options={chatScreenOptions}
+        name="ChatList"
+        component={ChatListScreen}
+        options={chatListScreenOptions}
       />
     </Stack.Navigator>
   );

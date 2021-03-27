@@ -19,6 +19,9 @@ import CreatePostScreen, {
 import MapScreen, {
   screenOptions as mapScreenOptions,
 } from "../../../screens/app/main/MapScreen";
+import ChatScreen, {
+  screenOptions as chatScreenOptions,
+} from "../../../screens/app/main/ChatScreen";
 
 const Stack = createStackNavigator();
 
@@ -49,6 +52,11 @@ const MainNavigator = (props) => {
         name="Map"
         component={MapScreen}
         options={mapScreenOptions}
+      />
+      <Stack.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={chatScreenOptions}
       />
     </Stack.Navigator>
   );

@@ -25,6 +25,9 @@ const ChatList = (props) => {
       title={itemData.item.title}
       subtitle={itemData.item.subtitle}
       imageUrl={itemData.item.imageUrl}
+      onPress={() => {
+        props.navigation.navigate("Chat");
+      }}
     />
   );
 
