@@ -35,7 +35,7 @@ const HomeScreen = (props) => {
 
   const loadPosts = useCallback(async () => {
     try {
-      await dispatch(fetchAllPosts(currentLocation, 5));
+      await dispatch(fetchAllPosts(currentLocation, 5000));
     } catch (error) {
       showError(error.message);
     }

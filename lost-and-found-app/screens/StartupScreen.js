@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Root } from "popup-ui";
 
 import AuthNavigator from "../navigation/auth/AuthNavigator";
@@ -13,34 +13,15 @@ import Loader from "../components/UI/Loader";
 
 const StartupScreen = (props) => {
   const dispatch = useDispatch();
-  const [isAuth, setIsAuth] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  let isAutoLogin = true;
+  const idToken = useSelector((state) => state.user.idToken);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const init = async () => {
       await dispatch(fetchCategories());
       await dispatch(fetchLocation());
-      return firebase.auth().onAuthStateChanged(async (user) => {
-        setIsLoading(true);
-        if (user) {
-          if (isAutoLogin) {
-            // if firebase autologin success -> fetch user data
-            await dispatch(loginSuccess());
-          }
-          setIsAuth(true);
-        } else {
-          setIsAuth(false);
-        }
-        setIsLoading(false);
-        isAutoLogin = false;
-      });
     };
-    // const unsubscribe = init();
     init();
-
-    // clean up function
-    // return () => unsubscribe();
   }, []);
 
   if (isLoading) {
@@ -51,7 +32,7 @@ const StartupScreen = (props) => {
     <Root>
       <NavigationContainer>
         <ActionSheetProvider>
-          {isAuth ? <DrawerNavigator /> : <AuthNavigator />}
+          {idToken !== "" ? <DrawerNavigator /> : <AuthNavigator />}
         </ActionSheetProvider>
       </NavigationContainer>
     </Root>

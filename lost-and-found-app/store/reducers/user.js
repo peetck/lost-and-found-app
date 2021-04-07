@@ -11,6 +11,8 @@ const initialState = {
   nickname: "",
   imageUrl: null,
   location: null,
+  idToken: "",
+  uid: "",
 };
 
 const setUser = (state, action) => {
@@ -20,6 +22,8 @@ const setUser = (state, action) => {
     email: userData.email,
     nickname: userData.nickname,
     imageUrl: userData.imageUrl,
+    idToken: userData.idToken,
+    uid: userData.uid,
   };
 };
 
@@ -50,6 +54,8 @@ const reset = (state, action) => {
     email: "",
     nickname: "",
     imageUrl: null,
+    idToken: "",
+    uid: "",
   };
 };
 
