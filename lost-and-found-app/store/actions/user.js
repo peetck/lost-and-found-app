@@ -5,6 +5,7 @@ import * as Facebook from "expo-facebook";
 import * as Permissions from "expo-permissions";
 import * as Updates from "expo-updates";
 import jwt_decode from "jwt-decode";
+import { API_URL } from "@env";
 
 export const SET_USER = "SET_USER";
 export const SET_LOCATION = "SET_LOCATION";
@@ -130,19 +131,16 @@ export const changeImage = (userImage) => {
 
 export const login = (email, password) => {
   return async (dispatch) => {
-    const response = await fetch(
-      "https://yldoibdrk8.execute-api.ap-southeast-1.amazonaws.com/development/user/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      }
-    );
+    const response = await fetch(`${API_URL}/user/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
 
     const data = await response.json();
     dispatch(loginSuccess(data.body.data.AuthenticationResult.IdToken));
@@ -151,21 +149,18 @@ export const login = (email, password) => {
 
 export const signUp = (email, password, nickname) => {
   return async (dispatch) => {
-    await fetch(
-      "https://yldoibdrk8.execute-api.ap-southeast-1.amazonaws.com/development/user/signup",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: nickname,
-          email: email,
-          password: password,
-          picture: "https://dummyimage.com/250/ffffff/000000",
-        }),
-      }
-    );
+    await fetch(`${API_URL}/user/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: nickname,
+        email: email,
+        password: password,
+        picture: "https://dummyimage.com/250/ffffff/000000",
+      }),
+    });
 
     // const { user } = await firebase
     //   .auth()

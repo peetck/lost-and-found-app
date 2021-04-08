@@ -13,66 +13,75 @@ const myGeoTableManager = new ddbGeo.GeoDataManager(config);
 const s3 = new AWS.S3();
 
 exports.handler = async (e) => {
-  const data = await parser.parse(e);
+  try {
+    const data = await parser.parse(e);
 
-  const key = uuidv4();
+    const key = uuidv4();
 
-  const { content, contentType } = data.files[0];
+    const { content, contentType } = data.files[0];
 
-  const params = {
-    Bucket: "lost-and-found-app-bucket",
-    Key: key,
-    Body: content,
-    ContentType: contentType,
-    ACL: "public-read",
-  };
+    const params = {
+      Bucket: "lost-and-found-app-bucket",
+      Key: key,
+      Body: content,
+      ContentType: contentType,
+      ACL: "public-read",
+    };
 
-  const { Location } = await s3.upload(params).promise();
+    const { Location } = await s3.upload(params).promise();
 
-  const item = {
-    address: {
-      S: data.address,
-    },
-    description: {
-      S: data.description,
-    },
-    expirationDate: {
-      S: data.expirationDate,
-    },
-    imageUrl: {
-      S: Location,
-    },
-    mapUrl: {
-      S: data.mapUrl,
-    },
-    title: {
-      S: data.title,
-    },
-    uid: {
-      S: data.uid,
-    },
-    categoryId: {
-      S: data.categoryId
-    },
-  };
-
-  await myGeoTableManager
-    .putPoint({
-      RangeKeyValue: {
-        S: key,
+    const item = {
+      address: {
+        S: data.address,
       },
-      GeoPoint: {
-        latitude: +data.lat,
-        longitude: +data.lng,
+      description: {
+        S: data.description,
       },
-      PutItemInput: {
-        Item: item,
+      expirationDate: {
+        S: data.expirationDate,
       },
-    })
-    .promise();
+      imageUrl: {
+        S: Location,
+      },
+      mapUrl: {
+        S: data.mapUrl,
+      },
+      title: {
+        S: data.title,
+      },
+      uid: {
+        S: data.uid,
+      },
+      categoryId: {
+        S: data.categoryId,
+      },
+    };
 
-  return {
-    statusCode: 201,
-    body: JSON.stringify(item),
-  };
+    await myGeoTableManager
+      .putPoint({
+        RangeKeyValue: {
+          S: key,
+        },
+        GeoPoint: {
+          latitude: +data.lat,
+          longitude: +data.lng,
+        },
+        PutItemInput: {
+          Item: item,
+        },
+      })
+      .promise();
+
+    return {
+      statusCode: 201,
+      body: JSON.stringify(item),
+    };
+  } catch (err) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: err.message,
+      }),
+    };
+  }
 };

@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import { API_URL } from "@env";
 
 import Category from "../../models/category";
 
@@ -8,9 +8,7 @@ export const fetchCategories = () => {
   return async (dispatch) => {
     const categories = [];
 
-    const response = await fetch(
-      "https://yldoibdrk8.execute-api.ap-southeast-1.amazonaws.com/development/categories"
-    );
+    const response = await fetch(`${API_URL}/categories`);
 
     const data = await response.json();
 

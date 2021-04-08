@@ -2,6 +2,7 @@ import firebase from "firebase";
 import * as geofirestore from "geofirestore";
 import * as geokit from "geokit";
 import { reset } from "i18n-js";
+import { API_URL } from "@env";
 
 import Post from "../../models/post";
 
@@ -12,7 +13,7 @@ export const CREATE_POST = "CREATE_POST";
 export const fetchAllPosts = (currentLocation, radius) => {
   return async (dispatch) => {
     const response = await fetch(
-      `https://yldoibdrk8.execute-api.ap-southeast-1.amazonaws.com/development/posts?lat=${currentLocation.lat}&lng=${currentLocation.lng}&rad=${radius}`
+      `${API_URL}/posts?lat=${currentLocation.lat}&lng=${currentLocation.lng}&rad=${radius}`
     );
 
     const data = await response.json();
@@ -68,9 +69,7 @@ export const fetchMyPosts = (currentLocation) => {
 
     const uid = getState().user.uid;
 
-    const response = await fetch(
-      `https://yldoibdrk8.execute-api.ap-southeast-1.amazonaws.com/development/user/posts?uid=${uid}`
-    );
+    const response = await fetch(`${API_URL}/user/posts?uid=${uid}`);
 
     const data = await response.json();
 
@@ -128,37 +127,41 @@ export const createPost = (
   expirationDate
 ) => {
   return async (dispatch, getState) => {
-    const uid = firebase.auth().currentUser.uid;
-    const firestore = firebase.firestore();
-    const geoFirestore = geofirestore.initializeApp(firestore);
-    const postsCollection = geoFirestore.collection("posts");
+    const uid = getState().user.uid;
+    const idToken = getState().user.idToken;
 
-    const { id } = await postsCollection.add({
-      title,
-      description,
-      categoryId,
-      coordinates: new firebase.firestore.GeoPoint(
-        selectedLocation.lat,
-        selectedLocation.lng
-      ),
-      mapUrl: selectedLocation.mapUrl,
-      expirationDate: expirationDate.toISOString(),
-      uid,
-      address: selectedLocation.address,
+    const filename = selectedImage.slice(selectedImage.lastIndexOf("/") + 1);
+
+    const fileExtension =
+      "image/" + selectedImage.slice(selectedImage.lastIndexOf(".") + 1);
+
+    const formData = new FormData();
+
+    formData.append("lat", selectedLocation.lat);
+    formData.append("lng", selectedLocation.lng);
+    formData.append("address", selectedLocation.address);
+    formData.append("description", description);
+    formData.append("expirationDate", expirationDate.toISOString());
+    formData.append("mapUrl", selectedLocation.mapUrl);
+    formData.append("title", title);
+    formData.append("uid", uid);
+    formData.append("image", {
+      uri: selectedImage,
+      name: filename,
+      type: fileExtension,
+    });
+    formData.append("categoryId", categoryId);
+
+    const response = await fetch(`${API_URL}/user/post`, {
+      method: "POST",
+      headers: {
+        "Content-type": "multipart/form-data",
+        "x-api-key": idToken,
+      },
+      body: formData,
     });
 
-    const ref = firebase.storage().ref().child("posts");
-    const fileName = id + ".jpg";
-    const file = await fetch(selectedImage);
-    const fileBlob = await file.blob();
-    await ref.child(fileName).put(fileBlob);
-    const imageUrl = await ref.child(fileName).getDownloadURL();
-
-    await firebase
-      .firestore()
-      .collection("posts")
-      .doc(id)
-      .set({ imageUrl }, { merge: true });
+    const data = await response.json();
 
     const currentPosition = getState().user.location;
 
@@ -166,6 +169,9 @@ export const createPost = (
       lat: selectedLocation.lat,
       lng: selectedLocation.lng,
     });
+
+    const id = data.rangeKey.S;
+    const imageUrl = data.imageUrl.S;
 
     dispatch({
       type: CREATE_POST,
@@ -184,5 +190,37 @@ export const createPost = (
         selectedLocation.address
       ),
     });
+
+    // const uid = firebase.auth().currentUser.uid;
+    // const firestore = firebase.firestore();
+    // const geoFirestore = geofirestore.initializeApp(firestore);
+    // const postsCollection = geoFirestore.collection("posts");
+
+    // const { id } = await postsCollection.add({
+    //   title,
+    //   description,
+    //   categoryId,
+    //   coordinates: new firebase.firestore.GeoPoint(
+    //     selectedLocation.lat,
+    //     selectedLocation.lng
+    //   ),
+    //   mapUrl: selectedLocation.mapUrl,
+    //   expirationDate: expirationDate.toISOString(),
+    //   uid,
+    //   address: selectedLocation.address,
+    // });
+
+    // const ref = firebase.storage().ref().child("posts");
+    // const fileName = id + ".jpg";
+    // const file = await fetch(selectedImage);
+    // const fileBlob = await file.blob();
+    // await ref.child(fileName).put(fileBlob);
+    // const imageUrl = await ref.child(fileName).getDownloadURL();
+
+    // await firebase
+    //   .firestore()
+    //   .collection("posts")
+    //   .doc(id)
+    //   .set({ imageUrl }, { merge: true });
   };
 };
