@@ -13,6 +13,7 @@ const initialState = {
   location: null,
   idToken: "",
   uid: "",
+  refreshToken: "",
 };
 
 const setUser = (state, action) => {
@@ -24,6 +25,7 @@ const setUser = (state, action) => {
     imageUrl: userData.imageUrl,
     idToken: userData.idToken,
     uid: userData.uid,
+    refreshToken: userData.refreshToken,
   };
 };
 
@@ -56,6 +58,7 @@ const reset = (state, action) => {
     imageUrl: null,
     idToken: "",
     uid: "",
+    refreshToken: "",
   };
 };
 

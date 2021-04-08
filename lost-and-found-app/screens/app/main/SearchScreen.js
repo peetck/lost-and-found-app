@@ -6,8 +6,7 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import firebase from "firebase";
-import * as geofirestore from "geofirestore";
+import * as geokit from "geokit";
 import { useSelector } from "react-redux";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import i18n from "i18n-js";
@@ -17,7 +16,7 @@ import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
 import Post from "../../../models/post";
 import MyText from "../../../components/UI/MyText";
-import { API_KEY } from "../../../env";
+import { GOOGLE_MAPS_API_KEY, API_URL } from "@env";
 
 const SearchScreen = (props) => {
   const initialCategories = useSelector((state) =>
@@ -43,7 +42,7 @@ const SearchScreen = (props) => {
     }
     setSelectedLocation({
       ...location,
-      mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${location.lat},${location.lng}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${location.lat},${location.lng}&key=${API_KEY}`,
+      mapUrl: `https://maps.googleapis.com/maps/api/staticmap?center=${location.lat},${location.lng}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${location.lat},${location.lng}&key=${GOOGLE_MAPS_API_KEY}`,
     });
     setIsLoadingLocation(false);
   };
@@ -64,46 +63,47 @@ const SearchScreen = (props) => {
   };
 
   const fetchPosts = async () => {
-    if (!selectedLocation) {
-      return;
-    }
-    const firestore = firebase.firestore();
-    const geoFirestore = geofirestore.initializeApp(firestore);
-    const postsCollection = geoFirestore.collection("posts");
-    const query = postsCollection.near({
-      center: new firebase.firestore.GeoPoint(
-        selectedLocation.lat,
+    const response = await fetch(
+      `${API_URL}/posts?lat=${selectedLocation.lat}&lng=${
         selectedLocation.lng
-      ),
-      radius: 5,
-    });
+      }&rad=${5000}`
+    );
 
-    const response = await query.get();
+    const data = await response.json();
 
     const result = [];
 
-    response.forEach((post) => {
-      const id = post.id;
-      const data = post.data();
+    data.forEach((post) => {
+      const id = post.rangeKey.S;
 
-      const expirationDate = new Date(data.expirationDate);
+      const expirationDate = new Date(post.expirationDate.S);
+
+      const { coordinates } = JSON.parse(post.geoJson.S);
+      const lat = coordinates[0];
+      const lng = coordinates[1];
+
+      const distance = geokit.distance(selectedLocation, {
+        lat: lat,
+        lng: lng,
+      });
 
       const dateDiff = expirationDate.getTime() - new Date();
+
       if (dateDiff > 0) {
         result.push(
           new Post(
             id,
-            data.title,
-            data.description,
-            data.categoryId,
-            data.imageUrl,
-            data.mapUrl,
-            data.coordinates.latitude,
-            data.coordinates.longitude,
+            post.title.S,
+            post.description.S,
+            post.categoryId.S,
+            post.imageUrl.S,
+            post.mapUrl.S,
+            lat,
+            lng,
             expirationDate,
-            data.uid,
-            post.distance,
-            data.address
+            post.uid.S,
+            distance,
+            post.address.S
           )
         );
       }

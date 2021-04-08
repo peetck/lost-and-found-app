@@ -12,6 +12,10 @@ export const fetchCategories = () => {
 
     const data = await response.json();
 
+    if (response.status !== 200) {
+      throw new Error(data.message);
+    }
+
     data.Items.forEach((category) => {
       const title = {
         th: category.title.M.th.S,

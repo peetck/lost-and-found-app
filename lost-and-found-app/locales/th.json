@@ -53,14 +53,16 @@
     "hint": "ยังไม่มีบัญชี ?",
     "signUp": "สมัครสมาชิก",
     "loginSuccess": "เข้าสู่ระบบสําเร็จ",
-    "successMsg": "ยินดีต้อนรับเข้าสู่ Lost & Found"
+    "successMsg": "ยินดีต้อนรับเข้าสู่ Lost & Found",
+    "emailAndPasswordError": "อีเมลหรือรหัสผ่านไม่ถูกต้อง (รหัสผ่านควรมีความยาวอย่างน้อย 6 ตัว)"
   },
   "nextSignUpScreen": {
     "placeHolderEmail": "อีเมล",
     "placeHolderPass": "รหัสผ่าน",
     "placeHolderConfirmPass": "ยืนยันรหัสผ่าน",
     "signUp": "สมัครสมาชิก",
-    "passwordError": "รหัสผ่านไม่ตรงกัน"
+    "passwordError": "รหัสผ่านไม่ตรงกัน",
+    "emailAndPasswordError": "อีเมลหรือรหัสผ่านไม่ถูกต้อง (รหัสผ่านควรมีความยาวอย่างน้อย 6 ตัว)"
   },
   "signUpScreen": {
     "headerTitle": "สมัครสมาชิก",

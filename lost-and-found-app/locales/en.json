@@ -53,14 +53,16 @@
     "hint": "Doesn't have an account ?",
     "signUp": "Sign up",
     "loginSuccess": "Login Success",
-    "successMsg": "Welcome to Lost & Found App."
+    "successMsg": "Welcome to Lost & Found App.",
+    "emailAndPasswordError": "Email or password is not valid. (password should be at least 6 length)"
   },
   "nextSignUpScreen": {
     "placeHolderEmail": "Email",
     "placeHolderPass": "Password",
     "placeHolderConfirmPass": "Confirm Password",
     "signUp": "Sign up",
-    "passwordError": "Password doesn't match."
+    "passwordError": "Password doesn't match.",
+    "emailAndPasswordError": "Email or password is not valid. (password should be at least 6 length)"
   },
   "signUpScreen": {
     "headerTitle": "Sign Up",

@@ -19,7 +19,11 @@ import i18n from "i18n-js";
 
 import SettingItem from "../../../components/app/settings/SettingItem";
 import { changeImage } from "../../../store/actions/user";
-import { takeImage, takeImageActionSheetOptions } from "../../../shared/utils";
+import {
+  takeImage,
+  takeImageActionSheetOptions,
+  showError,
+} from "../../../shared/utils";
 import Loader from "../../../components/UI/Loader";
 
 const AccountSettingScreen = (props) => {
@@ -37,8 +41,12 @@ const AccountSettingScreen = (props) => {
         const imageUri = await takeImage(index);
         setIsLoading(true);
         if (imageUri) {
-          await dispatch(changeImage(imageUri));
-          setSelectedImage(imageUri);
+          try {
+            await dispatch(changeImage(imageUri));
+            setSelectedImage(imageUri);
+          } catch (err) {
+            showError(err.message);
+          }
         }
         setIsLoading(false);
       }

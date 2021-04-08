@@ -1,7 +1,4 @@
-import firebase from "firebase";
-import * as geofirestore from "geofirestore";
 import * as geokit from "geokit";
-import { reset } from "i18n-js";
 import { API_URL } from "@env";
 
 import Post from "../../models/post";
@@ -17,6 +14,10 @@ export const fetchAllPosts = (currentLocation, radius) => {
     );
 
     const data = await response.json();
+
+    if (response.status !== 200) {
+      throw new Error(data.message);
+    }
 
     const posts = [];
 
@@ -72,6 +73,10 @@ export const fetchMyPosts = (currentLocation) => {
     const response = await fetch(`${API_URL}/user/posts?uid=${uid}`);
 
     const data = await response.json();
+
+    if (response.status !== 200) {
+      throw new Error(data.message);
+    }
 
     const myPosts = [];
 
@@ -163,6 +168,10 @@ export const createPost = (
 
     const data = await response.json();
 
+    if (response.status !== 201) {
+      throw new Error(data.message);
+    }
+
     const currentPosition = getState().user.location;
 
     const distance = geokit.distance(currentPosition, {
@@ -190,37 +199,5 @@ export const createPost = (
         selectedLocation.address
       ),
     });
-
-    // const uid = firebase.auth().currentUser.uid;
-    // const firestore = firebase.firestore();
-    // const geoFirestore = geofirestore.initializeApp(firestore);
-    // const postsCollection = geoFirestore.collection("posts");
-
-    // const { id } = await postsCollection.add({
-    //   title,
-    //   description,
-    //   categoryId,
-    //   coordinates: new firebase.firestore.GeoPoint(
-    //     selectedLocation.lat,
-    //     selectedLocation.lng
-    //   ),
-    //   mapUrl: selectedLocation.mapUrl,
-    //   expirationDate: expirationDate.toISOString(),
-    //   uid,
-    //   address: selectedLocation.address,
-    // });
-
-    // const ref = firebase.storage().ref().child("posts");
-    // const fileName = id + ".jpg";
-    // const file = await fetch(selectedImage);
-    // const fileBlob = await file.blob();
-    // await ref.child(fileName).put(fileBlob);
-    // const imageUrl = await ref.child(fileName).getDownloadURL();
-
-    // await firebase
-    //   .firestore()
-    //   .collection("posts")
-    //   .doc(id)
-    //   .set({ imageUrl }, { merge: true });
   };
 };

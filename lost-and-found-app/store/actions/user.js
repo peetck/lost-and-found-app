@@ -1,11 +1,16 @@
-import firebase from "firebase";
 import { Alert } from "react-native";
 import * as Location from "expo-location";
-import * as Facebook from "expo-facebook";
 import * as Permissions from "expo-permissions";
 import * as Updates from "expo-updates";
 import jwt_decode from "jwt-decode";
-import { API_URL } from "@env";
+import { API_URL, DEFAULT_USER_IMAGE_URL } from "@env";
+
+import {
+  saveIdToken,
+  removeIdToken,
+  saveRefreshToken,
+  removeRefreshToken,
+} from "../../shared/storage";
 
 export const SET_USER = "SET_USER";
 export const SET_LOCATION = "SET_LOCATION";
@@ -13,18 +18,21 @@ export const SET_NICKNAME = "SET_NICKNAME";
 export const SET_IMAGE_URL = "SET_IMAGE_URL";
 export const RESET = "RESET";
 
-export const loginSuccess = (idToken) => {
+export const loginSuccess = (idToken, refreshToken) => {
   return async (dispatch) => {
     const userData = jwt_decode(idToken);
+    await saveIdToken(idToken);
+    await saveRefreshToken(refreshToken);
 
     dispatch({
       type: SET_USER,
       userData: {
         email: userData.email,
-        nickname: userData.name,
+        nickname: userData.nickname,
         imageUrl: userData.picture,
         uid: userData.sub,
         idToken: idToken,
+        refreshToken: refreshToken,
       },
     });
   };
@@ -85,47 +93,71 @@ export const fetchLocation = () => {
 };
 
 export const changeNickname = (nickname) => {
-  return async (dispatch) => {
-    const { uid } = firebase.auth().currentUser;
-    await firebase
-      .firestore()
-      .collection("users")
-      .doc(uid)
-      .set({ nickname: nickname }, { merge: true });
+  return async (dispatch, getState) => {
+    const idToken = getState().user.idToken;
+    const username = getState().user.email;
+    const uid = getState().user.uid;
+    const refreshToken = getState().user.refreshToken;
 
-    dispatch({
-      type: SET_NICKNAME,
-      nickname: nickname,
+    const response = await fetch(`${API_URL}/user/changenickname`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": idToken,
+      },
+      body: JSON.stringify({
+        username: username,
+        newNickname: nickname,
+      }),
     });
+
+    const data = await response.json();
+
+    if (response.status !== 200) {
+      throw new Error(data.message);
+    }
+
+    dispatch(tryRefreshToken(refreshToken, uid));
   };
 };
 
 export const changeImage = (userImage) => {
-  return async (dispatch) => {
-    const { uid } = firebase.auth().currentUser;
+  return async (dispatch, getState) => {
+    const uid = getState().user.uid;
+    const email = getState().user.email;
+    const refreshToken = getState().user.refreshToken;
 
-    let ref = firebase.storage().ref().child("user_image");
-    let fileName = userImage;
+    // upload user image
+    const filename = userImage.slice(userImage.lastIndexOf("/") + 1);
 
-    if (userImage) {
-      const file = await fetch(userImage);
-      const fileBlob = await file.blob();
-      fileName = uid + ".jpg";
-      await ref.child(fileName).put(fileBlob);
+    const fileExtension =
+      "image/" + userImage.slice(userImage.lastIndexOf(".") + 1);
+
+    const formData = new FormData();
+
+    formData.append("uid", uid);
+    formData.append("username", email);
+    formData.append("image", {
+      uri: userImage,
+      name: filename,
+      type: fileExtension,
+    });
+
+    const response = await fetch(`${API_URL}/user/image`, {
+      method: "POST",
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (response.status !== 201) {
+      throw new Error(data.message);
     }
 
-    const imageUrl = await ref.child(fileName).getDownloadURL();
-
-    await firebase
-      .firestore()
-      .collection("users")
-      .doc(uid)
-      .set({ imageUrl: imageUrl }, { merge: true });
-
-    dispatch({
-      type: SET_IMAGE_URL,
-      imageUrl: imageUrl,
-    });
+    dispatch(tryRefreshToken(refreshToken, uid));
   };
 };
 
@@ -143,90 +175,108 @@ export const login = (email, password) => {
     });
 
     const data = await response.json();
-    dispatch(loginSuccess(data.body.data.AuthenticationResult.IdToken));
+
+    if (data.statusCode !== 200) {
+      throw new Error(data.body.message);
+    }
+
+    dispatch(
+      loginSuccess(
+        data.body.data.AuthenticationResult.IdToken,
+        data.body.data.AuthenticationResult.RefreshToken
+      )
+    );
   };
 };
 
-export const signUp = (email, password, nickname) => {
+export const signUp = (email, password, nickname, selectedImage) => {
   return async (dispatch) => {
-    await fetch(`${API_URL}/user/signup`, {
+    // signup user w/ information and imageUrl
+    const response = await fetch(`${API_URL}/user/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: nickname,
+        nickname: nickname,
         email: email,
         password: password,
-        picture: "https://dummyimage.com/250/ffffff/000000",
+        picture: DEFAULT_USER_IMAGE_URL,
       }),
     });
 
-    // const { user } = await firebase
-    //   .auth()
-    //   .createUserWithEmailAndPassword(email, password);
+    const data = await response.json();
 
-    // let fileName = "user_default.png";
-    // let ref = firebase.storage().ref().child("user_image");
+    if (data.statusCode !== 200) {
+      throw new Error(data.body.message);
+    }
 
-    // if (image) {
-    //   const file = await fetch(image);
-    //   const fileBlob = await file.blob();
-    //   fileName = user.uid + ".jpg";
-    //   await ref.child(fileName).put(fileBlob);
-    // }
+    if (selectedImage) {
+      const uid = data.body.data.UserSub;
 
-    // const imageUrl = await ref.child(fileName).getDownloadURL();
-    // await firebase.firestore().collection("users").doc(user.uid).set({
-    //   email: email,
-    //   nickname: nickname,
-    //   imageUrl: imageUrl,
-    // });
+      // upload user image
+      const filename = selectedImage.slice(selectedImage.lastIndexOf("/") + 1);
+
+      const fileExtension =
+        "image/" + selectedImage.slice(selectedImage.lastIndexOf(".") + 1);
+
+      const formData = new FormData();
+
+      formData.append("uid", uid);
+      formData.append("username", email);
+      formData.append("image", {
+        uri: selectedImage,
+        name: filename,
+        type: fileExtension,
+      });
+
+      await fetch(`${API_URL}/user/image`, {
+        method: "POST",
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+        body: formData,
+      });
+    }
 
     dispatch(login(email, password));
   };
 };
 
-export const loginWithFacebook = () => {
+export const logout = () => {
   return async (dispatch) => {
-    const { type, token } = await Facebook.logInWithReadPermissionsAsync();
-
-    if (type === "success") {
-      await firebase
-        .auth()
-        .setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-      const credential = firebase.auth.FacebookAuthProvider.credential(token);
-      const facebookProfileData = await firebase
-        .auth()
-        .signInWithCredential(credential);
-
-      const uid = facebookProfileData.user.uid;
-      const email = facebookProfileData.additionalUserInfo.profile.email;
-      const nickname = facebookProfileData.additionalUserInfo.profile.name;
-      const imageUrl =
-        facebookProfileData.additionalUserInfo.profile.picture.data.url;
-      const isNewUser = facebookProfileData.additionalUserInfo.isNewUser;
-
-      if (isNewUser) {
-        await firebase.firestore().collection("users").doc(uid).set({
-          email: email,
-          nickname: nickname,
-          imageUrl: imageUrl,
-        });
-      }
-
-      dispatch(loginSuccess());
-    } else {
-      throw new Error("");
-    }
+    await removeIdToken();
+    await removeRefreshToken();
+    await dispatch({
+      type: RESET,
+    });
   };
 };
 
-export const logout = () => {
+export const tryRefreshToken = (refreshTokenFromStorage, uid) => {
   return async (dispatch) => {
-    await firebase.auth().signOut();
-    dispatch({
-      type: RESET,
+    const response = await fetch(`${API_URL}/user/refreshtoken`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        refresh_token: refreshTokenFromStorage,
+        uid: uid,
+      }),
     });
+
+    const data = await response.json();
+
+    if (response.status === 200) {
+      await dispatch(
+        loginSuccess(
+          data.body.data.AuthenticationResult.IdToken,
+          refreshTokenFromStorage
+        )
+      );
+    } else {
+      throw new Error("Invalid refresh token");
+    }
   };
 };

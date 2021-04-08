@@ -22,7 +22,7 @@ import MyText from "../../components/UI/MyText";
 import MyTextInput from "../../components/UI/MyTextInput";
 import colors from "../../shared/colors";
 import AuthHeader from "../../components/auth/AuthHeader";
-import { login, loginWithFacebook } from "../../store/actions/user";
+import { login } from "../../store/actions/user";
 import {
   showSuccess,
   showError,
@@ -49,32 +49,21 @@ const LoginScreen = (props) => {
     });
   };
 
-  const loginHandler = async (method) => {
+  const loginHandler = async () => {
     setIsLoading(true);
-    if (method === "email") {
-      try {
-        await dispatch(login(email.trim(), password));
-        showSuccess(
-          i18n.t("loginScreen.loginSuccess"),
-          i18n.t("loginScreen.successMsg")
-        );
-      } catch (error) {
-        showError(error.message);
-        setIsLoading(false);
+
+    try {
+      if (email.trim().length === 0 || password.length < 6) {
+        throw new Error(i18n.t("loginScreen.emailAndPasswordError"));
       }
-    } else if (method === "facebook") {
-      try {
-        await dispatch(loginWithFacebook());
-        showSuccess(
-          i18n.t("loginScreen.loginSuccess"),
-          i18n.t("loginScreen.loginSuccess")
-        );
-      } catch (error) {
-        setIsLoading(false);
-        if (error.message !== "") {
-          showError(error.message);
-        }
-      }
+      await dispatch(login(email.trim(), password));
+      showSuccess(
+        i18n.t("loginScreen.loginSuccess"),
+        i18n.t("loginScreen.successMsg")
+      );
+    } catch (error) {
+      showError(error.message);
+      setIsLoading(false);
     }
   };
 
@@ -135,19 +124,9 @@ const LoginScreen = (props) => {
             <View style={styles.normalLoginButton}>
               <MyButton
                 title={i18n.t("loginScreen.subtitle")}
-                onPress={() => loginHandler("email")}
+                onPress={loginHandler}
               />
             </View>
-
-            {Platform.OS !== "ios" && (
-              <TouchableOpacity
-                style={styles.facebookLoginButton}
-                activeOpacity={0.6}
-                onPress={() => loginHandler("facebook")}
-              >
-                <Ionicons name="logo-facebook" size={45} color="#4267B2" />
-              </TouchableOpacity>
-            )}
           </View>
 
           <View style={styles.centerContainer}>
@@ -184,14 +163,6 @@ const styles = StyleSheet.create({
   },
   normalLoginButton: {
     flex: 1,
-  },
-  facebookLoginButton: {
-    flex: 0.4,
-    marginLeft: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
-    borderRadius: 10,
   },
   scrollView: {
     flexGrow: 1,
