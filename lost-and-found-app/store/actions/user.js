@@ -247,7 +247,7 @@ export const logout = () => {
   return async (dispatch) => {
     await removeIdToken();
     await removeRefreshToken();
-    await dispatch({
+    dispatch({
       type: RESET,
     });
   };
@@ -269,7 +269,7 @@ export const tryRefreshToken = (refreshTokenFromStorage, uid) => {
     const data = await response.json();
 
     if (response.status === 200) {
-      await dispatch(
+      dispatch(
         loginSuccess(
           data.body.data.AuthenticationResult.IdToken,
           refreshTokenFromStorage

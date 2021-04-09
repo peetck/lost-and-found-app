@@ -8,11 +8,11 @@ exports.handler = async (e) => {
   try {
     const data = await parser.parse(e);
 
-    const { content, contentType } = data.files[0];
+    const { filename, content, contentType } = data.files[0];
 
     const params = {
       Bucket: "lost-and-found-app-bucket",
-      Key: data.uid,
+      Key: data.uid + "--" + filename,
       Body: content,
       ContentType: contentType,
       ACL: "public-read",
