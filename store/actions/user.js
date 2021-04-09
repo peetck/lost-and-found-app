@@ -39,9 +39,7 @@ const getCurrentLocation = async () => {
     return;
   } else {
     try {
-      const location = await Location.getCurrentPositionAsync({
-        timeout: 5000,
-      });
+      const location = await Location.getCurrentPositionAsync({});
       return {
         lat: location.coords.latitude,
         lng: location.coords.longitude,
