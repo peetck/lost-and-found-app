@@ -17,7 +17,7 @@ import PostList from "../../../components/app/main/PostList";
 import colors from "../../../shared/colors";
 import Post from "../../../models/post";
 import MyText from "../../../components/UI/MyText";
-import { API_KEY } from "../../../env";
+import { API_KEY } from "@env";
 
 const SearchScreen = (props) => {
   const initialCategories = useSelector((state) =>

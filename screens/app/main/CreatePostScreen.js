@@ -31,7 +31,7 @@ import {
 } from "../../../shared/utils";
 import { createPost } from "../../../store/actions/posts";
 import Loader from "../../../components/UI/Loader";
-import { API_KEY } from "../../../env";
+import { API_KEY } from "@env";
 
 const CreatePostScreen = (props) => {
   const { params } = props.route;

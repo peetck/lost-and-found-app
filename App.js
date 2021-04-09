@@ -16,7 +16,7 @@ import postsReducer from "./store/reducers/posts";
 import categoriesReducer from "./store/reducers/categories";
 import { loadLanguageSetting } from "./shared/storage";
 import Loader from "./components/UI/Loader";
-import { API_KEY } from "./env";
+import { API_KEY } from "@env";
 
 // remove setTimeout() warning
 YellowBox.ignoreWarnings(["Setting a timer"]);
