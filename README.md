@@ -2,6 +2,8 @@
 
 - Lost and found App made with React Native
 
+<img width="60%" src="screenshots/qr.png">
+
 ## Firebase setup 🔥
 
 1) Create .env file for firebase API_KEY
