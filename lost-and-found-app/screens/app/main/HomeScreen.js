@@ -34,11 +34,13 @@ const HomeScreen = (props) => {
   const isFocused = useIsFocused();
 
   const loadPosts = useCallback(async () => {
+    setIsRefreshing(true);
     try {
       await dispatch(fetchAllPosts(currentLocation, 5000));
     } catch (error) {
       showError(error.message);
     }
+    setIsRefreshing(false);
   }, [dispatch, currentLocation]);
 
   useEffect(() => {
@@ -50,12 +52,6 @@ const HomeScreen = (props) => {
       posts.filter((post) => selectedCategories.includes(post.categoryId))
     );
   }, [selectedCategories, posts]);
-
-  const onRefresh = async () => {
-    setIsRefreshing(true);
-    await loadPosts();
-    setIsRefreshing(false);
-  };
 
   const header = (
     <View>
@@ -115,7 +111,7 @@ const HomeScreen = (props) => {
         data={showPosts}
         navigation={props.navigation}
         header={header}
-        onRefresh={onRefresh}
+        onRefresh={loadPosts}
         refreshing={isRefreshing}
       />
     </View>
