@@ -40,6 +40,7 @@ const PostList = (props) => {
             lng: itemData.item.lng,
           },
           address: itemData.item.address,
+          uid: itemData.item.uid,
         });
       }}
     />

@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import MyText from "./MyText";
 import Colors from "../../shared/colors";
@@ -11,7 +12,21 @@ const MyButton = (props) => {
       onPress={props.onPress}
       activeOpacity={0.6}
     >
-      <MyText style={styles.title}>{props.title}</MyText>
+      <MyText style={styles.title}>
+        {props.withIcon && (
+          <>
+            <Ionicons
+              name={
+                Platform.OS === "android" ? "md-chatbubbles" : "ios-chatbubbles"
+              }
+              size={23}
+              color="white"
+            />
+            {"  "}
+          </>
+        )}
+        {props.title}
+      </MyText>
     </TouchableOpacity>
   );
 };

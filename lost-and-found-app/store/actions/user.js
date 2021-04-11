@@ -3,7 +3,7 @@ import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import * as Updates from "expo-updates";
 import jwt_decode from "jwt-decode";
-import { API_URL, DEFAULT_USER_IMAGE_URL } from "@env";
+import { API_URL, DEFAULT_USER_IMAGE_URL, WEB_SOCKET_URL } from "@env";
 
 import {
   saveIdToken,
@@ -24,6 +24,16 @@ export const loginSuccess = (idToken, refreshToken) => {
     await saveIdToken(idToken);
     await saveRefreshToken(refreshToken);
 
+    const ws = new WebSocket(`${WEB_SOCKET_URL}?uid=${userData.sub}`);
+
+    ws.onopen = () => {
+      console.log("websocket connected!!");
+    };
+
+    ws.onmessage = (e) => {
+      console.log(e);
+    };
+
     dispatch({
       type: SET_USER,
       userData: {
@@ -33,6 +43,7 @@ export const loginSuccess = (idToken, refreshToken) => {
         uid: userData.sub,
         idToken: idToken,
         refreshToken: refreshToken,
+        ws: ws,
       },
     });
   };
@@ -117,7 +128,7 @@ export const changeNickname = (nickname) => {
       throw new Error(data.message);
     }
 
-    dispatch(tryRefreshToken(refreshToken, uid));
+    await dispatch(tryRefreshToken(refreshToken, uid));
   };
 };
 
@@ -157,7 +168,7 @@ export const changeImage = (userImage) => {
       throw new Error(data.message);
     }
 
-    dispatch(tryRefreshToken(refreshToken, uid));
+    await dispatch(tryRefreshToken(refreshToken, uid));
   };
 };
 
@@ -176,14 +187,14 @@ export const login = (email, password) => {
 
     const data = await response.json();
 
-    if (data.statusCode !== 200) {
-      throw new Error(data.body.message);
+    if (response.status !== 200) {
+      throw new Error(data.message);
     }
 
-    dispatch(
+    await dispatch(
       loginSuccess(
-        data.body.data.AuthenticationResult.IdToken,
-        data.body.data.AuthenticationResult.RefreshToken
+        data.data.AuthenticationResult.IdToken,
+        data.data.AuthenticationResult.RefreshToken
       )
     );
   };
@@ -207,8 +218,8 @@ export const signUp = (email, password, nickname, selectedImage) => {
 
     const data = await response.json();
 
-    if (data.statusCode !== 200) {
-      throw new Error(data.body.message);
+    if (response.status !== 200) {
+      throw new Error(data.message);
     }
 
     if (selectedImage) {
@@ -239,12 +250,14 @@ export const signUp = (email, password, nickname, selectedImage) => {
       });
     }
 
-    dispatch(login(email, password));
+    await dispatch(login(email, password));
   };
 };
 
 export const logout = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const ws = getState().user.ws;
+    ws.close();
     await removeIdToken();
     await removeRefreshToken();
     dispatch({
@@ -269,14 +282,14 @@ export const tryRefreshToken = (refreshTokenFromStorage, uid) => {
     const data = await response.json();
 
     if (response.status === 200) {
-      dispatch(
+      await dispatch(
         loginSuccess(
-          data.body.data.AuthenticationResult.IdToken,
+          data.data.AuthenticationResult.IdToken,
           refreshTokenFromStorage
         )
       );
     } else {
-      throw new Error("Invalid refresh token");
+      throw new Error(data.message);
     }
   };
 };

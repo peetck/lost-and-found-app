@@ -21,10 +21,14 @@
     "subtitle": "โพสต์ที่เปิดอยู่"
   },
   "postDetailScreen": {
-    "header1": "หมวดหมู่สิ่งของ",
-    "header2": "รูปภาพ",
-    "header3": "คำอธิบายเพิ่มเติม",
-    "header4": "สถานที่"
+    "header1": "ชื่อโพสต์",
+    "header2": "เจ้าของโพสต์",
+    "header3": "หมวดหมู่สิ่งของ",
+    "header4": "รูปภาพ",
+    "header5": "คำอธิบายเพิ่มเติม",
+    "header6": "สถานที่",
+    "buttonTitle": "ส่งข้อความ",
+    "error": "ไม่สามารถโหลดข้อมูลโพสต์ได้"
   },
   "searchScreen": {
     "headerTitle": "ค้นหาจากตําแหน่ง",
@@ -72,6 +76,9 @@
     "hint": "มีบัญชีอยู่แล้ว ?",
     "login": "เข้าสู่ระบบ",
     "pleaseEnterYourNickname": "กรุณากรอกชื่อเล่นของคุณ"
+  },
+  "chatScreen": {
+    "error": "ไม่สามารถโหลดข้อมูลแชทได้"
   },
   "homeNavigator": {
     "headerTitle": "หน้าหลัก"

@@ -11,7 +11,8 @@ import "react-native-gesture-handler";
 import userReducer from "./store/reducers/user";
 import postsReducer from "./store/reducers/posts";
 import categoriesReducer from "./store/reducers/categories";
-import { loadLanguageSetting, loadIdToken } from "./shared/storage";
+import chatsReducer from "./store/reducers/chats";
+import { loadLanguageSetting } from "./shared/storage";
 import Loader from "./components/UI/Loader";
 
 // remove setTimeout() warning
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   posts: postsReducer,
   categories: categoriesReducer,
+  chats: chatsReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

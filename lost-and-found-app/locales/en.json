@@ -21,10 +21,14 @@
     "subtitle": "Your Available Post"
   },
   "postDetailScreen": {
-    "header1": "Category",
-    "header2": "Image",
-    "header3": "Description",
-    "header4": "Location"
+    "header1": "Title",
+    "header2": "Post Owner",
+    "header3": "Category",
+    "header4": "Image",
+    "header5": "Description",
+    "header6": "Location",
+    "buttonTitle": "Send Message",
+    "error": "Can't load post information"
   },
   "searchScreen": {
     "headerTitle": "Search by Location",
@@ -72,6 +76,9 @@
     "hint": "Already have an account ?",
     "login": "Login",
     "pleaseEnterYourNickname": "Please enter your nickname."
+  },
+  "chatScreen": {
+    "error": "Can't load chat information"
   },
   "homeNavigator": {
     "headerTitle": "Home"

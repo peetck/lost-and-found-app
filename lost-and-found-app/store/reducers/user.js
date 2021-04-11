@@ -14,6 +14,7 @@ const initialState = {
   idToken: "",
   uid: "",
   refreshToken: "",
+  ws: null,
 };
 
 const setUser = (state, action) => {
@@ -26,6 +27,7 @@ const setUser = (state, action) => {
     idToken: userData.idToken,
     uid: userData.uid,
     refreshToken: userData.refreshToken,
+    ws: userData.ws,
   };
 };
 
@@ -59,6 +61,7 @@ const reset = (state, action) => {
     idToken: "",
     uid: "",
     refreshToken: "",
+    ws: null,
   };
 };
 
