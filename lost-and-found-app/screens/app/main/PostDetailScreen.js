@@ -5,25 +5,26 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Platform,
 } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import i18n from "i18n-js";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { API_URL } from "@env";
 import Loader from "../../../components/UI/Loader";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 import MyText from "../../../components/UI/MyText";
 import colors from "../../../shared/colors";
 import CategoryList from "../../../components/app/main/CategoryList";
-import HeaderButton from "../../../components/UI/HeaderButton";
 import { showError } from "../../../shared/utils";
 import UserInformation from "../../../components/app/main/UserInformation";
 import MyButton from "../../../components/UI/MyButton";
+import { createChatRoom } from "../../../store/actions/chats";
 
 const PostDetailScreen = (props) => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const chats = useSelector((state) => state.chats.chats);
   const [postOwner, setPostOwner] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -70,28 +71,32 @@ const PostDetailScreen = (props) => {
     }
   }, [uid, user]);
 
-  useEffect(() => {
-    // check if this post is created by current user
-    if (uid !== user.uid) {
-      props.navigation.setOptions({
-        headerRight: () => (
-          <HeaderButtons HeaderButtonComponent={HeaderButton}>
-            <Item
-              iconName={
-                Platform.OS === "android" ? "md-chatbubbles" : "ios-chatbubbles"
-              }
-              color="black"
-              onPress={() => {
-                props.navigation.navigate("Chat", {
-                  toUser: postOwner,
-                });
-              }}
-            />
-          </HeaderButtons>
-        ),
+  const pressChatHandler = async () => {
+    setIsLoading(true);
+    let foundRoomId;
+
+    for (let chat of chats) {
+      if (postOwner.sub === chat.toUser.sub) {
+        foundRoomId = chat.roomId;
+        break;
+      }
+    }
+    if (foundRoomId) {
+      props.navigation.navigate("Chat", {
+        toUser: postOwner,
+        roomId: foundRoomId,
+      });
+    } else {
+      const createdRoomId = uuidv4();
+      await dispatch(createChatRoom(createdRoomId, postOwner));
+
+      props.navigation.navigate("Chat", {
+        toUser: postOwner,
+        roomId: createdRoomId,
       });
     }
-  }, [uid, user, postOwner]);
+    setIsLoading(false);
+  };
 
   const pressLocationHandler = () => {
     props.navigation.navigate("Map", {
@@ -134,17 +139,9 @@ const PostDetailScreen = (props) => {
             {uid !== user.uid && (
               <MyButton
                 title={i18n.t("postDetailScreen.buttonTitle")}
-                style={{
-                  marginTop: 25,
-                  padding: 5,
-                  width: "90%",
-                }}
+                style={styles.chatButton}
                 withIcon
-                onPress={() => {
-                  props.navigation.navigate("Chat", {
-                    toUser: postOwner,
-                  });
-                }}
+                onPress={pressChatHandler}
               />
             )}
           </View>
@@ -234,6 +231,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
+  },
+  chatButton: {
+    marginTop: 25,
+    padding: 5,
+    width: "90%",
   },
 });
 

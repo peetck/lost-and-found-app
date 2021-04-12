@@ -11,6 +11,7 @@ import {
   saveRefreshToken,
   removeRefreshToken,
 } from "../../shared/storage";
+import { fetchAllChats } from "./chats";
 
 export const SET_USER = "SET_USER";
 export const SET_LOCATION = "SET_LOCATION";
@@ -26,12 +27,8 @@ export const loginSuccess = (idToken, refreshToken) => {
 
     const ws = new WebSocket(`${WEB_SOCKET_URL}?uid=${userData.sub}`);
 
-    ws.onopen = () => {
-      console.log("websocket connected!!");
-    };
-
-    ws.onmessage = (e) => {
-      console.log(e);
+    ws.onmessage = async () => {
+      await dispatch(fetchAllChats());
     };
 
     dispatch({
@@ -61,7 +58,7 @@ const getCurrentLocation = async () => {
   } else {
     try {
       const location = await Location.getCurrentPositionAsync({
-        timeout: 5000,
+        maximumAge: 3600000,
       });
       return {
         lat: location.coords.latitude,

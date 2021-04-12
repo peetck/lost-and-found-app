@@ -1,7 +1,9 @@
 class Chat {
-  constructor(id, toUser) {
-    this.id = id;
+  constructor(roomId, toUser, seen, last, messages) {
+    this.roomId = roomId;
     this.toUser = toUser;
+    this.seen = seen;
+    this.last = last;
   }
 }
 

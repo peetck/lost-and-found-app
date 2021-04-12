@@ -23,11 +23,13 @@ const ChatList = (props) => {
   const renderItem = (itemData) => (
     <ChatItem
       title={itemData.item.toUser.nickname}
-      subtitle={""}
+      subtitle={itemData.item.last}
+      seen={itemData.item.seen}
       imageUrl={itemData.item.toUser.picture}
       onPress={() => {
         props.navigation.navigate("Chat", {
           toUser: itemData.item.toUser,
+          roomId: itemData.item.roomId,
         });
       }}
     />
@@ -37,7 +39,7 @@ const ChatList = (props) => {
     <FlatList
       data={props.data}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id.S}
+      keyExtractor={(item) => item.roomId}
       ListHeaderComponent={props.header}
       onRefresh={props.onRefresh}
       refreshing={props.refreshing}
