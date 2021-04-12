@@ -23,12 +23,23 @@ exports.handler = async (e) => {
         "#rooms": "rooms",
       },
       ExpressionAttributeValues: {
-        ":vals": [{ uid: data.toUser.sub, id: id }],
+        ":vals": [{ uid: data.toUser.sub, id: id, seen: true }],
       },
       ReturnValues: "UPDATED_NEW",
     };
 
     await dynamodb.update(params).promise();
+    await dynamodb
+      .update({
+        ...params,
+        Key: {
+          uid: data.toUser.sub,
+        },
+        ExpressionAttributeValues: {
+          ":vals": [{ uid: data.uid, id: id, seen: true }],
+        },
+      })
+      .promise();
 
     // create item in messages table
     await dynamodb
@@ -43,7 +54,9 @@ exports.handler = async (e) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify("Success"),
+      body: JSON.stringify({
+        id: id,
+      }),
     };
   } catch (err) {
     return {

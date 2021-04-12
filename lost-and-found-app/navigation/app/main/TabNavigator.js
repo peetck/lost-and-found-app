@@ -1,7 +1,11 @@
 import React from "react";
+import { Text, StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import i18n from "i18n-js";
+import IconBadge from "react-native-icon-badge";
+import { Ionicons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 import HeaderButton from "../../../components/UI/HeaderButton";
 import colors from "../../../shared/colors";
@@ -38,6 +42,13 @@ const tabBarOptions = {
 };
 
 const TabNavigator = (props) => {
+  const chats = useSelector((state) => state.chats.chats);
+
+  const count = chats.reduce(
+    (number, chat) => (chat.seen ? number : number + 1),
+    0
+  );
+
   return (
     <Tab.Navigator tabBarPosition="bottom" tabBarOptions={tabBarOptions}>
       <Tab.Screen
@@ -53,11 +64,42 @@ const TabNavigator = (props) => {
       <Tab.Screen
         name="ChatNavigator"
         component={ChatNavigator}
-        options={chatNavigatorOptions}
+        options={{
+          ...chatNavigatorOptions,
+          tabBarIcon: ({ color }) => (
+            <IconBadge
+              MainElement={
+                <Ionicons
+                  name={
+                    Platform.OS === "android"
+                      ? "md-chatbubbles"
+                      : "ios-chatbubbles"
+                  }
+                  size={25}
+                  color={color}
+                />
+              }
+              BadgeElement={<Text style={styles.text}>{count}</Text>}
+              IconBadgeStyle={styles.iconBadge}
+              Hidden={count === 0}
+            />
+          ),
+        }}
       />
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    color: "white",
+  },
+  iconBadge: {
+    backgroundColor: "red",
+    top: -5,
+    right: -15,
+  },
+});
 
 export const navigatorOptions = (navData) => {
   return {

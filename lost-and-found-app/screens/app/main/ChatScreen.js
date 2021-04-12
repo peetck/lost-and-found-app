@@ -25,7 +25,7 @@ const ChatScreen = (props) => {
 
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadRoom = async () => {
