@@ -43,9 +43,11 @@ const tabBarOptions = {
 
 const TabNavigator = (props) => {
   const chats = useSelector((state) => state.chats.chats);
+  const uid = useSelector((state) => state.user.uid);
 
   const count = chats.reduce(
-    (number, chat) => (chat.seen ? number : number + 1),
+    (number, chat) =>
+      chat.seen || uid === chat.last.fromUid ? number : number + 1,
     0
   );
 
