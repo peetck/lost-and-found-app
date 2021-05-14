@@ -55,7 +55,12 @@ const ChatListScreen = (props) => {
   return (
     <View style={styles.screen}>
       <ChatList
-        data={chats}
+        data={chats.filter((chat) =>
+          chat.toUser.nickname
+            .toLowerCase()
+            .trim()
+            .includes(searchInput.toLowerCase().trim())
+        )}
         navigation={props.navigation}
         header={header}
         onRefresh={onRefresh}
