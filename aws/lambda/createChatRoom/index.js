@@ -1,16 +1,15 @@
 const AWS = require("aws-sdk");
-const { v4: uuidv4 } = require("uuid");
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 const CHATS_TABLE = "chats";
-const MESSAGES_TABLE = "messages";
+const ROOMS_TABLE = "rooms";
 
-exports.handler = async (e) => {
+exports.handler = async(e) => {
   try {
     const data = JSON.parse(e.body);
 
-    const id = uuidv4();
+    const roomId = data.roomId;
 
     // update rooms in chats table
     const params = {
@@ -23,7 +22,10 @@ exports.handler = async (e) => {
         "#rooms": "rooms",
       },
       ExpressionAttributeValues: {
-        ":vals": [{ uid: data.toUser.sub, id: id, seen: true }],
+        ":vals": [{
+          uid: data.toUser.sub,
+          roomId: roomId,
+        }],
       },
       ReturnValues: "UPDATED_NEW",
     };
@@ -36,18 +38,26 @@ exports.handler = async (e) => {
           uid: data.toUser.sub,
         },
         ExpressionAttributeValues: {
-          ":vals": [{ uid: data.uid, id: id, seen: true }],
+          ":vals": [{
+            uid: data.uid,
+            roomId: roomId,
+
+          }],
         },
       })
       .promise();
 
-    // create item in messages table
+   
     await dynamodb
       .put({
-        TableName: MESSAGES_TABLE,
+        TableName: ROOMS_TABLE,
         Item: {
-          id: id,
+          roomId: roomId,
           messages: [],
+          seen: true,
+          last: {
+            on: new Date().toISOString()
+          },
         },
       })
       .promise();
@@ -55,10 +65,13 @@ exports.handler = async (e) => {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        id: id,
+        roomId: roomId,
+        seen: true,
+        last: {}
       }),
     };
-  } catch (err) {
+  }
+  catch (err) {
     return {
       statusCode: 500,
       body: JSON.stringify({

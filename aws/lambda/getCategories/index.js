@@ -3,7 +3,8 @@ const dynamodb = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
 
 const TABLE_NAME = "categories";
 
-exports.handler = async (e) => {
+exports.handler = async(e) => {
+
   try {
     const params = {
       TableName: TABLE_NAME,
@@ -12,15 +13,16 @@ exports.handler = async (e) => {
     const items = await dynamodb.scan(params).promise();
 
     return {
-      statusCode: 200,
-      body: JSON.stringify(items),
-    };
-  } catch (err) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({
-        message: err.message,
-      }),
-    };
+      "statusCode": 200,
+      "body": JSON.stringify(items)
+    }
   }
-};
+  catch (err) {
+    return {
+      "statusCode": 500,
+      "body": JSON.stringify({
+        message: err.message
+      })
+    }
+  }
+}

@@ -4,7 +4,7 @@ const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 const s3 = new AWS.S3();
 
-exports.handler = async (e) => {
+exports.handler = async(e) => {
   try {
     const data = await parser.parse(e);
 
@@ -22,24 +22,23 @@ exports.handler = async (e) => {
 
     await cognitoidentityserviceprovider
       .adminUpdateUserAttributes({
-        UserAttributes: [
-          {
-            Name: "picture",
-            Value: Location,
-          },
-        ],
+        UserAttributes: [{
+          Name: 'picture',
+          Value: Location
+        }],
         UserPoolId: process.env.USER_POOL_ID,
-        Username: data.username,
+        Username: data.username
       })
       .promise();
 
     return {
-      statusCode: 201,
-      body: JSON.stringify({
-        imageUrl: Location,
-      }),
-    };
-  } catch (err) {
+      "statusCode": 201,
+      "body": JSON.stringify({
+        imageUrl: Location
+      })
+    }
+  }
+  catch (err) {
     return {
       statusCode: 500,
       body: JSON.stringify({
