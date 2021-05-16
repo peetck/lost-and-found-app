@@ -8,10 +8,13 @@ import colors from "../../../shared/colors";
 import ChatList from "../../../components/app/main/ChatList";
 import { fetchAllChats } from "../../../store/actions/chats";
 import { showError } from "../../../shared/utils";
+import Loader from "../../../components/UI/Loader";
 
 const ChatListScreen = (props) => {
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
   const chats = useSelector((state) => state.chats.chats);
   const uid = useSelector((state) => state.user.uid);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -23,6 +26,7 @@ const ChatListScreen = (props) => {
     } catch (error) {
       showError(error.message);
     }
+    setIsLoading(false);
   }, [dispatch, uid]);
 
   useEffect(() => {
@@ -54,6 +58,7 @@ const ChatListScreen = (props) => {
 
   return (
     <View style={styles.screen}>
+      <Loader visible={isLoading} />
       <ChatList
         data={chats.filter((chat) =>
           chat.toUser.nickname

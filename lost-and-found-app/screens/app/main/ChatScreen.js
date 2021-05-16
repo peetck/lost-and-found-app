@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { CardStyleInterpolators } from "@react-navigation/stack";
-import Loader from "../../../components/UI/Loader";
 import { API_URL } from "@env";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 import MyTextInput from "../../../components/UI/MyTextInput";
 import {
-  createChatRoom,
   fetchAllChats,
   updateLastMessage,
   updateSeen,
 } from "../../../store/actions/chats";
 import Bubble from "../../../components/app/main/Bubble";
+import Loader from "../../../components/UI/Loader";
 
 const ChatScreen = (props) => {
   const dispatch = useDispatch();
