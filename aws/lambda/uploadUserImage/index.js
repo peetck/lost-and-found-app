@@ -11,7 +11,7 @@ exports.handler = async(e) => {
     const { filename, content, contentType } = data.files[0];
 
     const params = {
-      Bucket: "lost-and-found-app-bucket",
+      Bucket: process.env.BUCKET_NAME,
       Key: data.uid + "--" + filename,
       Body: content,
       ContentType: contentType,
