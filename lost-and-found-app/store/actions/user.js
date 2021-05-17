@@ -220,7 +220,7 @@ export const signUp = (email, password, nickname, selectedImage) => {
     }
 
     if (selectedImage) {
-      const uid = data.body.data.UserSub;
+      const uid = data.data.UserSub;
 
       // upload user image
       const filename = selectedImage.slice(selectedImage.lastIndexOf("/") + 1);
